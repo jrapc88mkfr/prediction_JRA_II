@@ -1,0 +1,59 @@
+# .github/workflows/weekly.yml
+#
+# 毎週土曜 20:00 JST (UTC 11:00) に自動実行
+# schedule.json の active:true のレースを全て処理する
+#
+# 【GitHub Secrets に登録が必要なもの】
+#   ANTHROPIC_API_KEY ... Claude API キー
+#   GH_TOKEN          ... Personal Access Token (repo スコープ)
+
+name: 競馬予想データ自動生成
+
+on:
+  schedule:
+    - cron: "0 11 * * 6"    # 毎週土曜 20:00 JST
+  workflow_dispatch:          # 手動実行ボタン（テスト用）
+    inputs:
+      race_name:
+        description: "手動指定レース名（空白=schedule.jsonに従う）"
+        required: false
+        default: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      # 2. Python セットアップ
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 3. 依存ライブラリをインストール
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 anthropic python-dotenv
+
+      # 4. schedule.json から active なレースを取得してスクリプト実行
+      - name: Run JRA_read_next.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MANUAL_RACE: ${{ github.event.inputs.race_name }}
+        run: |
+          python run_schedule.py
+
+      # 5. 生成した JSON と schedule.json をコミット・プッシュ
+      - name: Commit and push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add DATA/ schedule.json
+          git diff --cached --quiet || git commit -m "🏇 $(date '+%Y/%m/%d') 競馬予想データ更新"
+          git push
