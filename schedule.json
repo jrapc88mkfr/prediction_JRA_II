@@ -1,25 +1,10 @@
 {
   "description": "毎週処理するレースを管理するファイル。active:true のレースが自動処理される。",
   "races": [
-    {
-      "race_name": "札幌記念",
-      "active": true,
-      "memo": "2026/8/16 札幌11R"
-    },
-    {
-      "race_name": "中京記念",
-      "active": false,
-      "memo": "2026/8/16 中京7R 処理済み"
-    },
-    {
-      "race_name": "キーンランドC",
-      "active": false,
-      "memo": "2026/8/30 札幌11R"
-    },
-    {
-      "race_name": "新潟2歳S",
-      "active": false,
-      "memo": "2026/8/30 新潟11R"
-    }
+  {"race_name":"キーンランドＣ","active":true,"memo":"2026/8/23 札幌11R"}
+  {"race_name":"札幌記念","active":false,"memo":"2026/8/16 札幌11R"}
+  {"race_name":"中京記念","active":false,"memo":"2026/8/16 中京7R 処理済み"}
+  {"race_name":"キーンランドC","active":false,"memo":"2026/8/30 札幌11R"}
+  {"race_name":"新潟2歳S","active":false,"memo":"2026/8/30 新潟11R"}  
   ]
 }
