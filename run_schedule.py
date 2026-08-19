@@ -38,7 +38,7 @@ def load_schedule() -> dict:
 def save_schedule(schedule: dict):
     """schedule.json を保存する"""
     with open(SCHEDULE_PATH, "w", encoding="utf-8") as f:
-        json.dump(schedule, f, ensure_ascii=False, indent=2)
+        json.dump(schedule, f, ensure_ascii=False)
     print(f"[SCHEDULE] schedule.json を更新しました")
 
 
