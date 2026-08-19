@@ -244,6 +244,18 @@ def next_sunday(d: datetime) -> datetime:
     wd = d.weekday()  # 月=0 ... 日=6
     return d if wd == 6 else d + timedelta(days=6 - wd)
 
+def get_race_date(race_name: str) -> datetime:
+    """
+    RACE_SCHEDULE から開催日を取得する。
+    未登録の場合は next_sunday() にフォールバック。
+    """
+    if race_name in RACE_SCHEDULE:
+        _, _, date_str = RACE_SCHEDULE[race_name]
+        return datetime.strptime(date_str, "%Y/%m/%d")
+    return next_sunday(datetime.today())
+
+# RACE_DATE は main() 内で get_race_date(race_name) を使って設定する
+# モジュールレベルではフォールバック値を設定
 RACE_DATE = next_sunday(datetime.today())
 
 
@@ -1008,6 +1020,11 @@ def main(race_name: str = None):
 
     # 1. race_id 自動生成
     race_id, date_str, no, id_ = build_race_params(race_name)
+
+    # RACE_DATE をレーススケジュールの実際の日付に設定
+    global RACE_DATE
+    RACE_DATE = get_race_date(race_name)
+    print(f"[DATE] 開催日: {RACE_DATE.strftime('%Y/%m/%d')} (ファイル名: {RACE_DATE.strftime('%y%m%d')})")
     print(f"[RACE] race_id={race_id}  date={date_str}  no={no}  id={id_}")
 
     # 2. kichiuma.net から出馬表取得
