@@ -106,7 +106,7 @@ _rating_mod.parse_race_result = _parse_kichiuma_result
 # ============================================================
 # ★★★ ローカル実行時はここだけ入力する ★★★
 # GitHub Actions では run_schedule.py が自動的に上書きする
-TARGET_RACE = os.environ.get("TARGET_RACE", "中京記念")
+TARGET_RACE = os.environ.get("TARGET_RACE", "キーンランドC")
 # ★★★★★★★★★★★★★★★★★★★★★★
 
 # ============================================================
@@ -122,119 +122,6 @@ VENUE_ID = {
 # レーススケジュール辞書
 # キー: レース名
 # 値:   (開催場, レース番号, 開催日 YYYY/M/D)
-#
-# 新レースを追加する場合はここに1行追加するだけ
-# ============================================================
-RACE_SCHEDULE = {
-    # 2026年
-    "フェブラリーS":      ("東京",  "11", "2026/2/15"),
-    "高松宮記念":         ("中京",  "11", "2026/3/29"),
-    "大阪杯":             ("阪神",  "11", "2026/4/5"),
-    "桜花賞":             ("阪神",  "11", "2026/4/12"),
-    "皐月賞":             ("中山",  "11", "2026/4/19"),
-    "天皇賞春":           ("京都",  "11", "2026/5/3"),
-    "NHKマイルC":         ("東京",  "11", "2026/5/10"),
-    "ヴィクトリアM":      ("東京",  "11", "2026/5/17"),
-    "優駿牝馬":           ("東京",  "11", "2026/5/24"),
-    "ダービー":           ("東京",  "11", "2026/5/31"),
-    "目黒記念":           ("東京",  "12", "2026/5/31"),
-    "安田記念":           ("東京",  "11", "2026/6/7"),
-    "宝塚記念":           ("阪神",  "11", "2026/6/14"),
-    "府中牝馬S":          ("東京",  "11", "2026/6/21"),
-    "しらさぎS":          ("阪神",  "11", "2026/6/21"),
-    "函館記念":           ("函館",  "11", "2026/6/28"),
-    "北九州記念":         ("小倉",  "11", "2026/7/5"),
-    "七夕賞":             ("福島",  "11", "2026/7/12"),
-    "小倉記念":           ("小倉",  "11", "2026/7/19"),
-    "関屋記念":           ("新潟",  "07", "2026/7/26"),
-    "クイーンS":          ("札幌",  "11", "2026/8/2"),
-    "CBC賞":              ("中京",  "07", "2026/8/9"),
-    "中京記念":           ("中京",  "07", "2026/8/16"),
-    "札幌記念":           ("札幌",  "11", "2026/8/16"),
-    "キーンランドC":      ("札幌",  "11", "2026/8/23"),
-    "新潟2歳S":           ("新潟",  "11", "2026/8/30"),
-    "セントウルS":        ("阪神",  "11", "2026/9/13"),
-    "オールカマー":       ("中山",  "11", "2026/9/27"),
-    "神戸新聞杯":         ("阪神",  "11", "2026/9/27"),
-    "スプリンターズS":    ("中山",  "11", "2026/10/4"),
-    "毎日王冠":           ("東京",  "11", "2026/10/11"),
-    "秋華賞":             ("京都",  "11", "2026/10/18"),
-    "菊花賞":             ("京都",  "11", "2026/10/25"),
-    "天皇賞秋":           ("東京",  "11", "2026/11/1"),
-    "アルゼンチン共和国杯": ("東京","11", "2026/11/8"),
-    "エリザベス女王杯":   ("京都",  "11", "2026/11/15"),
-    "マイルCS":           ("京都",  "11", "2026/11/22"),
-    "ジャパンC":          ("東京",  "11", "2026/11/29"),
-    "チャンピオンズC":    ("中京",  "11", "2026/12/6"),
-    "阪神JF":             ("阪神",  "11", "2026/12/13"),
-    "朝日杯FS":           ("阪神",  "11", "2026/12/20"),
-    "有馬記念":           ("中山",  "11", "2026/12/27"),
-}
-
-# ============================================================
-# keibanomiryoku.com 調教URL辞書
-# ============================================================
-WORK_SLUG_MAP = {
-    "有馬記念":           "arima-kinen",
-    "ジャパンC":          "japan-cup",
-    "ジャパンカップ":     "japan-cup",
-    "天皇賞秋":           "tenno-sho-autumn",
-    "天皇賞（秋）":       "tenno-sho-autumn",
-    "秋華賞":             "shuka-sho",
-    "菊花賞":             "kikka-sho",
-    "スプリンターズS":    "sprinters-stakes",
-    "宝塚記念":           "takarazuka-kinen",
-    "安田記念":           "yasuda-kinen",
-    "オークス":           "oaks",
-    "優駿牝馬":           "oaks",
-    "ダービー":           "derby",
-    "東京優駿":           "derby",
-    "NHKマイルC":         "nhk-mile-cup",
-    "天皇賞春":           "tenno-sho-spring",
-    "天皇賞（春）":       "tenno-sho-spring",
-    "皐月賞":             "satsuki-sho",
-    "桜花賞":             "oka-sho",
-    "フェブラリーS":      "february-stakes",
-    "ヴィクトリアM":      "victoria-mile",
-    "ヴィクトリアマイル": "victoria-mile",
-    "高松宮記念":         "takamatsu-no-miya-kinen",
-    "大阪杯":             "osaka-hai",
-    "目黒記念":           "meguro-kinen",
-    "府中牝馬S":          "fuchu-himba-stakes",
-    "しらさぎS":          "shirasagi-stakes",
-    "函館記念":           "hakodate-kinen",
-    "北九州記念":         "kitakyushu-kinen",
-    "札幌記念":           "sapporo-kinen",
-    "関屋記念":           "sekiya-kinen",
-    "新潟記念":           "niigata-kinen",
-    "中山記念":           "nakayama-kinen",
-    "阪神大賞典":         "hanshin-daishoten",
-    "金鯱賞":             "kinko-sho",
-    "マイラーズC":        "milers-cup",
-    "京王杯SC":           "keio-hai-spring-cup",
-    "エプソムC":          "epsom-cup",
-    "マーメイドS":        "mermaid-stakes",
-    "オールカマー":       "all-comers",
-    "神戸新聞杯":         "kobe-shimbun-hai",
-    "毎日王冠":           "mainichi-osho",
-    "富士S":              "fuji-stakes",
-    "スワンS":            "swan-stakes",
-    "アルゼンチン共和国杯": "argentina-kyowakoku-hai",
-    "エリザベス女王杯":   "queen-elizabeth-2-cup",
-    "マイルCS":           "mile-championship",
-    "七夕賞":             "tanabata-sho",
-    "小倉記念":           "kokura-kinen",
-    "クイーンS":          "queen-stakes",
-    "CBC賞":              "cbc-sho",
-    "中京記念":           "chukyo-kinen",
-    "プロキオンS":        "procyon-stakes",
-    "アイビスSD":         "ibis-summer-dash",
-    "小倉2歳S":           "kokura-nisai-stakes",
-    "キーンランドC":      "keenland-cup",
-    "新潟2歳S":           "niigata-nisai-stakes",
-    "セントウルS":        "centaur-stakes",
-    "スプリンターズS":    "sprinters-stakes",
-}
 
 # ============================================================
 # 日付ユーティリティ
@@ -244,41 +131,25 @@ def next_sunday(d: datetime) -> datetime:
     wd = d.weekday()  # 月=0 ... 日=6
     return d if wd == 6 else d + timedelta(days=6 - wd)
 
-def get_race_date(race_name: str) -> datetime:
-    """
-    RACE_SCHEDULE から開催日を取得する。
-    未登録の場合は next_sunday() にフォールバック。
-    """
-    if race_name in RACE_SCHEDULE:
-        _, _, date_str = RACE_SCHEDULE[race_name]
-        return datetime.strptime(date_str, "%Y/%m/%d")
-    return next_sunday(datetime.today())
-
-# RACE_DATE は main() 内で get_race_date(race_name) を使って設定する
-# モジュールレベルではフォールバック値を設定
+# RACE_DATE は main() 内で schedule.json の date から設定する
 RACE_DATE = next_sunday(datetime.today())
 
 
-def build_race_params(race_name: str) -> tuple:
+def build_race_params(race_name: str, date_str: str,
+                       venue: str, race_no: str) -> tuple:
     """
-    レース名から (race_id, date_str, no, id_) を返す。
-    RACE_SCHEDULE に未登録なら手動入力を促して終了する。
+    schedule.json から受け取った情報で race_id を生成する。
+    RACE_SCHEDULE は不要。
 
     race_id 形式: YYYYMMDDRRCC
-      YYYY = 年, MM = 月, DD = 日
-      RR   = レース番号(01〜12)
-      CC   = 開催場ID(kichiuma形式)
+      YYYY=年 MM=月 DD=日 RR=レース番号 CC=開催場ID
     """
-    if race_name not in RACE_SCHEDULE:
-        print(f"[ERROR] '{race_name}' が RACE_SCHEDULE に未登録です。")
-        print("  JRA_read_next.py の RACE_SCHEDULE に追加してください:")
-        print(f'  "{race_name}": ("開催場", "RR", "YYYY/M/D"),')
-        raise SystemExit(1)
-
-    venue, race_no, date_str = RACE_SCHEDULE[race_name]
     vid = VENUE_ID.get(venue)
     if not vid:
-        raise ValueError(f"開催場 '{venue}' のIDが VENUE_ID に未登録です")
+        raise ValueError(
+            f"開催場 '{venue}' のIDが VENUE_ID に未登録です。"
+            f" VENUE_ID に追加してください。"
+        )
 
     d       = datetime.strptime(date_str, "%Y/%m/%d")
     race_id = f"{d.year}{d.month:02d}{d.day:02d}{race_no}{vid}"
@@ -418,86 +289,21 @@ def get_entry_table(race_id: str, date: str, no: str, id_: str) -> list[dict]:
     return horses
 
 
-# ============================================================
-# keibanomiryoku.com 調教URL辞書
-# ============================================================
-WORK_SLUG_MAP = {
-    "有馬記念":           "arima-kinen",
-    "ジャパンC":          "japan-cup",
-    "ジャパンカップ":     "japan-cup",
-    "天皇賞秋":           "tenno-sho-autumn",
-    "天皇賞（秋）":       "tenno-sho-autumn",
-    "秋華賞":             "shuka-sho",
-    "菊花賞":             "kikka-sho",
-    "スプリンターズS":    "sprinters-stakes",
-    "宝塚記念":           "takarazuka-kinen",
-    "安田記念":           "yasuda-kinen",
-    "オークス":           "oaks",
-    "優駿牝馬":           "oaks",
-    "ダービー":           "derby",
-    "東京優駿":           "derby",
-    "NHKマイルC":         "nhk-mile-cup",
-    "天皇賞春":           "tenno-sho-spring",
-    "天皇賞（春）":       "tenno-sho-spring",
-    "皐月賞":             "satsuki-sho",
-    "桜花賞":             "oka-sho",
-    "フェブラリーS":      "february-stakes",
-    "ヴィクトリアM":      "victoria-mile",
-    "ヴィクトリアマイル": "victoria-mile",
-    "高松宮記念":         "takamatsu-no-miya-kinen",
-    "大阪杯":             "osaka-hai",
-    "目黒記念":           "meguro-kinen",
-    "府中牝馬S":          "fuchu-himba-stakes",
-    "しらさぎS":          "shirasagi-stakes",
-    "函館記念":           "hakodate-kinen",
-    "北九州記念":         "kitakyushu-kinen",
-    "札幌記念":           "sapporo-kinen",
-    "関屋記念":           "sekiya-kinen",
-    "新潟記念":           "niigata-kinen",
-    "中山記念":           "nakayama-kinen",
-    "阪神大賞典":         "hanshin-daishoten",
-    "金鯱賞":             "kinko-sho",
-    "マイラーズC":        "milers-cup",
-    "京王杯SC":           "keio-hai-spring-cup",
-    "エプソムC":          "epsom-cup",
-    "マーメイドS":        "mermaid-stakes",
-    "オールカマー":       "all-comers",
-    "神戸新聞杯":         "kobe-shimbun-hai",
-    "毎日王冠":           "mainichi-osho",
-    "富士S":              "fuji-stakes",
-    "スワンS":            "swan-stakes",
-    "アルゼンチン共和国杯": "argentina-kyowakoku-hai",
-    "エリザベス女王杯":   "queen-elizabeth-2-cup",
-    "マイルCS":           "mile-championship",
-    "七夕賞":             "tanabata-sho",
-    "小倉記念":           "kokura-kinen",
-    "クイーンS":          "queen-stakes",
-    "CBC賞":              "cbc-sho",
-    "中京記念":           "chukyo-kinen",
-    "プロキオンS":        "procyon-stakes",
-    "アイビスSD":         "ibis-summer-dash",
-    "小倉2歳S":           "kokura-nisai-stakes",
-    "キーンランドC":      "keenland-cup",
-    "新潟2歳S":           "niigata-nisai-stakes",
-    "セントウルS":        "centaur-stakes",
-    "スプリンターズS":    "sprinters-stakes",
-}
 
 # ============================================================
 # 日付ユーティリティ
 # ============================================================
-def get_work_data(race_name: str, year: int) -> dict:
+def get_work_data(race_name: str, year: int, work_slug: str = "") -> dict:
     """
     keibanomiryoku.com から調教データを取得する。
-    元の JRA_read.py の get_workout_data() ロジックをそのまま流用。
-    h3タグ（馬名）→ 「最終追い切り」ブロック → 調教場所・時計・内容 を抽出。
+    work_slug: schedule.json の work_slug フィールド。空の場合はスキップ。
     戻り値: {馬名: {"調教場所・馬場": ..., "時計": ..., "内容": ..., "調1F": ...}}
     """
-    slug = WORK_SLUG_MAP.get(race_name)
-    if not slug:
-        print(f"[WORK] '{race_name}' が辞書に未登録です。スキップします。")
+    if not work_slug:
+        print(f"[WORK] '{race_name}' の work_slug が未設定です。スキップします。")
         return {}
 
+    slug = work_slug
     url = f"https://www.keibanomiryoku.com/article/{slug}-{year}-work-out.html"
     print(f"[WORK] {url}")
 
@@ -551,17 +357,17 @@ def get_work_data(race_name: str, year: int) -> dict:
     return work_data
 
 
-def get_result_comments(race_name: str, year: int) -> dict:
+def get_result_comments(race_name: str, year: int, work_slug: str = "") -> dict:
     """
     keibanomiryoku.com のレース結果ページから騎手コメントを取得する。
-    URL: {slug}-{year}-results.html  (調教ページと同じ命名規則)
+    work_slug: schedule.json の work_slug フィールド。
     戻り値: {馬名: コメント文字列}
     """
-    slug = WORK_SLUG_MAP.get(race_name)
-    if not slug:
-        print(f"[RESULT] '{race_name}' が辞書に未登録。スキップ。")
+    if not work_slug:
+        print(f"[RESULT] '{race_name}' の work_slug が未設定。スキップ。")
         return {}
 
+    slug = work_slug
     url = f"https://www.keibanomiryoku.com/article/{slug}-{year}-results.html"
     print(f"[RESULT] {url}")
 
@@ -829,14 +635,16 @@ def generate_mishap_comments(horses: list[dict], result_comments: dict = None, r
 # ============================================================
 def build_json(race_name: str, horses: list[dict],
                work: dict, comments: dict,
-               rawdata: dict) -> dict:
+               rawdata: dict,
+               venue: str = "", date_str: str = "") -> dict:
     """
     kichiuma / keibanomiryoku / 各モジュールのデータを統合して
     pyxelビューア用JSONを生成する
 
-    rawdata: {馬名: {前走, 前々走, 3走前, ...}} kichiuma から取得した生データ
+    rawdata : {馬名: {前走, 前々走, 3走前, ...}} kichiuma から取得した生データ
+    venue   : 開催場名（schedule.json から渡す）
+    date_str: 開催日 "YYYY/M/D"（schedule.json から渡す）
     """
-    venue, race_no, date_str = RACE_SCHEDULE[race_name]
 
     # ---- Step1: 全馬の基本行を作る ----
     rows = []
@@ -1007,24 +815,64 @@ def update_index_json(data_dir: str, new_filename: str):
 # ============================================================
 # メイン
 # ============================================================
-def main(race_name: str = None):
+def _load_race_from_schedule(race_name: str) -> dict:
     """
-    race_name: 処理するレース名。
-               Noneの場合はモジュール変数 TARGET_RACE を使用。
-               run_schedule.py から呼ぶ場合は直接渡す。
+    schedule.json から指定レースの情報を読み込む。
+    直接 python JRA_read_next.py で実行するときのフォールバック。
+    """
+    import json as _j
+    from pathlib import Path as _P
+    path = _P(__file__).parent / "schedule.json"
+    if not path.exists():
+        return {}
+    sc = _j.loads(path.read_text(encoding="utf-8"))
+    for r in sc.get("races", []):
+        if r.get("race_name") == race_name:
+            return r
+    return {}
+
+
+def main(race_name: str = None, date_str: str = None,
+         venue: str = None, race_no: str = None, work_slug: str = None):
+    """
+    schedule.json から渡された情報でレースを処理する。
+
+    race_name : レース名
+    date_str  : 開催日 "YYYY/M/D"
+    venue     : 開催場 "札幌"/"東京" 等
+    race_no   : レース番号 "11"/"07" 等
+    work_slug : keibanomiryoku.com の URL スラグ "sapporo-kinen" 等
     """
     if race_name is None:
         race_name = TARGET_RACE
 
+    # 引数が不足している場合は schedule.json から自動補完
+    # （直接 python JRA_read_next.py で実行した場合のフォールバック）
+    if not date_str or not venue or not race_no:
+        info = _load_race_from_schedule(race_name)
+        if not info:
+            print(f"[ERROR] '{race_name}' が schedule.json に見つかりません。")
+            print("  schedule.json にレースを追加してください。")
+            return
+        date_str  = date_str  or info.get("date", "")
+        venue     = venue     or info.get("venue", "")
+        race_no   = race_no   or info.get("race_no", "")
+        work_slug = work_slug or info.get("work_slug", "")
+        print(f"[SCHEDULE] '{race_name}' の情報を schedule.json から自動読込しました")
+
     print(f"=== {race_name} データ生成開始 ===")
 
     # 1. race_id 自動生成
-    race_id, date_str, no, id_ = build_race_params(race_name)
+    if not date_str or not venue or not race_no:
+        print(f"[ERROR] date/venue/race_no が schedule.json に設定されていません。")
+        return
 
-    # RACE_DATE をレーススケジュールの実際の日付に設定
+    race_id, date_str, no, id_ = build_race_params(race_name, date_str, venue, race_no)
+
+    # RACE_DATE をレースの実際の開催日に設定
     global RACE_DATE
-    RACE_DATE = get_race_date(race_name)
-    print(f"[DATE] 開催日: {RACE_DATE.strftime('%Y/%m/%d')} (ファイル名: {RACE_DATE.strftime('%y%m%d')})")
+    RACE_DATE = datetime.strptime(date_str, "%Y/%m/%d")
+    print(f"[DATE] 開催日: {RACE_DATE.strftime('%Y/%m/%d')}")
     print(f"[RACE] race_id={race_id}  date={date_str}  no={no}  id={id_}")
 
     # 2. kichiuma.net から出馬表取得
@@ -1034,49 +882,53 @@ def main(race_name: str = None):
         return
 
     # 3. keibanomiryoku.com から調教データ取得
-    work = get_work_data(race_name, RACE_DATE.year)
+    work = get_work_data(race_name, RACE_DATE.year, work_slug or "")
 
-    # 4. 前走レース後コメントを取得（keibanomiryoku.com results ページ）
-    # 前走のレース名を各馬から抽出して取得
+    # 4. 前走レース後コメントを取得
     prev_race_comments = {}
-    prev_race_names = set()
-    # 前走テキストから (レース名, 年) のセットを収集
-    # キー: (レース名, 年)  値: 対象馬名リスト（デバッグ用）
-    prev_race_year_map = {}   # {(rname, year): [馬名, ...]}
+    prev_race_year_map = {}   # {(prev_race_name, year, work_slug): [馬名, ...]}
+
+    # schedule.json から前走レースのwork_slugを逆引きするため全レースを読む
+    import json as _json
+    from pathlib import Path as _Path
+    schedule_path = _Path(__file__).parent / "schedule.json"
+    slug_lookup = {}   # {race_name: work_slug}
+    if schedule_path.exists():
+        sc = _json.loads(schedule_path.read_text(encoding="utf-8"))
+        for r in sc.get("races", []):
+            if r.get("race_name") and r.get("work_slug"):
+                slug_lookup[r["race_name"]] = r["work_slug"]
 
     for h in horses:
-        name     = h["name"]
+        name      = h["name"]
         prev_text = h.get("prev1", "")
         if not prev_text:
             continue
 
-        # 前走の年を日付から正確に抽出: "26.06.21" → 2026
         m_yr = re.search(r"(\d{2})\.(\d{2})\.(\d{2})", prev_text)
         if not m_yr:
             continue
         prev_year = 2000 + int(m_yr.group(1))
 
-        # レース名をWORK_SLUG_MAPと照合（最長一致優先）
+        # 前走レース名をslug_lookupのキーと照合
         matched = ""
-        for rname in WORK_SLUG_MAP.keys():
+        for rname in slug_lookup.keys():
             if rname in prev_text and len(rname) > len(matched):
                 matched = rname
 
         if matched:
-            key = (matched, prev_year)
+            prev_slug = slug_lookup.get(matched, "")
+            key = (matched, prev_year, prev_slug)
             prev_race_year_map.setdefault(key, []).append(name)
 
-    print(f"[RESULT] 前走レース: {list(prev_race_year_map.keys())}")
+    print(f"[RESULT] 前走レース: {[(k[0], k[1]) for k in prev_race_year_map.keys()]}")
 
-    # 各(レース名, 年)の組み合わせでresultsページを取得
-    for (prev_rname, prev_year), target_horses in prev_race_year_map.items():
+    for (prev_rname, prev_year, prev_slug), target_horses in prev_race_year_map.items():
         print(f"[RESULT] {prev_rname} {prev_year}年 → 対象馬: {target_horses}")
-        result = get_result_comments(prev_rname, prev_year)
+        result = get_result_comments(prev_rname, prev_year, prev_slug)
         if not result:
-            print(f"[RESULT] {prev_year}年が取得できず、{prev_year-1}年を試します")
-            result = get_result_comments(prev_rname, prev_year - 1)
+            result = get_result_comments(prev_rname, prev_year - 1, prev_slug)
         if result:
-            # 対象馬のコメントのみ採用（他レースの馬と混在防止）
             for horse_name in target_horses:
                 if horse_name in result:
                     prev_race_comments[horse_name] = result[horse_name]
@@ -1084,58 +936,58 @@ def main(race_name: str = None):
                 else:
                     print(f"  - {horse_name}: コメントなし")
 
-    print(f"[RESULT] 前走コメント取得: {len(prev_race_comments)}頭分")
-
-    # 4b. rawdata（前走生テキスト）を馬名辞書に変換
+    # 5. rawdata 組み立て
     rawdata = {}
     for h in horses:
-        name = h["name"]
-        w    = work.get(name, {})
+        name  = h["name"]
+        w     = work.get(name, {})
         prev1 = h.get("prev1", "")
         prev2 = h.get("prev2", "")
         prev3 = h.get("prev3", "")
         print(f"[RAW] {name}: 前走={repr(prev1[:50]) if prev1 else '(空)'}")
-        kyuyo = h.get("kyuyo", "")
+        kyuyo   = h.get("kyuyo", "")
         absence = detect_long_absence(kyuyo, prev1)
         if absence:
             print(f"  [休養] {name}: {absence}")
         rawdata[name] = {
-            "馬名"        : name,
-            "前走"        : prev1,
-            "前々走"      : prev2,
-            "3走前"       : prev3,
-            "調教場所・馬場": w.get("調教場所・馬場", ""),
-            "時計"        : w.get("時計", ""),
-            "内容"        : w.get("内容", ""),
-            "休養情報"    : absence,
+            "馬名"          : name,
+            "前走"          : prev1,
+            "前々走"        : prev2,
+            "3走前"         : prev3,
+            "調教場所・馬場" : w.get("調教場所・馬場", ""),
+            "時計"          : w.get("時計", ""),
+            "内容"          : w.get("内容", ""),
+            "休養情報"      : absence,
         }
     print(f"[RAW] rawdata {len(rawdata)}頭分 組み立て完了")
 
-    # 5. Claude API で前走しくじりコメント生成（結果コメントも渡す）
+    # 6. Claude API で前走しくじりコメント生成
     comments = generate_mishap_comments(horses, prev_race_comments, rawdata)
 
-    # 6. JSON組み立て
-    data = build_json(race_name, horses, work, comments, rawdata)
+    # 7. JSON組み立て
+    data = build_json(race_name, horses, work, comments, rawdata,
+                    venue=venue, date_str=date_str)
+    # update_odds.py が参照するためrace_id等をJSONに追加
+    data["race_id"]  = race_id
+    data["race_no"]  = race_no
+    data["venue_id"] = id_
 
-    # 7. ファイル保存
-    venue, race_no, date_str2 = RACE_SCHEDULE[race_name]
-    d         = datetime.strptime(date_str2, "%Y/%m/%d")
-    course    = data.get("course", venue)
-    dist      = data.get("distance", "")
-    date_tag  = RACE_DATE.strftime("%y%m%d")
-    filename  = f"{date_tag}_{course}{dist}_{race_name}.json"
+    # 8. ファイル保存
+    course   = data.get("course", venue)
+    dist     = data.get("distance", "")
+    date_tag = RACE_DATE.strftime("%y%m%d")
+    filename = f"{date_tag}_{course}{dist}_{race_name}.json"
 
-    data_dir  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "DATA")
+    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "DATA")
     os.makedirs(data_dir, exist_ok=True)
-    out_path  = os.path.join(data_dir, filename)
+    out_path = os.path.join(data_dir, filename)
 
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"[SAVE] {out_path}")
 
-    # 8. index.json 更新
+    # 9. index.json 更新
     update_index_json(data_dir, filename)
-
     print(f"=== 完了: {filename} ===")
 
 

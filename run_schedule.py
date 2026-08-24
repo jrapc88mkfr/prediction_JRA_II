@@ -34,8 +34,9 @@ def load_schedule() -> dict:
     with open(SCHEDULE_PATH, encoding="utf-8") as f:
         return json.load(f)
 
+
 def save_schedule(schedule: dict):
-    """schedule.json を保存する（レースごとに1行改行）"""
+    """schedule.json を保存する（レースごとに1行）"""
     with open(SCHEDULE_PATH, "w", encoding="utf-8") as f:
         f.write(f'{{"description": "{schedule["description"]}", "races": [\n')
         for i, r in enumerate(schedule["races"]):
@@ -56,12 +57,17 @@ def get_target_races(schedule: dict) -> list[str]:
     manual = os.environ.get("MANUAL_RACE", "").strip()
     if manual:
         print(f"[SCHEDULE] 手動指定レース: {manual}")
-        return [manual]
+        # schedule.json から該当レースの辞書を返す
+        for r in schedule.get("races", []):
+            if r["race_name"] == manual:
+                return [r]
+        # 見つからない場合は最低限の辞書を返す
+        return [{"race_name": manual, "date": "", "venue": "", "race_no": "", "work_slug": ""}]
 
     # schedule.json から active:true のレースを取得
+    # 辞書リストを返す（race_name/date/venue/race_no/work_slug）
     targets = [
-        r["race_name"]
-        for r in schedule.get("races", [])
+        r for r in schedule.get("races", [])
         if r.get("active", False)
     ]
 
@@ -69,44 +75,56 @@ def get_target_races(schedule: dict) -> list[str]:
         print("[SCHEDULE] active なレースが見つかりません")
         print("  schedule.json で処理したいレースを active:true にしてください")
     else:
-        print(f"[SCHEDULE] 処理対象: {targets}")
+        names = [r["race_name"] for r in targets]
+        print(f"[SCHEDULE] 処理対象: {names}")
 
     return targets
 
 
-def mark_as_done(schedule: dict, race_name: str):
+def mark_as_done(schedule: dict, race_name: str, date: str = ""):
     """処理完了したレースを active:false に更新する"""
     for r in schedule.get("races", []):
         if r["race_name"] == race_name and r.get("active", False):
             r["active"] = False
             r["memo"] = r.get("memo", "") + " ✓処理済み"
-            print(f"[SCHEDULE] {race_name} → active:false に更新")
+            print(f"[SCHEDULE] {race_name} ({date}) → active:false に更新")
             break
 
 
-def run_race(race_name: str) -> bool:
+def run_race(race: dict) -> bool:
     """
-    指定レースの分析を実行する。
+    schedule.json の1レース分の辞書を受け取って処理する。
     JRA_read_next.py の main() を直接呼び出す。
     戻り値: 成功=True、失敗=False
     """
+    race_name = race.get("race_name", "")
+    date      = race.get("date", "")
+    venue     = race.get("venue", "")
+    race_no   = race.get("race_no", "")
+    work_slug = race.get("work_slug", "")
+
     print(f"\n{'='*60}")
-    print(f"処理開始: {race_name}")
+    print(f"処理開始: {race_name} ({date} {venue}{race_no}R)")
     print(f"{'='*60}")
 
     try:
-        # JRA_read_next.py の TARGET_RACE を動的に設定して実行
         import JRA_read_next as jra
 
-        # main() にレース名を直接渡す（複数レース連続処理に対応）
-        jra.main(race_name)
+        # schedule.json の全情報を main() に渡す
+        jra.main(
+            race_name = race_name,
+            date_str  = date,
+            venue     = venue,
+            race_no   = race_no,
+            work_slug = work_slug,
+        )
         print(f"\n✓ {race_name} 処理完了")
         return True
 
     except SystemExit as e:
         # build_race_params で RACE_SCHEDULE 未登録の場合
-        print(f"\n✗ {race_name} 処理失敗: RACE_SCHEDULE に未登録の可能性があります")
-        print(f"  JRA_read_next.py の RACE_SCHEDULE に '{race_name}' を追加してください")
+        print(f"\n✗ {race_name} 処理失敗: schedule.json の設定を確認してください")
+        print(f"  venue / race_no / work_slug が正しく設定されているか確認してください")
         return False
 
     except Exception as e:
@@ -130,15 +148,15 @@ def main():
         sys.exit(0)
 
     results = {}
-    for race_name in targets:
-        ok = run_race(race_name)
+    for race in targets:
+        race_name = race.get("race_name", "")
+        date      = race.get("date", "")
+        ok = run_race(race)
         results[race_name] = ok
 
-        # 成功したレースを active:false に更新
-        # （手動指定の場合は schedule.json を変更しない）
         manual = os.environ.get("MANUAL_RACE", "").strip()
         if ok and not manual:
-            mark_as_done(schedule, race_name)
+            mark_as_done(schedule, race_name, date)
 
     # schedule.json を保存（手動指定でない場合のみ）
     manual = os.environ.get("MANUAL_RACE", "").strip()

@@ -170,30 +170,23 @@ def find_target_jsons() -> list[Path]:
 def get_race_params_from_json(json_path: Path) -> tuple:
     """
     JSON ファイルから race_id 関連パラメータを取得する。
+    JSON内の race_id フィールドを直接使用（RACE_SCHEDULE不要）。
     戻り値: (race_id, date_str, no, id_) or (None, None, None, None)
     """
     with open(json_path, encoding="utf-8") as f:
         data = json.load(f)
 
-    race_name = data.get("race_name", "")
-    date_str  = data.get("date", "")
+    race_id  = data.get("race_id", "")
+    date_str = data.get("date", "")
+    no       = data.get("race_no", "")
+    id_      = data.get("venue_id", "")
 
-    if not date_str:
-        print(f"[ODDS] {json_path.name} に date フィールドがありません")
+    if not race_id or not date_str:
+        print(f"[ODDS] {json_path.name} に race_id/date フィールドがありません")
         return None, None, None, None
 
-    # RACE_SCHEDULE から race_id を再構築
-    # JRA_read_next.py の定数を再利用
-    try:
-        sys.path.insert(0, str(Path(__file__).parent))
-        from JRA_read_next import RACE_SCHEDULE, VENUE_ID, build_race_params
-        if race_name in RACE_SCHEDULE:
-            race_id, date_str, no, id_ = build_race_params(race_name)
-            return race_id, date_str, no, id_
-    except Exception as e:
-        print(f"[ODDS] build_race_params エラー: {e}")
-
-    return None, None, None, None
+    no = str(int(no)) if no else ""
+    return race_id, date_str, no, id_
 
 
 # ============================================================
