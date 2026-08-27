@@ -323,6 +323,7 @@ def get_work_data(race_name: str, year: int, work_slug: str = "") -> dict:
         place = ""
         clock = ""
         content = ""
+        label = ""
 
         while node:
             node = getattr(node, "next_sibling", None)
@@ -333,9 +334,17 @@ def get_work_data(race_name: str, year: int, work_slug: str = "") -> dict:
 
             txt = node.get_text("\n", strip=True) if hasattr(node, "get_text") else ""
 
-            if "最終追い切り" in txt:
+            # 「追い切り無し」は明示的にデータなし扱いとして抜ける
+            if "追い切り無し" in txt:
+                break
+
+            # 「最終追い切り」だけでなく「１週前追い切り」「２週前追い切り」等も
+            # 拾えるように、"追い切り" を含む行を広く対象にする。
+            # （直前追い切りが未発表のとき、サイト側のラベルが変わるため）
+            if "追い切り" in txt:
                 lines = [x.strip() for x in txt.split("\n") if x.strip()]
                 if len(lines) >= 3:
+                    label = lines[0]
                     place = lines[1]
                     clock = lines[2]
                     m = re.search(r"（(.*?)）", clock)
@@ -351,6 +360,7 @@ def get_work_data(race_name: str, year: int, work_slug: str = "") -> dict:
                 "時計"          : clock,
                 "内容"          : content,
                 "調1F"          : last1f,
+                "追切区分"      : label,   # 例: "最終追い切り" / "１週前追い切り"
             }
 
     print(f"[WORK] {len(work_data)}頭分の調教データ取得")
