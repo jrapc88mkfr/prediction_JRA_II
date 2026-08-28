@@ -151,9 +151,12 @@ def build_race_params(race_name: str, date_str: str,
             f" VENUE_ID に追加してください。"
         )
 
-    d       = datetime.strptime(date_str, "%Y/%m/%d")
-    race_id = f"{d.year}{d.month:02d}{d.day:02d}{race_no}{vid}"
-    no      = str(int(race_no))   # "07" → "7"
+    d          = datetime.strptime(date_str, "%Y/%m/%d")
+    # race_id 用は必ず2桁ゼロ埋め（例: "8" → "08"）。
+    # これをしないと race_id の桁がズレてサイト側でエラーになる。
+    race_no_padded = f"{int(race_no):02d}"
+    race_id = f"{d.year}{d.month:02d}{d.day:02d}{race_no_padded}{vid}"
+    no      = str(int(race_no))   # URLの no= パラメータはゼロ埋めなし "07" → "7"
     return race_id, date_str, no, vid
 
 # ============================================================
@@ -578,66 +581,144 @@ def rule_based_mishap(prev_text: str) -> str:
     return " ".join(comments[:2])
 
 
+def _describe_prev_race(h: dict) -> str:
+    """
+    _parse_kichiuma_result で構造化した前走データを、
+    プロンプトに渡しやすい短い説明文にする。
+    """
+    prev = h.get("prev_raw", "")
+    if not prev:
+        return ""
+    info = _parse_kichiuma_result(prev)
+    parts = []
+    if info.get("track"):
+        parts.append(info["track"])
+    if info.get("surface") and info.get("distance"):
+        parts.append(f"{info['surface']}{info['distance']}m")
+    if info.get("rank"):
+        parts.append(f"{info['rank']}着")
+    if info.get("popularity"):
+        parts.append(f"{info['popularity']}人気")
+    if info.get("margin") is not None:
+        parts.append(f"着差{info['margin']}")
+    if info.get("last3f") is not None:
+        parts.append(f"上がり{info['last3f']}")
+    return " ".join(parts)
+
+
 def generate_mishap_comments(horses: list[dict], result_comments: dict = None, rawdata: dict = None) -> dict[str, str]:
     """
-    前走しくじりコメントを生成する。
+    前走コメントを生成する。
     ANTHROPIC_API_KEY が設定されていれば Claude API を使用。
     未設定またはエラー時はルールベースにフォールバック。
+
+    仕様変更点:
+      - 「しくじりがあるときだけ書く」ではなく、前走データがある馬には
+        原則として必ず一言コメントを返す（好走内容・展開・上がり脚質なども対象）。
+      - _parse_kichiuma_result で構造化した数値情報もプロンプトに含め、
+        Claudeが根拠を持ってコメントできるようにする。
+      - 頭数に応じて max_tokens を可変にし、JSON応答が途中で切れないようにする。
     """
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    targets = [h for h in horses if h.get("prev_raw")]
 
     # ---- Claude API ----
-    if api_key:
-        targets = [h for h in horses if h.get("prev_raw")]
-        if targets:
-            horse_list_parts = []
-            for h in targets:
-                name = h['name']
-                prev = h.get('prev_raw', '')
-                # 前走レース後の騎手コメントがあれば追加
-                rc = (result_comments or {}).get(name, '')
-                entry = f"・{name}({h['no']}番): {prev}"
-                if rc:
-                    entry += f"\n  【前走後コメント】{rc}"
-                # 休養情報をプロンプトに含める
-                absence = rawdata.get(name, {}).get("休養情報", "")
-                if absence:
-                    entry += f"\n  【休養情報】{absence}"
-                horse_list_parts.append(entry)
-            horse_list = "\n".join(horse_list_parts)
-            prompt = (
-                "以下は競馬の各馬の前走情報です。\n"
-                "各馬について、前走で「しくじり」があれば15文字以内で簡潔にコメントしてください。\n"
-                "しくじりとは: 出遅れ、入れ込み、直線で進路が狭くなる、大外を回した、"
-                "不利を受けた、馬場が合わなかった、距離が長かった/短かった など。\n"
-                "しくじりがない場合は空文字を返してください。\n\n"
-                "必ずJSON形式で返してください。例:\n"
-                '{"馬名A": "出遅れ響いた", "馬名B": "", "馬名C": "直線進路なし"}\n\n'
-                f"馬のリスト:\n{horse_list}"
+    if api_key and targets:
+        horse_list_parts = []
+        for h in targets:
+            name = h['name']
+            prev = h.get('prev_raw', '')
+            summary = _describe_prev_race(h)
+
+            entry = f"・{name}({h['no']}番)"
+            if summary:
+                entry += f" [{summary}]"
+            entry += f"\n  生データ: {prev}"
+
+            # 前走レース後の騎手コメントがあれば追加
+            rc = (result_comments or {}).get(name, '')
+            if rc:
+                entry += f"\n  【前走後コメント】{rc}"
+
+            # 休養情報をプロンプトに含める
+            absence = (rawdata or {}).get(name, {}).get("休養情報", "")
+            if absence:
+                entry += f"\n  【休養情報】{absence}"
+
+            horse_list_parts.append(entry)
+
+        horse_list = "\n".join(horse_list_parts)
+
+        prompt = (
+            "以下は競馬の各馬の前走データです。\n"
+            "各馬について、次走に向けて参考になる一言コメントを20文字以内で書いてください。\n\n"
+            "コメントの観点（該当するものを優先）:\n"
+            "・しくじり: 出遅れ、入れ込み、直線で進路が狭くなる、大外を回した、"
+            "不利を受けた、馬場が合わなかった、距離が長かった/短かった\n"
+            "・好走内容: 上がり最速、直線一気、余裕残し、内容以上の着順\n"
+            "・展開/脚質: 逃げて粘った、後方から追い込み届かず、道悪巧者\n"
+            "・休養明けや初距離・初コースなど特記事項\n\n"
+            "前走データが乏しく判断材料がない場合のみ空文字にしてください。"
+            "できる限り全頭に何かしらのコメントをつけてください。\n\n"
+            "必ずJSON形式のみで返してください（前後に説明文をつけない）。例:\n"
+            '{"馬名A": "出遅れ響いた終い伸び", "馬名B": "上がり最速の内容", "馬名C": "直線進路なく不完全燃焼"}\n\n'
+            f"馬のリスト:\n{horse_list}"
+        )
+
+        # 頭数に応じてトークン上限を可変に（1頭あたり目安120トークン、最低1500）
+        max_tokens = max(1500, len(targets) * 120)
+
+        try:
+            client = anthropic.Anthropic(api_key=api_key)
+            msg = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=max_tokens,
+                messages=[{"role": "user", "content": prompt}],
             )
+            raw = msg.content[0].text.strip()
+
+            comments = None
+            # 1. そのままJSONとして読めるか
             try:
-                client = anthropic.Anthropic(api_key=api_key)
-                msg = client.messages.create(
-                    model="claude-sonnet-4-6",
-                    max_tokens=1000,
-                    messages=[{"role": "user", "content": prompt}],
-                )
-                raw    = msg.content[0].text.strip()
+                comments = json.loads(raw)
+            except json.JSONDecodeError:
+                pass
+
+            # 2. ダメなら { } で囲まれた最大範囲を抽出
+            if comments is None:
                 json_m = re.search(r"\{.*\}", raw, re.DOTALL)
                 if json_m:
-                    comments = json.loads(json_m.group(0))
-                    print(f"[COMMENT] Claude API: {len(comments)}頭分 生成完了")
-                    return comments
-            except Exception as e:
-                print(f"[COMMENT] Claude APIエラー: {e}")
-                print("[COMMENT] ルールベースにフォールバック")
+                    try:
+                        comments = json.loads(json_m.group(0))
+                    except json.JSONDecodeError:
+                        comments = None
+
+            if comments is not None:
+                print(f"[COMMENT] Claude API: {len(comments)}頭分 生成完了")
+                # API側が一部の馬を返し忘れた場合はルールベースで補完
+                missing = [h for h in targets if h["name"] not in comments or not comments.get(h["name"])]
+                for h in missing:
+                    fallback = rule_based_mishap(h.get("prev_raw", "")) or _describe_prev_race(h)
+                    if fallback:
+                        comments[h["name"]] = fallback
+                if missing:
+                    print(f"[COMMENT] {len(missing)}頭をルールベース/前走概要で補完")
+                return comments
+            else:
+                print(f"[COMMENT] Claude API応答をJSONとして解釈できませんでした: {raw[:200]}")
+        except Exception as e:
+            print(f"[COMMENT] Claude APIエラー: {e}")
+            print("[COMMENT] ルールベースにフォールバック")
 
     # ---- ルールベース（フォールバック） ----
     print("[COMMENT] ルールベースでコメント生成")
-    return {
-        h["name"]: rule_based_mishap(h.get("prev_raw", ""))
-        for h in horses
-    }
+    result = {}
+    for h in horses:
+        c = rule_based_mishap(h.get("prev_raw", ""))
+        if not c:
+            c = _describe_prev_race(h)
+        result[h["name"]] = c
+    return result
 
 
 # ============================================================
