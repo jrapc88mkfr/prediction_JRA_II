@@ -24,7 +24,7 @@
   {"race_name": "中京記念", "date": "2026/8/16", "venue": "中京", "race_no": "07", "work_slug": "chukyo-kinen", "active": false, "memo": "処理済み"},
   {"race_name": "札幌記念", "date": "2026/8/16", "venue": "札幌", "race_no": "11", "work_slug": "sapporo-kinen", "active": false, "memo": ""},
   {"race_name": "キーンランドC", "date": "2026/8/23", "venue": "札幌", "race_no": "11", "work_slug": "keeneland-cup", "active": false, "memo": ""},
-  {"race_name": "新潟記念", "date": "2026/8/30", "venue": "新潟", "race_no": "8", "work_slug": "niigata-nisai-stakes", "active": true, "memo": " ✓処理済み"},
+  {"race_name": "新潟記念", "date": "2026/8/30", "venue": "新潟", "race_no": "8", "work_slug": "niigata-nisai-stakes", "active": false, "memo": " ✓処理済み"},
   {"race_name": "セントウルS", "date": "2026/9/6", "venue": "阪神", "race_no": "11", "work_slug": "centaur-stakes", "active": true, "memo": ""},
   {"race_name": "セントライト記念", "date": "2026/9/13", "venue": "阪神", "race_no": "11", "work_slug": "kobe-shimbun-hai", "active": false, "memo": ""},
   {"race_name": "オールカマー", "date": "2026/9/20", "venue": "中山", "race_no": "11", "work_slug": "all-comers", "active": false, "memo": ""},
