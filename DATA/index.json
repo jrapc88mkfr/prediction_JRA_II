@@ -1,7 +1,50 @@
-[
-  "260906_阪神_セントウルS.json",
-  "260830_新潟_新潟記念.json",
-  "260823_札幌_キーンランドC.json",
-  "260823_札幌_札幌記念.json",
-  "260816_中京_中京記念.json"
-]
+{
+  "generated_at": "2026-09-06T08:27:48",
+  "races": [
+    {
+      "file": "races/260906_阪神_セントウルS.html",
+      "stem": "260906_阪神_セントウルS",
+      "date": "2026/9/6",
+      "venue": "阪神",
+      "race_name": "セントウルS",
+      "race_no": "11",
+      "has_result": false
+    },
+    {
+      "file": "races/260830_新潟_新潟記念.html",
+      "stem": "260830_新潟_新潟記念",
+      "date": "2026/8/30",
+      "venue": "新潟",
+      "race_name": "新潟記念",
+      "race_no": "8",
+      "has_result": false
+    },
+    {
+      "file": "races/260823_札幌_札幌記念.html",
+      "stem": "260823_札幌_札幌記念",
+      "date": "2026/8/23",
+      "venue": "札幌",
+      "race_name": "札幌記念",
+      "race_no": null,
+      "has_result": false
+    },
+    {
+      "file": "races/260823_札幌_キーンランドC.html",
+      "stem": "260823_札幌_キーンランドC",
+      "date": "2026/8/23",
+      "venue": "札幌",
+      "race_name": "キーンランドC",
+      "race_no": "11",
+      "has_result": false
+    },
+    {
+      "file": "races/260816_中京_中京記念.html",
+      "stem": "260816_中京_中京記念",
+      "date": "2026/8/16",
+      "venue": "中京",
+      "race_name": "中京記念",
+      "race_no": "07",
+      "has_result": true
+    }
+  ]
+}
