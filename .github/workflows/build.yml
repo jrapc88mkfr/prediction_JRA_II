@@ -1,0 +1,55 @@
+name: Build & Deploy Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "DATA/races/**"
+      - "DATA/results/**"
+      - "DATA/payout/**"
+      - "templates/**"
+      - "static/**"
+      - "scripts/**"
+      - ".github/workflows/build.yml"
+  workflow_dispatch: {}   # 手動実行用（Actionsタブから「Run workflow」で即実行できる）
+
+permissions:
+  contents: write   # gh-pages ブランチへの push に必要
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install jinja2
+
+      - name: Generate HTML (public/)
+        run: python scripts/generate_html.py
+
+      - name: Commit updated DATA/index.json back to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add DATA/index.json
+          git diff --staged --quiet || git commit -m "chore: update index.json [skip ci]"
+          git push
+        continue-on-error: true   # index.jsonに変更が無い場合などはスキップ
+
+      - name: Deploy to GitHub Pages (gh-pages branch)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
