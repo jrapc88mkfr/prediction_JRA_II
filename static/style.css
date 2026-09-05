@@ -1,0 +1,207 @@
+/* ============================================================
+   3ハロンVII - race.html  (Pyxel完全準拠 / PICO-8パレット移植版)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap');
+
+:root {
+  /* PICO-8 パレットそのまま */
+  --c0-black:  #000000;
+  --c1-navy:   #1D2B53;
+  --c5-gray:   #5F574F;
+  --c6-ltgray: #C2C3C7;
+  --c7-white:  #FFF1E8;
+  --c8-red:    #FF004D;
+  --c9-orange: #FFA300;
+  --c10-yellow:#FFEC27;
+  --c11-green: #00E436;
+  --c12-blue:  #29ADFF;
+  --c13-lav:   #83769C;
+  --c14-pink:  #FF77A8;
+  --c15-tan:   #FFCCAA;
+
+  --font-pixel: 'DotGothic16', monospace;
+  --font-ui: 'Zen Kaku Gothic New', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--c0-black);
+  color: var(--c7-white);
+  font-family: var(--font-pixel);
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 1400px; margin: 0 auto; }
+.hidden { display: none !important; }
+
+/* ============ ヘッダーバー ============ */
+.race-topbar {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--c1-navy);
+  border-bottom: 2px solid var(--c6-ltgray);
+  padding: 6px 8px;
+  position: sticky; top: 0; z-index: 5;
+  flex-wrap: wrap;
+}
+.btn-pixel {
+  background: var(--c6-ltgray); color: var(--c1-navy);
+  border: none; font-family: var(--font-pixel);
+  font-size: 0.95rem; padding: 6px 14px; cursor: pointer;
+  white-space: nowrap;
+}
+.btn-pixel.ghost { background: var(--c1-navy); color: var(--c6-ltgray); border: 2px solid var(--c6-ltgray); }
+.race-title {
+  flex: 1; min-width: 0;
+  color: var(--c10-yellow);
+  font-size: 1rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  text-align: center;
+}
+
+/* ============ 馬リスト（グリッド）============ */
+.horse-list { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.grid-row {
+  display: grid;
+  grid-template-columns: 12px minmax(150px,1.6fr) 52px 44px 30px 60px 62px 40px 40px 40px 46px 44px 30px;
+  align-items: center;
+  min-width: 760px;
+  padding: 5px 4px;
+  font-size: 0.92rem;
+  gap: 0 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  cursor: pointer;
+}
+.grid-row.h-odd  { background: var(--c1-navy); }
+.grid-row.h-even { background: var(--c0-black); }
+.grid-row:hover, .grid-row:active { outline: 1px solid var(--c6-ltgray); outline-offset: -1px; }
+
+.grid-row.grid-header {
+  background: var(--c1-navy);
+  border-bottom: 2px solid var(--c6-ltgray);
+  color: var(--c6-ltgray);
+  font-size: 0.78rem;
+  cursor: default;
+}
+.grid-row.grid-header:hover { outline: none; }
+.grid-row.grid-header .nm { color: var(--c6-ltgray); }
+.grid-row.grid-header .idx-num { color: var(--c6-ltgray); }
+
+.lane-chip { width: 8px; height: 8px; justify-self: center; }
+
+.gr-name { display: flex; gap: 4px; min-width: 0; overflow: hidden; }
+.gr-name .no { color: var(--c7-white); flex-shrink: 0; }
+.gr-name .nm { color: var(--c7-white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gr-name.selected .nm { color: var(--c10-yellow); }
+
+.gr-cell { text-align: right; white-space: nowrap; }
+.gr-cell.center { text-align: center; }
+
+.idx-cell { display: flex; align-items: center; gap: 4px; justify-content: flex-end; }
+.idx-bar { height: 5px; background: currentColor; }
+.idx-num { min-width: 26px; text-align: right; }
+
+.mark-cell { text-align: center; font-family: var(--font-ui); font-weight: 700; }
+
+/* 色分け（Pyxelロジックそのまま） */
+.c-red    { color: var(--c8-red); }
+.c-orange { color: var(--c9-orange); }
+.c-yellow { color: var(--c10-yellow); }
+.c-green  { color: var(--c11-green); }
+.c-blue   { color: var(--c12-blue); }
+.c-lav    { color: var(--c13-lav); }
+.c-pink   { color: var(--c14-pink); }
+.c-gray   { color: var(--c6-ltgray); }
+.c-white  { color: var(--c7-white); }
+.c-muted  { color: var(--c13-lav); }
+
+/* ============ レース結果パネル（表の下）============ */
+.result-panel {
+  background: var(--c1-navy);
+  border-top: 2px solid var(--c6-ltgray);
+  padding: 14px 16px 18px;
+  font-family: var(--font-pixel);
+}
+.result-panel .rp-title { color: var(--c7-white); font-size: 1.05rem; margin: 0 0 12px; }
+.rp-top3 { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 14px; }
+.rp-rank { min-width: 130px; }
+.rp-rank .rp-label { color: var(--c10-yellow); font-size: 0.82rem; display: block; }
+.rp-rank .rp-name  { color: var(--c7-white); font-size: 1.05rem; }
+.rp-payout { display: flex; gap: 28px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px; flex-wrap: wrap; }
+.rp-payout .p-label { color: var(--c12-blue); font-size: 0.85rem; display: block; margin-bottom: 2px; }
+.rp-payout .p-value { color: var(--c11-green); font-size: 1.1rem; }
+.result-pending { color: var(--c13-lav); font-size: 0.95rem; }
+
+.footer-help {
+  color: var(--c13-lav); font-size: 0.72rem;
+  padding: 8px 10px; text-align: center;
+}
+
+/* ============ index.html（レース一覧）============ */
+.grid-row.idx-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 14px; text-decoration: none; color: inherit;
+  font-family: var(--font-ui);
+}
+.idx-date { color: var(--c13-lav); font-size: 0.85rem; font-family: var(--font-pixel); white-space: nowrap; }
+.idx-venue { color: var(--c6-ltgray); font-size: 0.85rem; white-space: nowrap; }
+.idx-name { flex: 1; color: var(--c7-white); font-size: 1rem; }
+.idx-badge {
+  font-family: var(--font-pixel); font-size: 0.78rem;
+  padding: 3px 10px; border-radius: 3px; white-space: nowrap;
+}
+.badge-confirmed { background: var(--c11-green); color: #06210f; }
+.badge-pending { background: var(--c1-navy); color: var(--c10-yellow); border: 1px solid var(--c10-yellow); }
+
+/* ---- 的中判定テーブル ---- */
+.grid-row.bet-header, .grid-row.bet-row, .grid-row.bet-total {
+  grid-template-columns: 90px 1fr 110px 130px 90px 90px 60px;
+  min-width: 0;
+  cursor: default;
+  padding: 8px 12px;
+  font-family: var(--font-pixel);
+  font-size: 0.86rem;
+  gap: 4px;
+}
+.grid-row.bet-header { color: var(--c6-ltgray); font-size: 0.75rem; border-bottom: 2px solid var(--c6-ltgray); background: var(--c1-navy); }
+.grid-row.bet-total { background: var(--c1-navy); border-top: 2px solid var(--c6-ltgray); font-weight: 700; }
+.bet-row .center, .bet-header .center, .bet-total .center { text-align: center; }
+.bet-row .right, .bet-header .right, .bet-total .right { text-align: right; }
+
+/* ============ 詳細画面（馬名クリックで遷移）============ */
+.detail-screen { padding: 0 0 30px; }
+.detail-head {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--c1-navy); border-bottom: 2px solid var(--c6-ltgray);
+  padding: 8px 10px; position: sticky; top: 0;
+}
+.detail-head .dh-name { font-size: 1.15rem; color: var(--c10-yellow); }
+.detail-head .dh-mark { font-family: var(--font-ui); font-weight: 700; font-size: 1.2rem; }
+
+.detail-body { padding: 14px 16px; font-family: var(--font-ui); }
+.d-statline {
+  display: flex; flex-wrap: wrap; gap: 10px 20px;
+  background: var(--c1-navy); border-radius: 6px;
+  padding: 12px 14px; margin-bottom: 16px; font-size: 0.95rem;
+}
+.d-statline .stat b { display: block; font-size: 0.7rem; color: var(--c13-lav); font-weight: 400; }
+.d-statline .stat span { font-family: var(--font-pixel); font-size: 1.15rem; }
+
+.d-section-title {
+  color: var(--c10-yellow); font-family: var(--font-pixel);
+  font-size: 0.95rem; margin: 18px 0 8px; letter-spacing: 0.05em;
+}
+.d-past { border-bottom: 1px dashed var(--c5-gray); padding: 7px 0; line-height: 1.6; font-size: 0.88rem; }
+.d-past .pr-label { color: var(--c13-lav); font-size: 0.75rem; margin-right: 6px; }
+.d-work { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--c7-white); font-size: 0.9rem; }
+.d-comment {
+  background: var(--c1-navy); border-left: 3px solid var(--c10-yellow);
+  padding: 10px 14px; border-radius: 0 6px 6px 0; margin-top: 8px;
+  line-height: 1.7; font-size: 0.92rem;
+}
+.d-comment.sub { border-left-color: var(--c13-lav); color: var(--c13-lav); font-size: 0.85rem; }
+
+@media (max-width: 600px) {
+  .race-title { font-size: 0.82rem; }
+  .grid-row { font-size: 0.82rem; padding: 6px 3px; }
+}
