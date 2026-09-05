@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>3ハロンVII｜レース一覧</title>
+<link rel="stylesheet" href="{{ static_prefix }}style.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="race-topbar">
+    <span class="race-title" style="text-align:left; flex:none;">3ハロンVII</span>
+    <span class="race-title" style="color:var(--c13-lav); font-size:0.85rem;">更新: {{ generated_at }}</span>
+  </div>
+
+  <div class="horse-list">
+    {% for r in races %}
+    <a class="grid-row idx-row {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}" href="races/{{ r.stem }}.html">
+      <span class="idx-date">{{ r.date }}</span>
+      <span class="idx-venue">{{ r.venue }}{% if r.race_no %} {{ r.race_no }}R{% endif %}</span>
+      <span class="idx-name">{{ r.race_name }}</span>
+      <span class="idx-badge {{ 'badge-confirmed' if r.has_result else 'badge-pending' }}">
+        {{ '確定' if r.has_result else '予想' }}
+      </span>
+    </a>
+    {% endfor %}
+    {% if not races %}
+    <p class="result-pending" style="padding:16px;">レースデータがまだありません。</p>
+    {% endif %}
+  </div>
+
+  <!-- ============ 的中判定・回収率 ============ -->
+  {% if bet_rows %}
+  <div class="race-topbar" style="margin-top:20px;">
+    <span class="race-title" style="text-align:left; flex:none;">的中判定・回収率</span>
+  </div>
+  <div class="horse-list">
+    <div class="grid-row bet-header">
+      <span>日付</span><span>レース</span>
+      <span class="center">馬連(3点)</span><span class="center">3連複(10点)</span>
+      <span class="right">投資</span><span class="right">回収</span><span class="center">判定</span>
+    </div>
+    {% for b in bet_rows %}
+    <div class="grid-row bet-row {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}">
+      <span class="c-lav">{{ b.date }}</span>
+      <span class="c-white">{{ b.race_name }}</span>
+      <span class="center {{ 'c-green' if b.umaren_hit else 'c-muted' }}">{{ '○ ' + b.umaren_pay|string + '円' if b.umaren_hit else '×' }}</span>
+      <span class="center {{ 'c-green' if b.sanrenpuku_hit else 'c-muted' }}">{{ '○ ' + b.sanrenpuku_pay|string + '円' if b.sanrenpuku_hit else '×' }}</span>
+      <span class="right c-white">{{ '{:,}'.format(b.investment) }}円</span>
+      <span class="right {{ 'c-green' if b.win else 'c-muted' }}">{{ '{:,}'.format(b.payout) }}円</span>
+      <span class="center {{ 'c-yellow' if b.win else 'c-red' }}">{{ '勝' if b.win else '敗' }}</span>
+    </div>
+    {% endfor %}
+    <div class="grid-row bet-total">
+      <span class="c-white" style="grid-column:1/3;">通算 {{ bet_summary.wins }}勝{{ bet_summary.losses }}敗（的中率{{ bet_summary.hit_rate }}%）</span>
+      <span></span><span></span>
+      <span class="right c-white">{{ '{:,}'.format(bet_summary.investment) }}円</span>
+      <span class="right c-green">{{ '{:,}'.format(bet_summary.payout) }}円</span>
+      <span class="center {{ 'c-green' if bet_summary.recovery_rate >= 100 else 'c-red' }}">{{ bet_summary.recovery_rate }}%</span>
+    </div>
+  </div>
+  <p class="footer-help">馬連BOX(補正指数1〜3位:◎○▲) + 3連複フォーメーション(1列目◎○/2列目◎○▲/3列目◎○▲△☆1☆2) 計13点・1,300円/レースで判定</p>
+  {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>{{ race.race_name }}｜3ハロンVII</title>
+{% if inline_css %}<style>{{ inline_css }}</style>{% else %}<link rel="stylesheet" href="{{ static_prefix }}style.css">{% endif %}
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ 一覧画面 ============ -->
+  <div id="screen-list">
+    <div class="race-topbar">
+      <a class="btn-pixel ghost" href="{{ index_href }}">←レース選択</a>
+      <div class="race-title">{{ race.date }}_{{ race.course }}{{ race.distance }}　{{ race.race_name }}</div>
+      <button type="button" class="btn-pixel" id="sort-btn" data-mode="no">馬番順</button>
+    </div>
+
+    <div class="horse-list">
+      <div class="grid-row grid-header">
+        <span></span>
+        <span class="gr-name"><span class="nm">馬名</span></span>
+        <span class="gr-cell">オッズ</span>
+        <span class="gr-cell center">馬齢</span>
+        <span class="gr-cell center">脚質</span>
+        <span class="gr-cell center">鞍上</span>
+        <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正指数</span></span>
+        <span class="gr-cell">前走</span>
+        <span class="gr-cell">前々走</span>
+        <span class="gr-cell">3走前</span>
+        <span class="gr-cell">前3F</span>
+        <span class="gr-cell">調1F</span>
+        <span class="mark-cell">印</span>
+      </div>
+      {% for h in horses %}
+      <div class="grid-row {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
+           data-no="{{ h.no }}"
+           data-odds="{{ h.odds_val if h.odds_val is not none else 9999 }}"
+           data-index="{{ h.index if h.index is not none else 0 }}"
+           onclick="showDetail({{ h.no }})">
+        <span class="lane-chip" style="background:{{ h.lane_color }}"></span>
+        <span class="gr-name">
+          <span class="no">{{ h.no }}</span><span class="nm">{{ h.name }}</span>
+        </span>
+        <span class="gr-cell {{ h.odds_class }}">{{ h.odds_disp }}</span>
+        <span class="gr-cell center c-white">{{ h.sex }}</span>
+        <span class="gr-cell center {{ h.style_class }}">{{ h.style }}</span>
+        <span class="gr-cell center c-white">{{ h.jockey }}</span>
+        <span class="idx-cell {{ h.index_class }}">
+          <span class="idx-bar" style="width:{{ h.index_bar_px }}px"></span>
+          <span class="idx-num">{{ h.index if h.index is not none else '-' }}</span>
+        </span>
+        <span class="gr-cell {{ h.prev1_class }}">{{ h.prev1 }}</span>
+        <span class="gr-cell {{ h.prev2_class }}">{{ h.prev2 }}</span>
+        <span class="gr-cell {{ h.prev3_class }}">{{ h.prev3 }}</span>
+        <span class="gr-cell {{ h.last3f_class }}">{{ h.last3f }}</span>
+        <span class="gr-cell {{ h.train1f_class }}">{{ h.train1f }}</span>
+        <span class="mark-cell {{ h.mark_class }}">{{ h.mark }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <section class="result-panel">
+      <p class="rp-title">レース結果</p>
+      {% if result and result.confirmed %}
+        <div class="rp-top3">
+          {% for r in result.top3 %}
+          <div class="rp-rank">
+            <span class="rp-label">{{ r.rank }}着</span>
+            <span class="rp-name">{{ r.no }} {{ r.name }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="rp-payout">
+          <div><span class="p-label">馬連</span><span class="p-value">{{ result.umaren or '---' }}</span></div>
+          <div><span class="p-label">3連複</span><span class="p-value">{{ result.sanrenpuku or '---' }}</span></div>
+        </div>
+      {% else %}
+        <p class="result-pending">未確定（レース前、または結果データ未取得）</p>
+      {% endif %}
+    </section>
+
+    <p class="footer-help">馬名タップ：詳細　/　右上ボタン：並び替え</p>
+  </div>
+
+  <!-- ============ 詳細画面（馬ごと・馬名クリックで表示切替） ============ -->
+  <div id="screen-detail" class="hidden">
+    {% for h in horses %}
+    <div class="detail-screen hidden" id="detail-{{ h.no }}">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark {{ h.mark_class }}">{{ h.mark }}</span>
+        <span class="dh-name">{{ h.no }} {{ h.name }}</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="{{ h.odds_class }}">{{ h.odds_disp }}{{ h.record }}</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">{{ h.sex }} {{ h.weight }}</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">{{ h.jockey }}</span></div>
+          <div class="stat"><b>脚質</b><span class="{{ h.style_class }}">{{ h.style }}</span></div>
+          <div class="stat"><b>補正指数</b><span class="{{ h.index_class }}">{{ h.index if h.index is not none else '-' }}</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">{{ h.prev1 }} / {{ h.prev2 }} / {{ h.prev3 }}</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">{{ h.last3f }} / {{ h.train1f }}</span></div>
+        </div>
+
+        {% if h.rawdata %}
+        <p class="d-section-title">近走成績</p>
+        {% for key in ['前走','前々走','3走前'] %}
+          {% if h.rawdata.get(key) %}
+          <div class="d-past"><span class="pr-label">{{ key }}</span>{{ h.rawdata.get(key) }}</div>
+          {% endif %}
+        {% endfor %}
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span>{{ h.rawdata.get('調教場所・馬場','-') }}</span>
+          <span>{{ h.rawdata.get('時計','-') }}</span>
+          {% if h.rawdata.get('内容') %}<span>（{{ h.rawdata.get('内容') }}）</span>{% endif %}
+        </div>
+        {% if h.rawdata.get('休養情報') %}
+        <div class="d-work" style="margin-top:4px;">☞ {{ h.rawdata.get('休養情報') }}</div>
+        {% endif %}
+        {% endif %}
+
+        {% if h.summary %}
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat"><b>能力指数</b><span class="c-white">{{ h.summary.get('能力指数','-') }}</span></div>
+          <div class="stat"><b>補正後指数</b><span class="c-white">{{ h.summary.get('補正後指数','-') }}</span></div>
+          <div class="stat"><b>しくじり補正</b><span class="c-white">{{ h.summary.get('しくじり補正','-') }}</span></div>
+          <div class="stat"><b>斤量補正</b><span class="c-white">{{ h.summary.get('斤量補正','-') }}</span></div>
+          <div class="stat"><b>追切評価</b><span class="c-yellow">{{ h.summary.get('追切評価','-') }}</span></div>
+        </div>
+        {% if h.summary.get('新聞コメント') %}<div class="d-comment">{{ h.summary.get('新聞コメント') }}</div>{% endif %}
+        {% if h.summary.get('前走コメント') %}<div class="d-comment sub">前走メモ：{{ h.summary.get('前走コメント') }}</div>{% endif %}
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% if inline_js %}<script>{{ inline_js }}</script>{% else %}<script src="{{ static_prefix }}script.js"></script>{% endif %}
+</body>
+</html>
