@@ -1,0 +1,45 @@
+name: Fetch Race Results
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "DATA/races/**"
+  schedule:
+    - cron: "0 3 * * 1"   # 毎週月曜 12:00 JST (= 03:00 UTC)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-result
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Fetch new results (未取得ぶんのみ)
+        run: python scripts/fetch_result.py
+
+      - name: Commit new result files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add DATA/results
+          git diff --staged --quiet || git commit -m "chore: fetch race results"
+          git push
+        # ここでの push が DATA/results/** の変更として
+        # build.yml (Build & Deploy Pages) を連鎖的に起動し、Pagesも自動更新される
