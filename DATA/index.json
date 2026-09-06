@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T00:23:43",
+  "generated_at": "2026-09-06T01:24:04",
   "races": [
     {
       "file": "races/260906_阪神_セントウルS.html",
@@ -17,7 +17,7 @@
       "venue": "新潟",
       "race_name": "新潟記念",
       "race_no": "8",
-      "has_result": false
+      "has_result": true
     },
     {
       "file": "races/260823_札幌_キーンランドC.html",
@@ -26,7 +26,7 @@
       "venue": "札幌",
       "race_name": "キーンランドC",
       "race_no": "11",
-      "has_result": false
+      "has_result": true
     },
     {
       "file": "races/260816_札幌_札幌記念.html",
@@ -35,7 +35,7 @@
       "venue": "札幌",
       "race_name": "札幌記念",
       "race_no": null,
-      "has_result": false
+      "has_result": true
     },
     {
       "file": "races/260816_中京_中京記念.html",
