@@ -115,6 +115,27 @@ html, body {
 .c-white  { color: var(--c7-white); }
 .c-muted  { color: var(--c13-lav); }
 
+/* ============ 展開予想パネル ============ */
+.pace-panel {
+  background: var(--c0-black);
+  border-top: 1px solid var(--c5-gray);
+  border-bottom: 1px solid var(--c5-gray);
+  padding: 14px 16px 18px;
+  font-family: var(--font-ui);
+}
+.pace-panel .pace-title {
+  color: var(--c10-yellow);
+  font-family: var(--font-pixel);
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+}
+.pace-panel .pace-body {
+  color: var(--c7-white);
+  font-size: 0.95rem;
+  line-height: 1.9;
+  margin: 0;
+}
+
 /* ============ レース結果パネル（表の下）============ */
 .result-panel {
   background: var(--c1-navy);
