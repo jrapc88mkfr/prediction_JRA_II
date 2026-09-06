@@ -1,44 +1,1049 @@
-{"description": "毎週処理するレースを管理。active:true のレースが自動処理される。venue/race_no/work_slugも管理。", "races": [
-  {"race_name": "フェブラリーS", "date": "2026/2/15", "venue": "東京", "race_no": "11", "work_slug": "february-stakes", "active": false, "memo": "処理済み"},
-  {"race_name": "高松宮記念", "date": "2026/3/29", "venue": "中京", "race_no": "11", "work_slug": "takamatsu-no-miya-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "大阪杯", "date": "2026/4/5", "venue": "阪神", "race_no": "11", "work_slug": "osaka-hai", "active": false, "memo": "処理済み"},
-  {"race_name": "桜花賞", "date": "2026/4/12", "venue": "阪神", "race_no": "11", "work_slug": "oka-sho", "active": false, "memo": "処理済み"},
-  {"race_name": "皐月賞", "date": "2026/4/19", "venue": "中山", "race_no": "11", "work_slug": "satsuki-sho", "active": false, "memo": "処理済み"},
-  {"race_name": "天皇賞春", "date": "2026/5/3", "venue": "京都", "race_no": "11", "work_slug": "tenno-sho-spring", "active": false, "memo": "処理済み"},
-  {"race_name": "NHKマイルC", "date": "2026/5/10", "venue": "東京", "race_no": "11", "work_slug": "nhk-mile-cup", "active": false, "memo": "処理済み"},
-  {"race_name": "ヴィクトリアM", "date": "2026/5/17", "venue": "東京", "race_no": "11", "work_slug": "victoria-mile", "active": false, "memo": "処理済み"},
-  {"race_name": "優駿牝馬", "date": "2026/5/24", "venue": "東京", "race_no": "11", "work_slug": "oaks", "active": false, "memo": "処理済み"},
-  {"race_name": "ダービー", "date": "2026/5/31", "venue": "東京", "race_no": "11", "work_slug": "derby", "active": false, "memo": "処理済み"},
-  {"race_name": "目黒記念", "date": "2026/5/31", "venue": "東京", "race_no": "12", "work_slug": "meguro-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "安田記念", "date": "2026/6/7", "venue": "東京", "race_no": "11", "work_slug": "yasuda-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "宝塚記念", "date": "2026/6/14", "venue": "阪神", "race_no": "11", "work_slug": "takarazuka-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "府中牝馬S", "date": "2026/6/21", "venue": "東京", "race_no": "11", "work_slug": "fuchu-himba-stakes", "active": false, "memo": "処理済み"},
-  {"race_name": "しらさぎS", "date": "2026/6/21", "venue": "阪神", "race_no": "11", "work_slug": "shirasagi-stakes", "active": false, "memo": "処理済み"},
-  {"race_name": "函館記念", "date": "2026/6/28", "venue": "函館", "race_no": "11", "work_slug": "hakodate-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "北九州記念", "date": "2026/7/5", "venue": "小倉", "race_no": "11", "work_slug": "kitakyushu-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "七夕賞", "date": "2026/7/12", "venue": "福島", "race_no": "11", "work_slug": "tanabata-sho", "active": false, "memo": "処理済み"},
-  {"race_name": "小倉記念", "date": "2026/7/19", "venue": "小倉", "race_no": "11", "work_slug": "kokura-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "関屋記念", "date": "2026/7/26", "venue": "新潟", "race_no": "08", "work_slug": "sekiya-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "クイーンS", "date": "2026/8/2", "venue": "札幌", "race_no": "11", "work_slug": "queen-stakes", "active": false, "memo": "処理済み"},
-  {"race_name": "CBC賞", "date": "2026/8/9", "venue": "中京", "race_no": "07", "work_slug": "cbc-sho", "active": false, "memo": "処理済み"},
-  {"race_name": "中京記念", "date": "2026/8/16", "venue": "中京", "race_no": "07", "work_slug": "chukyo-kinen", "active": false, "memo": "処理済み"},
-  {"race_name": "札幌記念", "date": "2026/8/16", "venue": "札幌", "race_no": "11", "work_slug": "sapporo-kinen", "active": false, "memo": ""},
-  {"race_name": "キーンランドC", "date": "2026/8/23", "venue": "札幌", "race_no": "11", "work_slug": "keeneland-cup", "active": false, "memo": ""},
-  {"race_name": "新潟記念", "date": "2026/8/30", "venue": "新潟", "race_no": "8", "work_slug": "niigata-nisai-stakes", "active": false, "memo": " ✓処理済み"},
-  {"race_name": "セントウルS", "date": "2026/9/6", "venue": "阪神", "race_no": "11", "work_slug": "centaur-stakes", "active": false, "memo": " ✓処理済み"},
-  {"race_name": "セントライト記念", "date": "2026/9/13", "venue": "阪神", "race_no": "11", "work_slug": "kobe-shimbun-hai", "active": false, "memo": ""},
-  {"race_name": "オールカマー", "date": "2026/9/20", "venue": "中山", "race_no": "11", "work_slug": "all-comers", "active": false, "memo": ""},
-  {"race_name": "スプリンターズS", "date": "2026/9/27", "venue": "中山", "race_no": "11", "work_slug": "sprinters-stakes", "active": false, "memo": ""},
-  {"race_name": "毎日王冠", "date": "2026/10/4", "venue": "東京", "race_no": "11", "work_slug": "mainichi-osho", "active": false, "memo": ""},
-  {"race_name": "秋華賞", "date": "2026/10/18", "venue": "京都", "race_no": "11", "work_slug": "shuka-sho", "active": false, "memo": ""},
-  {"race_name": "菊花賞", "date": "2026/10/25", "venue": "京都", "race_no": "11", "work_slug": "kikka-sho", "active": false, "memo": ""},
-  {"race_name": "天皇賞秋", "date": "2026/11/1", "venue": "東京", "race_no": "11", "work_slug": "tenno-sho-autumn", "active": false, "memo": ""},
-  {"race_name": "アルゼンチン共和国杯", "date": "2026/11/8", "venue": "東京", "race_no": "11", "work_slug": "argentina-kyowakoku-hai", "active": false, "memo": ""},
-  {"race_name": "エリザベス女王杯", "date": "2026/11/15", "venue": "京都", "race_no": "11", "work_slug": "queen-elizabeth-2-cup", "active": false, "memo": ""},
-  {"race_name": "マイルCS", "date": "2026/11/22", "venue": "京都", "race_no": "11", "work_slug": "mile-championship", "active": false, "memo": ""},
-  {"race_name": "ジャパンC", "date": "2026/11/29", "venue": "東京", "race_no": "11", "work_slug": "japan-cup", "active": false, "memo": ""},
-  {"race_name": "チャンピオンズC", "date": "2026/12/6", "venue": "中京", "race_no": "11", "work_slug": "champions-cup", "active": false, "memo": ""},
-  {"race_name": "阪神JF", "date": "2026/12/13", "venue": "阪神", "race_no": "11", "work_slug": "hanshin-juvenile-fillies", "active": false, "memo": ""},
-  {"race_name": "朝日杯FS", "date": "2026/12/20", "venue": "阪神", "race_no": "11", "work_slug": "asahi-hai-futurity-stakes", "active": false, "memo": ""},
-  {"race_name": "有馬記念", "date": "2026/12/27", "venue": "中山", "race_no": "11", "work_slug": "arima-kinen", "active": false, "memo": ""}
-]}
+{
+  "description": "毎週処理するレースを管理。active:true のレースが自動処理される。venue/race_no/work_slugも管理。",
+  "races": [
+    {
+      "race_name": "フェブラリーS",
+      "date": "2026/2/15",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "february-stakes",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "高松宮記念",
+      "date": "2026/3/29",
+      "venue": "中京",
+      "race_no": "11",
+      "work_slug": "takamatsu-no-miya-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "大阪杯",
+      "date": "2026/4/5",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "osaka-hai",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "桜花賞",
+      "date": "2026/4/12",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "oka-sho",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "皐月賞",
+      "date": "2026/4/19",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "satsuki-sho",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "天皇賞春",
+      "date": "2026/5/3",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "tenno-sho-spring",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "NHKマイルC",
+      "date": "2026/5/10",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "nhk-mile-cup",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "ヴィクトリアM",
+      "date": "2026/5/17",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "victoria-mile",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "優駿牝馬",
+      "date": "2026/5/24",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "oaks",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "ダービー",
+      "date": "2026/5/31",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "derby",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "目黒記念",
+      "date": "2026/5/31",
+      "venue": "東京",
+      "race_no": "12",
+      "work_slug": "meguro-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "安田記念",
+      "date": "2026/6/7",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "yasuda-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "宝塚記念",
+      "date": "2026/6/14",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "takarazuka-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "府中牝馬S",
+      "date": "2026/6/21",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "fuchu-himba-stakes",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "しらさぎS",
+      "date": "2026/6/21",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "shirasagi-stakes",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "函館記念",
+      "date": "2026/6/28",
+      "venue": "函館",
+      "race_no": "11",
+      "work_slug": "hakodate-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "北九州記念",
+      "date": "2026/7/5",
+      "venue": "小倉",
+      "race_no": "11",
+      "work_slug": "kitakyushu-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "七夕賞",
+      "date": "2026/7/12",
+      "venue": "福島",
+      "race_no": "11",
+      "work_slug": "tanabata-sho",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "小倉記念",
+      "date": "2026/7/19",
+      "venue": "小倉",
+      "race_no": "11",
+      "work_slug": "kokura-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "関屋記念",
+      "date": "2026/7/26",
+      "venue": "新潟",
+      "race_no": "08",
+      "work_slug": "sekiya-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "クイーンS",
+      "date": "2026/8/2",
+      "venue": "札幌",
+      "race_no": "11",
+      "work_slug": "queen-stakes",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "CBC賞",
+      "date": "2026/8/9",
+      "venue": "中京",
+      "race_no": "07",
+      "work_slug": "cbc-sho",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "中京記念",
+      "date": "2026/8/16",
+      "venue": "中京",
+      "race_no": "07",
+      "work_slug": "chukyo-kinen",
+      "active": false,
+      "memo": "処理済み"
+    },
+    {
+      "race_name": "札幌記念",
+      "date": "2026/8/16",
+      "venue": "札幌",
+      "race_no": "11",
+      "work_slug": "sapporo-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "キーンランドC",
+      "date": "2026/8/23",
+      "venue": "札幌",
+      "race_no": "11",
+      "work_slug": "keeneland-cup",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "新潟記念",
+      "date": "2026/8/30",
+      "venue": "新潟",
+      "race_no": "8",
+      "work_slug": "niigata-nisai-stakes",
+      "active": false,
+      "memo": " ✓処理済み"
+    },
+    {
+      "race_name": "セントウルS",
+      "date": "2026/9/6",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "centaur-stakes",
+      "active": true,
+      "memo": ""
+    },
+    {
+      "race_name": "セントライト記念",
+      "date": "2026/9/13",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "kobe-shimbun-hai",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "オールカマー",
+      "date": "2026/9/20",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "all-comers",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "スプリンターズS",
+      "date": "2026/9/27",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "sprinters-stakes",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "毎日王冠",
+      "date": "2026/10/4",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "mainichi-osho",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "秋華賞",
+      "date": "2026/10/18",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "shuka-sho",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "菊花賞",
+      "date": "2026/10/25",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "kikka-sho",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "天皇賞秋",
+      "date": "2026/11/1",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "tenno-sho-autumn",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "アルゼンチン共和国杯",
+      "date": "2026/11/8",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "argentina-kyowakoku-hai",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "エリザベス女王杯",
+      "date": "2026/11/15",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "queen-elizabeth-2-cup",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "マイルCS",
+      "date": "2026/11/22",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "mile-championship",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "ジャパンC",
+      "date": "2026/11/29",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "japan-cup",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "チャンピオンズC",
+      "date": "2026/12/6",
+      "venue": "中京",
+      "race_no": "11",
+      "work_slug": "champions-cup",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "阪神JF",
+      "date": "2026/12/13",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "hanshin-juvenile-fillies",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "朝日杯FS",
+      "date": "2026/12/20",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "asahi-hai-futurity-stakes",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "有馬記念",
+      "date": "2026/12/27",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "arima-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "中山金杯",
+      "date": "2026/1/4",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "京都金杯",
+      "date": "2026/1/4",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "フェアリーステークス",
+      "date": "2026/1/11",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "シンザン記念",
+      "date": "2026/1/12",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "日経新春杯",
+      "date": "2026/1/18",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "小倉牝馬ステークス",
+      "date": "2026/1/24",
+      "venue": "小倉",
+      "race_no": "11",
+      "work_slug": "kokura-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "アメリカジョッキークラブカップ",
+      "date": "2026/1/25",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "プロキオンステークス",
+      "date": "2026/1/25",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "シルクロードステークス",
+      "date": "2026/2/1",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "東京新聞杯",
+      "date": "2026/2/10",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "きさらぎ賞",
+      "date": "2026/2/10",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "クイーンカップ",
+      "date": "2026/2/14",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "queen-stakes",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "小倉ジャンプステークス",
+      "date": "2026/2/14",
+      "venue": "小倉",
+      "race_no": "11",
+      "work_slug": "kokura-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "共同通信杯",
+      "date": "2026/2/15",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ダイヤモンドステークス",
+      "date": "2026/2/21",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "フェブラリーステークス",
+      "date": "2026/2/22",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "february-stakes",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "小倉大賞",
+      "date": "2026/2/22",
+      "venue": "小倉",
+      "race_no": "11",
+      "work_slug": "kokura-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "オーシャンステークス",
+      "date": "2026/2/28",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "チューリップ賞",
+      "date": "2026/3/1",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "中山牝馬ステークス",
+      "date": "2026/3/7",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "弥生賞ディープインパクト記念",
+      "date": "2026/3/8",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "スプリングステークス",
+      "date": "2026/3/15",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "フラワーカップ",
+      "date": "2026/3/21",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ファルコンステークス",
+      "date": "2026/3/21",
+      "venue": "中京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "阪神大賞",
+      "date": "2026/3/22",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "マーチステークス",
+      "date": "2026/3/29",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "チャーチルダウンズカップ",
+      "date": "2026/4/4",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "阪神牝馬ステークス",
+      "date": "2026/4/11",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "アンタレスステークス",
+      "date": "2026/4/18",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "福島牝馬ステークス",
+      "date": "2026/4/19",
+      "venue": "福島",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "フローラステークス",
+      "date": "2026/4/26",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "マイラーズカップ",
+      "date": "2026/4/26",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "京王杯スプリングカップ",
+      "date": "2026/5/2",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ユニコーンステークス",
+      "date": "2026/5/2",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "エプソムカップ",
+      "date": "2026/5/9",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "京都新聞杯",
+      "date": "2026/5/9",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "NHKマイルカップ",
+      "date": "2026/5/10",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "新潟大賞",
+      "date": "2026/5/16",
+      "venue": "新潟",
+      "race_no": "11",
+      "work_slug": "niigata-nisai-stakes",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "東京ジャンプステークス",
+      "date": "2026/6/13",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "函館スプリントステークス",
+      "date": "2026/6/13",
+      "venue": "函館",
+      "race_no": "11",
+      "work_slug": "hakodate-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "ラジオNIKKEI賞",
+      "date": "2026/6/28",
+      "venue": "福島",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "函館2歳ステークス",
+      "date": "2026/7/19",
+      "venue": "函館",
+      "race_no": "11",
+      "work_slug": "hakodate-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "エルムステークス",
+      "date": "2026/8/8",
+      "venue": "札幌",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "レパードステークス",
+      "date": "2026/8/9",
+      "venue": "新潟",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "新潟ジャンプステークス",
+      "date": "2026/8/15",
+      "venue": "新潟",
+      "race_no": "11",
+      "work_slug": "niigata-nisai-stakes",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "新潟2歳ステークス",
+      "date": "2026/8/23",
+      "venue": "新潟",
+      "race_no": "11",
+      "work_slug": "niigata-nisai-stakes",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "キーンランドカップ",
+      "date": "2026/8/23",
+      "venue": "札幌",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "中京2歳ステークス",
+      "date": "2026/8/30",
+      "venue": "中京",
+      "race_no": "11",
+      "work_slug": "chukyo-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "札幌2歳ステークス",
+      "date": "2026/9/5",
+      "venue": "札幌",
+      "race_no": "11",
+      "work_slug": "sapporo-kinen",
+      "active": false,
+      "memo": ""
+    },
+    {
+      "race_name": "チャレンジカップ",
+      "date": "2026/9/12",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ローズステークス",
+      "date": "2026/9/13",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "阪神ジャンプステークス",
+      "date": "2026/9/19",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "神戸新聞杯",
+      "date": "2026/9/21",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "シリウスステークス",
+      "date": "2026/9/26",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "京都大賞",
+      "date": "2026/10/4",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "サウジアラビアロイヤルカップ",
+      "date": "2026/10/10",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "スワンステークス",
+      "date": "2026/10/12",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "アルテミスステークス",
+      "date": "2026/10/24",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ファンタジーステークス",
+      "date": "2026/10/31",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "京王杯2歳ステークス",
+      "date": "2026/11/7",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "京都ジャンプステークス",
+      "date": "2026/11/7",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "みやこステークス",
+      "date": "2026/11/8",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "武蔵野ステークス",
+      "date": "2026/11/14",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "デイリー杯2歳ステークス",
+      "date": "2026/11/14",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "東京スポーツ杯2歳ステークス",
+      "date": "2026/11/23",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "京都2歳ステークス",
+      "date": "2026/11/28",
+      "venue": "京都",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ジャパンカップ",
+      "date": "2026/11/29",
+      "venue": "東京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ステイヤーズステークス",
+      "date": "2026/12/5",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "チャンピオンズカップ",
+      "date": "2026/12/6",
+      "venue": "中京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "中日新聞杯",
+      "date": "2026/12/12",
+      "venue": "中京",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "カペラステークス",
+      "date": "2026/12/13",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ターコイズステークス",
+      "date": "2026/12/19",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "朝日杯フューチュリティステークス",
+      "date": "2026/12/20",
+      "venue": "阪神",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    },
+    {
+      "race_name": "ホープフルステークス",
+      "date": "2026/12/26",
+      "venue": "中山",
+      "race_no": "11",
+      "work_slug": "",
+      "active": false,
+      "memo": "要work_slug設定"
+    }
+  ]
+}
