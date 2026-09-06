@@ -22,7 +22,8 @@ from bs4 import BeautifulSoup
 # ============================================================
 # 設定
 # ============================================================
-DATA_DIR = Path(__file__).parent / "DATA/races"
+DATA_DIR = Path(__file__).parent / "DATA"
+RACE_DIR = Path(__file__).parent / "DATA/races"
 HEADERS  = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 
 # ============================================================
@@ -131,37 +132,93 @@ def update_json_odds(json_path: Path, odds_dict: dict) -> bool:
 # ============================================================
 # 処理対象 JSON を特定
 # ============================================================
+import os
+from pathlib import Path
+from datetime import datetime
+import json
+
 def find_target_jsons() -> list[Path]:
     """
-    DATA/ フォルダから今週・来週のレース JSON を返す。
-    index.json に登録されているファイルを対象とする。
+    DATA/index.json の races 配列から
+    今週・来週のレース JSON を返す。
+    index.json が .html を持っていても .json に変換して処理する。
     """
+
     index_path = DATA_DIR / "index.json"
     if not index_path.exists():
         print("[ODDS] index.json が見つかりません")
         return []
 
     with open(index_path, encoding="utf-8") as f:
-        files = json.load(f)
+        index_data = json.load(f)
 
-    today    = datetime.today()
-    targets  = []
-    for fname in files:
-        json_path = DATA_DIR / fname
+    races = index_data.get("races", [])
+    today  = datetime.today()
+    targets = []
+
+    for race in races:
+
+        # -----------------------------
+        # ① stem から JSON 名を作る
+        # -----------------------------
+        stem = race.get("stem")
+        if not stem:
+            continue
+
+        json_name = stem + ".json"
+        json_path = RACE_DIR / json_name
+
         if not json_path.exists():
             continue
-        # ファイル名の先頭 6 文字が日付 (YYMMDD)
+
+        # -----------------------------
+        # ② stem の先頭6文字を YYMMDD として扱う
+        # -----------------------------
         try:
-            file_date = datetime.strptime(fname[:6], "%y%m%d")
-            # 今日から ±7日以内のファイルを対象
+            file_date = datetime.strptime(stem[:6], "%y%m%d")
             diff = abs((file_date - today).days)
+
             if diff <= 7:
                 targets.append(json_path)
-                print(f"[ODDS] 対象: {fname} (開催日との差: {diff}日)")
+                print(f"[ODDS] 対象: {json_name} (開催日との差: {diff}日)")
+
         except ValueError:
             continue
 
     return targets
+
+
+# def find_target_jsons() -> list[Path]:
+#     """
+#     DATA/ フォルダから今週・来週のレース JSON を返す。
+#     index.json に登録されているファイルを対象とする。
+#     """
+#     index_path = DATA_DIR / "index.json"
+#     if not index_path.exists():
+#         print("[ODDS] index.json が見つかりません")
+#         return []
+
+#     with open(index_path, encoding="utf-8") as f:
+#         files = json.load(f)
+
+#     today    = datetime.today()
+#     targets  = []
+#     for fname in files:
+#         json_path = RACE_DIR / fname
+#         if not json_path.exists():
+#             continue
+#         # ファイル名の先頭 6 文字が日付 (YYMMDD)
+#         try:
+#             file_date = datetime.strptime(fname[:6], "%y%m%d")
+#             # 今日から ±7日以内のファイルを対象
+#             diff = abs((file_date - today).days)
+#             if diff <= 7:
+#                 targets.append(json_path)
+#                 print(f"[ODDS] 対象: {fname} (開催日との差: {diff}日)")
+#         except ValueError:
+#             continue
+
+#     return targets
 
 
 # ============================================================
