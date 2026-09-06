@@ -23,7 +23,7 @@ import datetime
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE, "scripts"))
-from common import build_horses, evaluate_race_bet, summarize_bets  # noqa: E402
+from common import build_horses, evaluate_race_bet, summarize_bets, generate_pace_forecast  # noqa: E402
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -73,11 +73,13 @@ def build_all():
             result = load_json(rpath)
 
         horses = build_horses(race)
+        pace_forecast = generate_pace_forecast(horses, race)
 
         html = race_tmpl.render(
             race=race,
             horses=horses,
             result=result,
+            pace_forecast=pace_forecast,
             static_prefix="../static/",
             index_href="../index.html",
         )
