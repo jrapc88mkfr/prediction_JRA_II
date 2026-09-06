@@ -1,0 +1,43 @@
+name: Weekly Schedule Update
+
+on:
+  schedule:
+    - cron: "0 15 * * 0"   # 毎週日曜 24:00 JST (=翌月曜 00:00 JST / 15:00 UTC 日曜)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-schedule
+  cancel-in-progress: false
+
+jobs:
+  update-schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Sync schedule.json from netkeiba (重賞日程)
+        run: python scripts/sync_schedule.py
+        continue-on-error: true   # 取得に失敗しても後続のactivate処理は必ず走らせる
+
+      - name: Activate this week's race(s)
+        run: python scripts/activate_weekly.py
+
+      - name: Commit schedule.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add schedule.json
+          git diff --staged --quiet || git commit -m "chore: update schedule.json (weekly)"
+          git push
