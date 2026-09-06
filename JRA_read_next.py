@@ -106,7 +106,7 @@ _rating_mod.parse_race_result = _parse_kichiuma_result
 # ============================================================
 # ★★★ ローカル実行時はここだけ入力する ★★★
 # GitHub Actions では run_schedule.py が自動的に上書きする
-TARGET_RACE = os.environ.get("TARGET_RACE", "キーンランドC")
+TARGET_RACE = os.environ.get("TARGET_RACE", "セントウルS")
 # ★★★★★★★★★★★★★★★★★★★★★★
 
 # ============================================================
@@ -813,15 +813,16 @@ def build_json(race_name: str, horses: list[dict],
         r["新聞コメント"] = make_comment(r)
 
     # ---- Step4: しくじり補正 + 斤量補正 → 補正後総合指数 ----
-    max_w = get_max_weight(rows)
+    max_weight, max_sex_age = get_max_weight(rows)
     for r in rows:
         mishap_comment = r.get("前走コメント", "")
         weight_str     = r.get("斤量", "")
         base           = r.get("総合指数", 0)
+        sex_str        = r.get("性齢", "")        
 
         mishap_bonus  = calc_mishap_bonus(mishap_comment)
-        weight_bonus  = calc_weight_bonus(weight_str, max_w)
-        adjusted      = calc_adjusted_index(base, mishap_comment, weight_str, max_w)
+        weight_bonus  = calc_weight_bonus(weight_str, max_weight, sex_str , max_sex_age)
+        adjusted      = calc_adjusted_index(base, mishap_comment, weight_str , max_weight , sex_str , max_sex_age )
 
         r["しくじり補正"] = mishap_bonus
         r["斤量補正"]     = weight_bonus
@@ -1069,7 +1070,7 @@ def main(race_name: str = None, date_str: str = None,
     date_tag = RACE_DATE.strftime("%y%m%d")
     filename = f"{date_tag}_{course}{dist}_{race_name}.json"
 
-    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "DATA")
+    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "DATA/races")
     os.makedirs(data_dir, exist_ok=True)
     out_path = os.path.join(data_dir, filename)
 
@@ -1077,8 +1078,8 @@ def main(race_name: str = None, date_str: str = None,
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"[SAVE] {out_path}")
 
-    # 9. index.json 更新
-    update_index_json(data_dir, filename)
+    # # 9. index.json 更新
+    # update_index_json(data_dir, filename)
     print(f"=== 完了: {filename} ===")
 
 

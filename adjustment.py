@@ -116,38 +116,58 @@ def calc_mishap_bonus(comment: str) -> int:
 #       タイム指数への換算は コース・距離によるが概算で 1kg ≈ 2点
 # ============================================================
 KG_BONUS_PER_KG = 2.0   # 1kg差あたりの加算値
+FEMALE_BASE_DIFF = 2.0  # 牝馬の基本斤量差
 
-
-def calc_weight_bonus(weight_str: str, max_weight: float) -> float:
+def calc_weight_bonus(weight_str: str, max_weight: float, sex_age: str, max_sex_age: str) -> float:
     """
     斤量補正値を計算する。
-    weight_str : この馬の斤量文字列 ("57.0" または "57.0kg")
-    max_weight : レース内の最重量斤量 (float)
-    戻り値     : 加算値 (float)
-
-    例: 最重量58.0kg、この馬57.0kg → 差1.0kg → +2.0点
-        最重量58.0kg、この馬58.0kg → 差0.0kg → +0.0点
+    sex_age      : この馬の性齢 ("牝4", "牡5", "セ6")
+    max_sex_age  : 最重量馬の性齢
     """
+
     try:
+        # 斤量を float に変換
         w = float(str(weight_str).replace("kg", "").strip())
         diff = max_weight - w
+
+        # 性別判定
+        sex = str(sex_age).strip()[0]
+        max_sex = str(max_sex_age).strip()[0]
+
+        # 牝馬補正は「最重量が牡馬のときだけ」適用
+        if sex == "牝" and max_sex == "牡":
+            diff -= FEMALE_BASE_DIFF
+
+        # 差分が正ならボーナス加算
         return round(diff * KG_BONUS_PER_KG, 1) if diff > 0 else 0.0
+
     except (ValueError, TypeError):
         return 0.0
 
+def get_max_weight(rows: list):
+    """
+    全馬の斤量と性齢から
+    ・最重量斤量
+    ・最重量馬の性齢
+    を返す。
+    """
+    max_weight = 0.0
+    max_sex_age = None
 
-def get_max_weight(rows: list) -> float:
-    """
-    全馬の斤量リストから最大値を返す。
-    """
-    weights = []
     for r in rows:
         try:
             w = float(str(r.get("斤量", "")).replace("kg", "").strip())
-            weights.append(w)
+            sex_age = r.get("性齢", "")
+
+            if w > max_weight:
+                max_weight = w
+                max_sex_age = sex_age
+
         except (ValueError, TypeError):
             continue
-    return max(weights) if weights else 0.0
+
+    return max_weight, max_sex_age
+
 
 
 # ============================================================
@@ -156,7 +176,7 @@ def get_max_weight(rows: list) -> float:
 def calc_adjusted_index(base_index: int,
                         mishap_comment: str,
                         weight_str: str,
-                        max_weight: float) -> int:
+                        max_weight: float , sex_age: str, max_sex_age: str ) -> int:
     """
     しくじり補正 + 斤量補正を加えた補正後総合指数を返す。
 
@@ -169,7 +189,7 @@ def calc_adjusted_index(base_index: int,
         base=85, しくじり"出遅れ"(+10), 斤量差1kg(+2) → 97
     """
     mishap  = calc_mishap_bonus(mishap_comment)
-    weight  = calc_weight_bonus(weight_str, max_weight)
+    weight  = calc_weight_bonus(weight_str, max_weight,sex_age,max_sex_age)
     adjusted = base_index + mishap + weight
     return round(adjusted)
 

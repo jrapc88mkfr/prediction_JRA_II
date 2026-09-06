@@ -137,66 +137,86 @@ def get_corner_count(track, distance, surface):
 # =====================================
 def get_first_position(text):
 
-    m = re.search(r'kg\s+(\d+)\s+3F', str(text))
-
+    # コーナー通過順位を抽出（例：5-5-4-4、5-4-3、6-6）
+    m = re.search(r'(\d+(?:-\d+)+)', text)
     if not m:
         return None
 
-    pos = m.group(1)
+    pos_list = m.group(1).split("-")  # ["5","5","4","4"] など
 
     track, surface, distance = extract_race_info(text)
+    corners = get_corner_count(track, distance, surface)
 
-    corners = get_corner_count(
-        track,
-        distance,
-        surface
-    )
-
-    # 直線競馬
+    # 直線競馬（コーナー数0）は None
     if corners == 0:
         return None
 
-    # ----------------
-    # 2コーナー戦
-    # ----------------
+    # コーナー数が2・3・4のどれでも最初のコーナー位置は pos_list[0]
+    return int(pos_list[0])
 
-    if corners == 2:
+# def get_first_position(text):
 
-        if len(pos) == 2:
-            return int(pos[0])
+#     m = re.search(r'kg\s+(\d+)\s+3F', str(text))
 
-        if len(pos) == 4:
-            return int(pos[:2])
+#     if not m:
+#         return None
 
-    # ----------------
-    # 3コーナー戦
-    # ----------------
+#     pos = m.group(1)
 
-    elif corners == 3:
+#     track, surface, distance = extract_race_info(text)
 
-        if len(pos) == 3:
-            return int(pos[0])
+#     corners = get_corner_count(
+#         track,
+#         distance,
+#         surface
+#     )
 
-        if len(pos) == 6:
-            return int(pos[:2])
+#     # 直線競馬
+#     if corners == 0:
+#         return None
 
-    # ----------------
-    # 4コーナー戦
-    # ----------------
+#     # ----------------
+#     # 2コーナー戦
+#     # ----------------
 
-    else:
+#     if corners == 2:
 
-        if len(pos) == 4:
+#         if len(pos) == 2:
+#             return int(pos[0])
 
-            # 1111 → 1
-            if max(int(c) for c in pos) <= 9:
-                return int(pos[0])
+#         if len(pos) == 4:
+#             return int(pos[:2])
 
-        if len(pos) == 8:
+#     # ----------------
+#     # 3コーナー戦
+#     # ----------------
 
-            return int(pos[:2])
+#     elif corners == 3:
 
-    return None
+#         if len(pos) == 3:
+#             return int(pos[0])
+
+#         if len(pos) == 6:
+#             return int(pos[:2])
+
+#     # ----------------
+#     # 4コーナー戦
+#     # ----------------
+
+#     else:
+
+#         if len(pos) == 4:
+
+#             # 1111 → 1
+#             if max(int(c) for c in pos) <= 9:
+#                 return int(pos[0])
+
+#         if len(pos) == 8:
+
+#             return int(pos[:2])
+
+#     return None
+
 
 # =====================================
 # 脚質判定
