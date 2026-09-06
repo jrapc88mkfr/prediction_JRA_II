@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T05:43:50",
+  "generated_at": "2026-09-06T05:44:18",
   "races": [
     {
       "file": "races/260906_阪神_セントウルS.html",
@@ -31,10 +31,10 @@
     {
       "file": "races/260816_札幌_札幌記念.html",
       "stem": "260816_札幌_札幌記念",
-      "date": "2026/8/23",
+      "date": "2026/8/16",
       "venue": "札幌",
       "race_name": "札幌記念",
-      "race_no": null,
+      "race_no": "11",
       "has_result": true
     },
     {
