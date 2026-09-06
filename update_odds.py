@@ -22,7 +22,7 @@ from bs4 import BeautifulSoup
 # ============================================================
 # 設定
 # ============================================================
-DATA_DIR = Path(__file__).parent / "DATA"
+DATA_DIR = Path(__file__).parent / "DATA/races"
 HEADERS  = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
 
 # ============================================================
