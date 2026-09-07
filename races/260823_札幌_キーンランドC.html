@@ -17,423 +17,482 @@
       <button type="button" class="btn-pixel" id="sort-btn" data-mode="no">馬番順</button>
     </div>
 
-    <div class="horse-list">
-      <div class="grid-row grid-header">
-        <span></span>
-        <span class="gr-name"><span class="nm">馬名</span></span>
-        <span class="gr-cell">オッズ</span>
-        <span class="gr-cell center">馬齢</span>
-        <span class="gr-cell center">脚質</span>
-        <span class="gr-cell center">鞍上</span>
-        <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正指数</span></span>
-        <span class="gr-cell">前走</span>
-        <span class="gr-cell">前々走</span>
-        <span class="gr-cell">3走前</span>
-        <span class="gr-cell">前3F</span>
-        <span class="gr-cell">調1F</span>
-        <span class="mark-cell">印</span>
+    <div class="horse-list-flex">
+      <!-- 印〜補正指数: 画面幅に収まる可変レイアウト -->
+      <div class="hl-core">
+        <div class="grid-row grid-header core-cols">
+          <span class="mark-cell">印</span>
+          <span class="gr-name"><span class="nm">馬名</span></span>
+          <span class="gr-cell">オッズ</span>
+          <span class="gr-cell center">馬齢</span>
+          <span class="gr-cell center">脚質</span>
+          <span class="gr-cell center">鞍上</span>
+          <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正指数</span></span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="1"
+             data-odds="22.0"
+             data-index="100.0"
+             onclick="showDetail(1)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">1</span><span class="nm">ナムラクララ</span>
+          </span>
+          <span class="gr-cell c-white">22</span>
+          <span class="gr-cell center c-white">牝4</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">浜中</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">100.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="2"
+             data-odds="18.4"
+             data-index="108.0"
+             onclick="showDetail(2)">
+          <span class="mark-cell c-orange">○</span>
+          <span class="gr-name">
+            <span class="no">2</span><span class="nm">ルシード</span>
+          </span>
+          <span class="gr-cell c-white">18.4</span>
+          <span class="gr-cell center c-white">牡4</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">レーン</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">108.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="3"
+             data-odds="1.9"
+             data-index="89.0"
+             onclick="showDetail(3)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">3</span><span class="nm">パンジャタワー</span>
+          </span>
+          <span class="gr-cell c-red">1.9</span>
+          <span class="gr-cell center c-white">牡4</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">松山</span>
+          <span class="idx-cell c-yellow">
+            <span class="idx-bar" style="width:40px"></span>
+            <span class="idx-num">89.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="4"
+             data-odds="12.1"
+             data-index="106.0"
+             onclick="showDetail(4)">
+          <span class="mark-cell c-red">▲</span>
+          <span class="gr-name">
+            <span class="no">4</span><span class="nm">エーティーマクフィ</span>
+          </span>
+          <span class="gr-cell c-orange">12.1</span>
+          <span class="gr-cell center c-white">牡7</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">富田</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">106.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="5"
+             data-odds="44.9"
+             data-index="90.0"
+             onclick="showDetail(5)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">5</span><span class="nm">ゾンニッヒ</span>
+          </span>
+          <span class="gr-cell c-white">44.9</span>
+          <span class="gr-cell center c-white">牡8</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">ロイド</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:40px"></span>
+            <span class="idx-num">90.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="6"
+             data-odds="138.3"
+             data-index="95.0"
+             onclick="showDetail(6)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">6</span><span class="nm">ジョーメッドヴィン</span>
+          </span>
+          <span class="gr-cell c-white">138.3</span>
+          <span class="gr-cell center c-white">牡5</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">吉村智</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:43px"></span>
+            <span class="idx-num">95.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="7"
+             data-odds="291.7"
+             data-index="84.0"
+             onclick="showDetail(7)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">7</span><span class="nm">マイネルジェロディ</span>
+          </span>
+          <span class="gr-cell c-white">291.7</span>
+          <span class="gr-cell center c-white">牡8</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">Ｒヘル</span>
+          <span class="idx-cell c-yellow">
+            <span class="idx-bar" style="width:38px"></span>
+            <span class="idx-num">84.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="8"
+             data-odds="9.8"
+             data-index="97.0"
+             onclick="showDetail(8)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">8</span><span class="nm">ウインカーネリアン</span>
+          </span>
+          <span class="gr-cell c-orange">9.8</span>
+          <span class="gr-cell center c-white">牡9</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">三浦</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:44px"></span>
+            <span class="idx-num">97.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="9"
+             data-odds="79.3"
+             data-index="102.0"
+             onclick="showDetail(9)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">9</span><span class="nm">イツモニコニコ</span>
+          </span>
+          <span class="gr-cell c-white">79.3</span>
+          <span class="gr-cell center c-white">牝5</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">ナレド</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">102.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="10"
+             data-odds="22.6"
+             data-index="106.0"
+             onclick="showDetail(10)">
+          <span class="mark-cell c-green">△</span>
+          <span class="gr-name">
+            <span class="no">10</span><span class="nm">ダノンマッキンリー</span>
+          </span>
+          <span class="gr-cell c-white">22.6</span>
+          <span class="gr-cell center c-white">牡5</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">池添</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">106.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="11"
+             data-odds="31.6"
+             data-index="82.0"
+             onclick="showDetail(11)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">11</span><span class="nm">リラエンブレム</span>
+          </span>
+          <span class="gr-cell c-white">31.6</span>
+          <span class="gr-cell center c-white">牡4</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">ルメー</span>
+          <span class="idx-cell c-yellow">
+            <span class="idx-bar" style="width:37px"></span>
+            <span class="idx-num">82.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="12"
+             data-odds="206.2"
+             data-index="102.0"
+             onclick="showDetail(12)">
+          <span class="mark-cell c-gray">☆</span>
+          <span class="gr-name">
+            <span class="no">12</span><span class="nm">レッドアヴァンティ</span>
+          </span>
+          <span class="gr-cell c-white">206.2</span>
+          <span class="gr-cell center c-white">牡7</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">岩田康</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">102.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="13"
+             data-odds="6.3"
+             data-index="119.0"
+             onclick="showDetail(13)">
+          <span class="mark-cell c-yellow">◎</span>
+          <span class="gr-name">
+            <span class="no">13</span><span class="nm">ロジケープ</span>
+          </span>
+          <span class="gr-cell c-orange">6.3</span>
+          <span class="gr-cell center c-white">牡3</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">丹内</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">119.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="14"
+             data-odds="12.9"
+             data-index="105.0"
+             onclick="showDetail(14)">
+          <span class="mark-cell c-gray">☆</span>
+          <span class="gr-name">
+            <span class="no">14</span><span class="nm">サウンドモリアーナ</span>
+          </span>
+          <span class="gr-cell c-orange">12.9</span>
+          <span class="gr-cell center c-white">牝4</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">武豊</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">105.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-odd"
+             data-no="15"
+             data-odds="16.2"
+             data-index="96.0"
+             onclick="showDetail(15)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">15</span><span class="nm">エイシンディード</span>
+          </span>
+          <span class="gr-cell c-white">16.2</span>
+          <span class="gr-cell center c-white">牡3</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">川又</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:43px"></span>
+            <span class="idx-num">96.0</span>
+          </span>
+        </div>
+        
+        <div class="grid-row core-cols h-even"
+             data-no="16"
+             data-odds="55.2"
+             data-index="99.0"
+             onclick="showDetail(16)">
+          <span class="mark-cell c-muted"></span>
+          <span class="gr-name">
+            <span class="no">16</span><span class="nm">ロードフォアエース</span>
+          </span>
+          <span class="gr-cell c-white">55.2</span>
+          <span class="gr-cell center c-white">牡5</span>
+          <span class="gr-cell center c-gray">不明</span>
+          <span class="gr-cell center c-white">岩田望</span>
+          <span class="idx-cell c-green">
+            <span class="idx-bar" style="width:45px"></span>
+            <span class="idx-num">99.0</span>
+          </span>
+        </div>
+        
       </div>
-      
-      <div class="grid-row h-odd"
-           data-no="1"
-           data-odds="22.0"
-           data-index="100.0"
-           onclick="showDetail(1)">
-        <span class="lane-chip" style="background:#FFF1E8"></span>
-        <span class="gr-name">
-          <span class="no">1</span><span class="nm">ナムラクララ</span>
-        </span>
-        <span class="gr-cell c-white">22</span>
-        <span class="gr-cell center c-white">牝4</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">浜中</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">100.0</span>
-        </span>
-        <span class="gr-cell c-red">104</span>
-        <span class="gr-cell c-red">104</span>
-        <span class="gr-cell c-white">68</span>
-        <span class="gr-cell c-muted">-</span>
-        <span class="gr-cell c-green">11.7</span>
-        <span class="mark-cell c-muted"></span>
+
+      <!-- 前走〜調1F: 横スクロール専用エリア -->
+      <div class="hl-extra-scroll">
+        <div class="hl-extra">
+          <div class="grid-row grid-header extra-cols">
+            <span class="gr-cell">前走</span>
+            <span class="gr-cell">前々走</span>
+            <span class="gr-cell">3走前</span>
+            <span class="gr-cell">前3F</span>
+            <span class="gr-cell">調1F</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(1)">
+            <span class="gr-cell c-red">104</span>
+            <span class="gr-cell c-red">104</span>
+            <span class="gr-cell c-white">68</span>
+            <span class="gr-cell c-muted">-</span>
+            <span class="gr-cell c-green">11.7</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(2)">
+            <span class="gr-cell c-red">105</span>
+            <span class="gr-cell c-white">88</span>
+            <span class="gr-cell c-red">118</span>
+            <span class="gr-cell c-green">34.2</span>
+            <span class="gr-cell c-green">12.1</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(3)">
+            <span class="gr-cell c-yellow">98</span>
+            <span class="gr-cell c-red">111</span>
+            <span class="gr-cell c-white">52</span>
+            <span class="gr-cell c-red">33.4</span>
+            <span class="gr-cell c-green">11.6</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(4)">
+            <span class="gr-cell c-red">110</span>
+            <span class="gr-cell c-red">101</span>
+            <span class="gr-cell c-yellow">96</span>
+            <span class="gr-cell c-yellow">33.5</span>
+            <span class="gr-cell c-green">12.6</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(5)">
+            <span class="gr-cell c-red">102</span>
+            <span class="gr-cell c-white">66</span>
+            <span class="gr-cell c-yellow">91</span>
+            <span class="gr-cell c-yellow">33.5</span>
+            <span class="gr-cell c-green">11.9</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(6)">
+            <span class="gr-cell c-white">88</span>
+            <span class="gr-cell c-yellow">90</span>
+            <span class="gr-cell c-yellow">95</span>
+            <span class="gr-cell c-green">34.7</span>
+            <span class="gr-cell c-green">12.0</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(7)">
+            <span class="gr-cell c-white">86</span>
+            <span class="gr-cell c-white">86</span>
+            <span class="gr-cell c-white">67</span>
+            <span class="gr-cell c-green">34.9</span>
+            <span class="gr-cell c-green">13.1</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(8)">
+            <span class="gr-cell c-red">117</span>
+            <span class="gr-cell c-white">50</span>
+            <span class="gr-cell c-red">125</span>
+            <span class="gr-cell c-red">33.2</span>
+            <span class="gr-cell c-green">12.4</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(9)">
+            <span class="gr-cell c-red">105</span>
+            <span class="gr-cell c-white">80</span>
+            <span class="gr-cell c-yellow">96</span>
+            <span class="gr-cell c-red">33.0</span>
+            <span class="gr-cell c-muted">-</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(10)">
+            <span class="gr-cell c-yellow">96</span>
+            <span class="gr-cell c-red">104</span>
+            <span class="gr-cell c-red">106</span>
+            <span class="gr-cell c-green">34.1</span>
+            <span class="gr-cell c-green">13.2</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(11)">
+            <span class="gr-cell c-white">73</span>
+            <span class="gr-cell c-red">100</span>
+            <span class="gr-cell c-white">60</span>
+            <span class="gr-cell c-green">34.4</span>
+            <span class="gr-cell c-green">12.7</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(12)">
+            <span class="gr-cell c-yellow">94</span>
+            <span class="gr-cell c-red">118</span>
+            <span class="gr-cell c-white">81</span>
+            <span class="gr-cell c-green">34.0</span>
+            <span class="gr-cell c-green">12.9</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(13)">
+            <span class="gr-cell c-red">112</span>
+            <span class="gr-cell c-red">116</span>
+            <span class="gr-cell c-red">105</span>
+            <span class="gr-cell c-muted">-</span>
+            <span class="gr-cell c-green">12.3</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(14)">
+            <span class="gr-cell c-white">70</span>
+            <span class="gr-cell c-red">110</span>
+            <span class="gr-cell c-red">102</span>
+            <span class="gr-cell c-green">35.2</span>
+            <span class="gr-cell c-green">12.6</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-odd"
+               onclick="showDetail(15)">
+            <span class="gr-cell c-yellow">92</span>
+            <span class="gr-cell c-red">103</span>
+            <span class="gr-cell c-white">68</span>
+            <span class="gr-cell c-green">34.1</span>
+            <span class="gr-cell c-yellow">11.5</span>
+          </div>
+          
+          <div class="grid-row extra-cols h-even"
+               onclick="showDetail(16)">
+            <span class="gr-cell c-yellow">91</span>
+            <span class="gr-cell c-white">89</span>
+            <span class="gr-cell c-yellow">90</span>
+            <span class="gr-cell c-green">34.9</span>
+            <span class="gr-cell c-green">12.3</span>
+          </div>
+          
+        </div>
       </div>
-      
-      <div class="grid-row h-even"
-           data-no="2"
-           data-odds="18.4"
-           data-index="108.0"
-           onclick="showDetail(2)">
-        <span class="lane-chip" style="background:#FF004D"></span>
-        <span class="gr-name">
-          <span class="no">2</span><span class="nm">ルシード</span>
-        </span>
-        <span class="gr-cell c-white">18.4</span>
-        <span class="gr-cell center c-white">牡4</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">レーン</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">108.0</span>
-        </span>
-        <span class="gr-cell c-red">105</span>
-        <span class="gr-cell c-white">88</span>
-        <span class="gr-cell c-red">118</span>
-        <span class="gr-cell c-green">34.2</span>
-        <span class="gr-cell c-green">12.1</span>
-        <span class="mark-cell c-orange">○</span>
-      </div>
-      
-      <div class="grid-row h-odd"
-           data-no="3"
-           data-odds="1.9"
-           data-index="89.0"
-           onclick="showDetail(3)">
-        <span class="lane-chip" style="background:#FFA300"></span>
-        <span class="gr-name">
-          <span class="no">3</span><span class="nm">パンジャタワー</span>
-        </span>
-        <span class="gr-cell c-red">1.9</span>
-        <span class="gr-cell center c-white">牡4</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">松山</span>
-        <span class="idx-cell c-yellow">
-          <span class="idx-bar" style="width:40px"></span>
-          <span class="idx-num">89.0</span>
-        </span>
-        <span class="gr-cell c-yellow">98</span>
-        <span class="gr-cell c-red">111</span>
-        <span class="gr-cell c-white">52</span>
-        <span class="gr-cell c-red">33.4</span>
-        <span class="gr-cell c-green">11.6</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-even"
-           data-no="4"
-           data-odds="12.1"
-           data-index="106.0"
-           onclick="showDetail(4)">
-        <span class="lane-chip" style="background:#29ADFF"></span>
-        <span class="gr-name">
-          <span class="no">4</span><span class="nm">エーティーマクフィ</span>
-        </span>
-        <span class="gr-cell c-orange">12.1</span>
-        <span class="gr-cell center c-white">牡7</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">富田</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">106.0</span>
-        </span>
-        <span class="gr-cell c-red">110</span>
-        <span class="gr-cell c-red">101</span>
-        <span class="gr-cell c-yellow">96</span>
-        <span class="gr-cell c-yellow">33.5</span>
-        <span class="gr-cell c-green">12.6</span>
-        <span class="mark-cell c-red">▲</span>
-      </div>
-      
-      <div class="grid-row h-odd"
-           data-no="5"
-           data-odds="44.9"
-           data-index="90.0"
-           onclick="showDetail(5)">
-        <span class="lane-chip" style="background:#FFEC27"></span>
-        <span class="gr-name">
-          <span class="no">5</span><span class="nm">ゾンニッヒ</span>
-        </span>
-        <span class="gr-cell c-white">44.9</span>
-        <span class="gr-cell center c-white">牡8</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">ロイド</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:40px"></span>
-          <span class="idx-num">90.0</span>
-        </span>
-        <span class="gr-cell c-red">102</span>
-        <span class="gr-cell c-white">66</span>
-        <span class="gr-cell c-yellow">91</span>
-        <span class="gr-cell c-yellow">33.5</span>
-        <span class="gr-cell c-green">11.9</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-even"
-           data-no="6"
-           data-odds="138.3"
-           data-index="95.0"
-           onclick="showDetail(6)">
-        <span class="lane-chip" style="background:#00E436"></span>
-        <span class="gr-name">
-          <span class="no">6</span><span class="nm">ジョーメッドヴィン</span>
-        </span>
-        <span class="gr-cell c-white">138.3</span>
-        <span class="gr-cell center c-white">牡5</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">吉村智</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:43px"></span>
-          <span class="idx-num">95.0</span>
-        </span>
-        <span class="gr-cell c-white">88</span>
-        <span class="gr-cell c-yellow">90</span>
-        <span class="gr-cell c-yellow">95</span>
-        <span class="gr-cell c-green">34.7</span>
-        <span class="gr-cell c-green">12.0</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-odd"
-           data-no="7"
-           data-odds="291.7"
-           data-index="84.0"
-           onclick="showDetail(7)">
-        <span class="lane-chip" style="background:#FF77A8"></span>
-        <span class="gr-name">
-          <span class="no">7</span><span class="nm">マイネルジェロディ</span>
-        </span>
-        <span class="gr-cell c-white">291.7</span>
-        <span class="gr-cell center c-white">牡8</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">Ｒヘル</span>
-        <span class="idx-cell c-yellow">
-          <span class="idx-bar" style="width:38px"></span>
-          <span class="idx-num">84.0</span>
-        </span>
-        <span class="gr-cell c-white">86</span>
-        <span class="gr-cell c-white">86</span>
-        <span class="gr-cell c-white">67</span>
-        <span class="gr-cell c-green">34.9</span>
-        <span class="gr-cell c-green">13.1</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-even"
-           data-no="8"
-           data-odds="9.8"
-           data-index="97.0"
-           onclick="showDetail(8)">
-        <span class="lane-chip" style="background:#83769C"></span>
-        <span class="gr-name">
-          <span class="no">8</span><span class="nm">ウインカーネリアン</span>
-        </span>
-        <span class="gr-cell c-orange">9.8</span>
-        <span class="gr-cell center c-white">牡9</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">三浦</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:44px"></span>
-          <span class="idx-num">97.0</span>
-        </span>
-        <span class="gr-cell c-red">117</span>
-        <span class="gr-cell c-white">50</span>
-        <span class="gr-cell c-red">125</span>
-        <span class="gr-cell c-red">33.2</span>
-        <span class="gr-cell c-green">12.4</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-odd"
-           data-no="9"
-           data-odds="79.3"
-           data-index="102.0"
-           onclick="showDetail(9)">
-        <span class="lane-chip" style="background:#FFF1E8"></span>
-        <span class="gr-name">
-          <span class="no">9</span><span class="nm">イツモニコニコ</span>
-        </span>
-        <span class="gr-cell c-white">79.3</span>
-        <span class="gr-cell center c-white">牝5</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">ナレド</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">102.0</span>
-        </span>
-        <span class="gr-cell c-red">105</span>
-        <span class="gr-cell c-white">80</span>
-        <span class="gr-cell c-yellow">96</span>
-        <span class="gr-cell c-red">33.0</span>
-        <span class="gr-cell c-muted">-</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-even"
-           data-no="10"
-           data-odds="22.6"
-           data-index="106.0"
-           onclick="showDetail(10)">
-        <span class="lane-chip" style="background:#FF004D"></span>
-        <span class="gr-name">
-          <span class="no">10</span><span class="nm">ダノンマッキンリー</span>
-        </span>
-        <span class="gr-cell c-white">22.6</span>
-        <span class="gr-cell center c-white">牡5</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">池添</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">106.0</span>
-        </span>
-        <span class="gr-cell c-yellow">96</span>
-        <span class="gr-cell c-red">104</span>
-        <span class="gr-cell c-red">106</span>
-        <span class="gr-cell c-green">34.1</span>
-        <span class="gr-cell c-green">13.2</span>
-        <span class="mark-cell c-green">△</span>
-      </div>
-      
-      <div class="grid-row h-odd"
-           data-no="11"
-           data-odds="31.6"
-           data-index="82.0"
-           onclick="showDetail(11)">
-        <span class="lane-chip" style="background:#FFA300"></span>
-        <span class="gr-name">
-          <span class="no">11</span><span class="nm">リラエンブレム</span>
-        </span>
-        <span class="gr-cell c-white">31.6</span>
-        <span class="gr-cell center c-white">牡4</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">ルメー</span>
-        <span class="idx-cell c-yellow">
-          <span class="idx-bar" style="width:37px"></span>
-          <span class="idx-num">82.0</span>
-        </span>
-        <span class="gr-cell c-white">73</span>
-        <span class="gr-cell c-red">100</span>
-        <span class="gr-cell c-white">60</span>
-        <span class="gr-cell c-green">34.4</span>
-        <span class="gr-cell c-green">12.7</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-even"
-           data-no="12"
-           data-odds="206.2"
-           data-index="102.0"
-           onclick="showDetail(12)">
-        <span class="lane-chip" style="background:#29ADFF"></span>
-        <span class="gr-name">
-          <span class="no">12</span><span class="nm">レッドアヴァンティ</span>
-        </span>
-        <span class="gr-cell c-white">206.2</span>
-        <span class="gr-cell center c-white">牡7</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">岩田康</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">102.0</span>
-        </span>
-        <span class="gr-cell c-yellow">94</span>
-        <span class="gr-cell c-red">118</span>
-        <span class="gr-cell c-white">81</span>
-        <span class="gr-cell c-green">34.0</span>
-        <span class="gr-cell c-green">12.9</span>
-        <span class="mark-cell c-gray">☆</span>
-      </div>
-      
-      <div class="grid-row h-odd"
-           data-no="13"
-           data-odds="6.3"
-           data-index="119.0"
-           onclick="showDetail(13)">
-        <span class="lane-chip" style="background:#FFEC27"></span>
-        <span class="gr-name">
-          <span class="no">13</span><span class="nm">ロジケープ</span>
-        </span>
-        <span class="gr-cell c-orange">6.3</span>
-        <span class="gr-cell center c-white">牡3</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">丹内</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">119.0</span>
-        </span>
-        <span class="gr-cell c-red">112</span>
-        <span class="gr-cell c-red">116</span>
-        <span class="gr-cell c-red">105</span>
-        <span class="gr-cell c-muted">-</span>
-        <span class="gr-cell c-green">12.3</span>
-        <span class="mark-cell c-yellow">◎</span>
-      </div>
-      
-      <div class="grid-row h-even"
-           data-no="14"
-           data-odds="12.9"
-           data-index="105.0"
-           onclick="showDetail(14)">
-        <span class="lane-chip" style="background:#00E436"></span>
-        <span class="gr-name">
-          <span class="no">14</span><span class="nm">サウンドモリアーナ</span>
-        </span>
-        <span class="gr-cell c-orange">12.9</span>
-        <span class="gr-cell center c-white">牝4</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">武豊</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">105.0</span>
-        </span>
-        <span class="gr-cell c-white">70</span>
-        <span class="gr-cell c-red">110</span>
-        <span class="gr-cell c-red">102</span>
-        <span class="gr-cell c-green">35.2</span>
-        <span class="gr-cell c-green">12.6</span>
-        <span class="mark-cell c-gray">☆</span>
-      </div>
-      
-      <div class="grid-row h-odd"
-           data-no="15"
-           data-odds="16.2"
-           data-index="96.0"
-           onclick="showDetail(15)">
-        <span class="lane-chip" style="background:#FF77A8"></span>
-        <span class="gr-name">
-          <span class="no">15</span><span class="nm">エイシンディード</span>
-        </span>
-        <span class="gr-cell c-white">16.2</span>
-        <span class="gr-cell center c-white">牡3</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">川又</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:43px"></span>
-          <span class="idx-num">96.0</span>
-        </span>
-        <span class="gr-cell c-yellow">92</span>
-        <span class="gr-cell c-red">103</span>
-        <span class="gr-cell c-white">68</span>
-        <span class="gr-cell c-green">34.1</span>
-        <span class="gr-cell c-yellow">11.5</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
-      <div class="grid-row h-even"
-           data-no="16"
-           data-odds="55.2"
-           data-index="99.0"
-           onclick="showDetail(16)">
-        <span class="lane-chip" style="background:#83769C"></span>
-        <span class="gr-name">
-          <span class="no">16</span><span class="nm">ロードフォアエース</span>
-        </span>
-        <span class="gr-cell c-white">55.2</span>
-        <span class="gr-cell center c-white">牡5</span>
-        <span class="gr-cell center c-gray">不明</span>
-        <span class="gr-cell center c-white">岩田望</span>
-        <span class="idx-cell c-green">
-          <span class="idx-bar" style="width:45px"></span>
-          <span class="idx-num">99.0</span>
-        </span>
-        <span class="gr-cell c-yellow">91</span>
-        <span class="gr-cell c-white">89</span>
-        <span class="gr-cell c-yellow">90</span>
-        <span class="gr-cell c-green">34.9</span>
-        <span class="gr-cell c-green">12.3</span>
-        <span class="mark-cell c-muted"></span>
-      </div>
-      
     </div>
 
     <section class="pace-panel">
