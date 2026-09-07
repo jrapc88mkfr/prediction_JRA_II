@@ -26,8 +26,7 @@
           <span class="gr-cell">オッズ</span>
           <span class="gr-cell center">馬齢</span>
           <span class="gr-cell center">脚質</span>
-          <span class="gr-cell center">鞍上</span>
-          <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正指数</span></span>
+          <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正</span></span>
         </div>
         {% for h in horses %}
         <div class="grid-row core-cols {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
@@ -42,7 +41,6 @@
           <span class="gr-cell {{ h.odds_class }}">{{ h.odds_disp }}</span>
           <span class="gr-cell center c-white">{{ h.sex }}</span>
           <span class="gr-cell center {{ h.style_class }}">{{ h.style }}</span>
-          <span class="gr-cell center c-white">{{ h.jockey }}</span>
           <span class="idx-cell {{ h.index_class }}">
             <span class="idx-bar" style="width:{{ h.index_bar_px }}px"></span>
             <span class="idx-num">{{ h.index if h.index is not none else '-' }}</span>
@@ -51,10 +49,11 @@
         {% endfor %}
       </div>
 
-      <!-- 前走〜調1F: 横スクロール専用エリア -->
+      <!-- 鞍上・前走〜調1F: 横スクロール専用エリア -->
       <div class="hl-extra-scroll">
         <div class="hl-extra">
           <div class="grid-row grid-header extra-cols">
+            <span class="gr-cell center">鞍上</span>
             <span class="gr-cell">前走</span>
             <span class="gr-cell">前々走</span>
             <span class="gr-cell">3走前</span>
@@ -64,6 +63,7 @@
           {% for h in horses %}
           <div class="grid-row extra-cols {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
                onclick="showDetail({{ h.no }})">
+            <span class="gr-cell center c-white">{{ h.jockey }}</span>
             <span class="gr-cell {{ h.prev1_class }}">{{ h.prev1 }}</span>
             <span class="gr-cell {{ h.prev2_class }}">{{ h.prev2 }}</span>
             <span class="gr-cell {{ h.prev3_class }}">{{ h.prev3 }}</span>
