@@ -95,12 +95,14 @@ def build_all():
             race_name=race.get("race_name", ""),
             race_no=race.get("race_no"),
             has_result=bool(result and result.get("confirmed")),
+            bet=None,
         ))
         status = "確定" if manifest[-1]["has_result"] else "予想"
         print(f"  - {stem}.html ({status})")
 
         bet = evaluate_race_bet(horses, result)
         if bet:
+            manifest[-1]["bet"] = bet
             bet_rows.append(dict(
                 stem=stem, date=race.get("date", ""),
                 race_name=race.get("race_name", ""), **bet,
