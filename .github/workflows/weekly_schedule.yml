@@ -1,4 +1,4 @@
-name: Weekly Schedule Update
+name: 週ごとのレース更新日曜12時
 
 on:
   schedule:
