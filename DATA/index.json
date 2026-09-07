@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T07:40:30",
+  "generated_at": "2026-09-07T11:53:05",
   "races": [
     {
       "file": "races/260906_阪神_セントウルS.html",
@@ -8,7 +8,7 @@
       "venue": "阪神",
       "race_name": "セントウルS",
       "race_no": "11",
-      "has_result": false
+      "has_result": true
     },
     {
       "file": "races/260830_新潟_新潟記念.html",
