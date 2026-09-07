@@ -1,4 +1,4 @@
-name: Fetch Race Results
+name: レース結果更新
 
 on:
   push:
