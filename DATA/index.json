@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T11:53:05",
+  "generated_at": "2026-09-07T22:11:33",
   "races": [
     {
       "file": "races/260906_阪神_セントウルS.html",
@@ -8,7 +8,17 @@
       "venue": "阪神",
       "race_name": "セントウルS",
       "race_no": "11",
-      "has_result": true
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      }
     },
     {
       "file": "races/260830_新潟_新潟記念.html",
@@ -17,7 +27,17 @@
       "venue": "新潟",
       "race_name": "新潟記念",
       "race_no": "8",
-      "has_result": true
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": true,
+        "sanrenpuku_pay": 810,
+        "payout": 810,
+        "win": true
+      }
     },
     {
       "file": "races/260823_札幌_キーンランドC.html",
@@ -26,7 +46,17 @@
       "venue": "札幌",
       "race_name": "キーンランドC",
       "race_no": "11",
-      "has_result": true
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      }
     },
     {
       "file": "races/260816_札幌_札幌記念.html",
@@ -35,7 +65,17 @@
       "venue": "札幌",
       "race_name": "札幌記念",
       "race_no": "11",
-      "has_result": true
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      }
     },
     {
       "file": "races/260816_中京_中京記念.html",
@@ -44,7 +84,17 @@
       "venue": "中京",
       "race_name": "中京記念",
       "race_no": "07",
-      "has_result": true
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": true,
+        "umaren_pay": 1850,
+        "sanrenpuku_hit": true,
+        "sanrenpuku_pay": 6420,
+        "payout": 8270,
+        "win": true
+      }
     }
   ]
 }
