@@ -17,48 +17,62 @@
       <button type="button" class="btn-pixel" id="sort-btn" data-mode="no">馬番順</button>
     </div>
 
-    <div class="horse-list">
-      <div class="grid-row grid-header">
-        <span></span>
-        <span class="gr-name"><span class="nm">馬名</span></span>
-        <span class="gr-cell">オッズ</span>
-        <span class="gr-cell center">馬齢</span>
-        <span class="gr-cell center">脚質</span>
-        <span class="gr-cell center">鞍上</span>
-        <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正指数</span></span>
-        <span class="gr-cell">前走</span>
-        <span class="gr-cell">前々走</span>
-        <span class="gr-cell">3走前</span>
-        <span class="gr-cell">前3F</span>
-        <span class="gr-cell">調1F</span>
-        <span class="mark-cell">印</span>
+    <div class="horse-list-flex">
+      <!-- 印〜補正指数: 画面幅に収まる可変レイアウト -->
+      <div class="hl-core">
+        <div class="grid-row grid-header core-cols">
+          <span class="mark-cell">印</span>
+          <span class="gr-name"><span class="nm">馬名</span></span>
+          <span class="gr-cell">オッズ</span>
+          <span class="gr-cell center">馬齢</span>
+          <span class="gr-cell center">脚質</span>
+          <span class="gr-cell center">鞍上</span>
+          <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正指数</span></span>
+        </div>
+        {% for h in horses %}
+        <div class="grid-row core-cols {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
+             data-no="{{ h.no }}"
+             data-odds="{{ h.odds_val if h.odds_val is not none else 9999 }}"
+             data-index="{{ h.index if h.index is not none else 0 }}"
+             onclick="showDetail({{ h.no }})">
+          <span class="mark-cell {{ h.mark_class }}">{{ h.mark }}</span>
+          <span class="gr-name">
+            <span class="no">{{ h.no }}</span><span class="nm">{{ h.name }}</span>
+          </span>
+          <span class="gr-cell {{ h.odds_class }}">{{ h.odds_disp }}</span>
+          <span class="gr-cell center c-white">{{ h.sex }}</span>
+          <span class="gr-cell center {{ h.style_class }}">{{ h.style }}</span>
+          <span class="gr-cell center c-white">{{ h.jockey }}</span>
+          <span class="idx-cell {{ h.index_class }}">
+            <span class="idx-bar" style="width:{{ h.index_bar_px }}px"></span>
+            <span class="idx-num">{{ h.index if h.index is not none else '-' }}</span>
+          </span>
+        </div>
+        {% endfor %}
       </div>
-      {% for h in horses %}
-      <div class="grid-row {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
-           data-no="{{ h.no }}"
-           data-odds="{{ h.odds_val if h.odds_val is not none else 9999 }}"
-           data-index="{{ h.index if h.index is not none else 0 }}"
-           onclick="showDetail({{ h.no }})">
-        <span class="lane-chip" style="background:{{ h.lane_color }}"></span>
-        <span class="gr-name">
-          <span class="no">{{ h.no }}</span><span class="nm">{{ h.name }}</span>
-        </span>
-        <span class="gr-cell {{ h.odds_class }}">{{ h.odds_disp }}</span>
-        <span class="gr-cell center c-white">{{ h.sex }}</span>
-        <span class="gr-cell center {{ h.style_class }}">{{ h.style }}</span>
-        <span class="gr-cell center c-white">{{ h.jockey }}</span>
-        <span class="idx-cell {{ h.index_class }}">
-          <span class="idx-bar" style="width:{{ h.index_bar_px }}px"></span>
-          <span class="idx-num">{{ h.index if h.index is not none else '-' }}</span>
-        </span>
-        <span class="gr-cell {{ h.prev1_class }}">{{ h.prev1 }}</span>
-        <span class="gr-cell {{ h.prev2_class }}">{{ h.prev2 }}</span>
-        <span class="gr-cell {{ h.prev3_class }}">{{ h.prev3 }}</span>
-        <span class="gr-cell {{ h.last3f_class }}">{{ h.last3f }}</span>
-        <span class="gr-cell {{ h.train1f_class }}">{{ h.train1f }}</span>
-        <span class="mark-cell {{ h.mark_class }}">{{ h.mark }}</span>
+
+      <!-- 前走〜調1F: 横スクロール専用エリア -->
+      <div class="hl-extra-scroll">
+        <div class="hl-extra">
+          <div class="grid-row grid-header extra-cols">
+            <span class="gr-cell">前走</span>
+            <span class="gr-cell">前々走</span>
+            <span class="gr-cell">3走前</span>
+            <span class="gr-cell">前3F</span>
+            <span class="gr-cell">調1F</span>
+          </div>
+          {% for h in horses %}
+          <div class="grid-row extra-cols {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
+               onclick="showDetail({{ h.no }})">
+            <span class="gr-cell {{ h.prev1_class }}">{{ h.prev1 }}</span>
+            <span class="gr-cell {{ h.prev2_class }}">{{ h.prev2 }}</span>
+            <span class="gr-cell {{ h.prev3_class }}">{{ h.prev3 }}</span>
+            <span class="gr-cell {{ h.last3f_class }}">{{ h.last3f }}</span>
+            <span class="gr-cell {{ h.train1f_class }}">{{ h.train1f }}</span>
+          </div>
+          {% endfor %}
+        </div>
       </div>
-      {% endfor %}
     </div>
 
     <section class="pace-panel">
