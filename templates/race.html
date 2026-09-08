@@ -17,62 +17,41 @@
       <button type="button" class="btn-pixel" id="sort-btn" data-mode="no">馬番順</button>
     </div>
 
-    <div class="horse-list-flex">
-      <!-- 印〜補正指数: 画面幅に収まる可変レイアウト -->
-      <div class="hl-core">
-        <div class="grid-row grid-header core-cols">
-          <span class="mark-cell">印</span>
-          <span class="gr-name"><span class="nm">馬名</span></span>
-          <span class="gr-cell">オッズ</span>
-          <span class="gr-cell center">馬齢</span>
-          <span class="gr-cell center">脚質</span>
-          <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正</span></span>
-        </div>
-        {% for h in horses %}
-        <div class="grid-row core-cols {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
-             data-no="{{ h.no }}"
-             data-odds="{{ h.odds_val if h.odds_val is not none else 9999 }}"
-             data-index="{{ h.index if h.index is not none else 0 }}"
-             onclick="showDetail({{ h.no }})">
+    <div class="horse-cards">
+      <div class="hc-legend">
+        <span>印</span><span>馬名</span><span>オッズ／馬齢／脚質／鞍上</span>
+      </div>
+      {% for h in horses %}
+      <div class="h-card {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
+           data-no="{{ h.no }}"
+           data-odds="{{ h.odds_val if h.odds_val is not none else 9999 }}"
+           data-index="{{ h.index if h.index is not none else 0 }}"
+           onclick="showDetail({{ h.no }})">
+        <div class="hc-row1">
           <span class="mark-cell {{ h.mark_class }}">{{ h.mark }}</span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">{{ h.no }}</span><span class="nm">{{ h.name }}</span>
           </span>
-          <span class="gr-cell {{ h.odds_class }}">{{ h.odds_disp }}</span>
-          <span class="gr-cell center c-white">{{ h.sex }}</span>
-          <span class="gr-cell center {{ h.style_class }}">{{ h.style }}</span>
-          <span class="idx-cell {{ h.index_class }}">
-            <span class="idx-bar" style="width:{{ h.index_bar_px }}px"></span>
-            <span class="idx-num">{{ h.index if h.index is not none else '-' }}</span>
-          </span>
+          <span class="hc-odds {{ h.odds_class }}">{{ h.odds_disp }}</span>
+          <span class="hc-age c-white">{{ h.sex }}</span>
+          <span class="hc-style {{ h.style_class }}">{{ h.style }}</span>
+          <span class="hc-jockey c-white">{{ h.jockey }}</span>
         </div>
-        {% endfor %}
-      </div>
-
-      <!-- 鞍上・前走〜調1F: 横スクロール専用エリア -->
-      <div class="hl-extra-scroll">
-        <div class="hl-extra">
-          <div class="grid-row grid-header extra-cols">
-            <span class="gr-cell center">鞍上</span>
-            <span class="gr-cell">前走</span>
-            <span class="gr-cell">前々走</span>
-            <span class="gr-cell">3走前</span>
-            <span class="gr-cell">前3F</span>
-            <span class="gr-cell">調1F</span>
-          </div>
-          {% for h in horses %}
-          <div class="grid-row extra-cols {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}"
-               onclick="showDetail({{ h.no }})">
-            <span class="gr-cell center c-white">{{ h.jockey }}</span>
-            <span class="gr-cell {{ h.prev1_class }}">{{ h.prev1 }}</span>
-            <span class="gr-cell {{ h.prev2_class }}">{{ h.prev2 }}</span>
-            <span class="gr-cell {{ h.prev3_class }}">{{ h.prev3 }}</span>
-            <span class="gr-cell {{ h.last3f_class }}">{{ h.last3f }}</span>
-            <span class="gr-cell {{ h.train1f_class }}">{{ h.train1f }}</span>
-          </div>
-          {% endfor %}
+        <div class="hc-row2">
+          <span class="l2-idx {{ h.index_class }}">{{ h.index_disp }}</span>
+          <span class="l2-bar-track"><span class="l2-bar {{ h.index_class }}" style="width:{{ h.index_bar_pct }}%"></span></span>
+          <span class="l2-weight">{{ h.weight }}</span>
+          {% if h.prev_comment %}<span class="l2-comment"><i>前コメ</i>{{ h.prev_comment }}</span>{% endif %}
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="{{ h.prev1_class }}">{{ h.prev1 }}</b></span>
+          <span><i>前々</i><b class="{{ h.prev2_class }}">{{ h.prev2 }}</b></span>
+          <span><i>3走</i><b class="{{ h.prev3_class }}">{{ h.prev3 }}</b></span>
+          <span><i>上3F</i><b class="{{ h.last3f_class }}">{{ h.last3f }}</b></span>
+          <span><i>調1F</i><b class="{{ h.train1f_class }}">{{ h.train1f }}</b></span>
         </div>
       </div>
+      {% endfor %}
     </div>
 
     <section class="pace-panel">
@@ -118,7 +97,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">{{ h.sex }} {{ h.weight }}</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">{{ h.jockey }}</span></div>
           <div class="stat"><b>脚質</b><span class="{{ h.style_class }}">{{ h.style }}</span></div>
-          <div class="stat"><b>補正指数</b><span class="{{ h.index_class }}">{{ h.index if h.index is not none else '-' }}</span></div>
+          <div class="stat"><b>補正指数</b><span class="{{ h.index_class }}">{{ h.index_disp }}</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">{{ h.prev1 }} / {{ h.prev2 }} / {{ h.prev3 }}</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">{{ h.last3f }} / {{ h.train1f }}</span></div>
         </div>
