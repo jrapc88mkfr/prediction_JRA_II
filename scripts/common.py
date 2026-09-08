@@ -78,7 +78,10 @@ def build_horses(race: dict) -> list[dict]:
 
         bar_px = 2
         if idx is not None:
-            bar_px = max(2, min(45, round(idx * 0.45)))
+            bar_px = max(2, min(24, round(idx * 0.22)))
+        bar_pct = 0
+        if idx is not None:
+            bar_pct = max(2, min(100, round((idx - 50) / (120 - 50) * 100)))
 
         horses.append(dict(
             no=no, name=name,
@@ -86,7 +89,9 @@ def build_horses(race: dict) -> list[dict]:
             record=f"（{record}）" if record else "",
             sex=h.get("性齢"), weight=h.get("斤量"),
             jockey=h.get("騎手"), style=style, style_class=STYLE_CLASS.get(style, "c-gray"),
-            index=idx, index_class=score_class(idx), index_bar_px=bar_px,
+            index=idx, index_class=score_class(idx), index_bar_px=bar_px, index_bar_pct=bar_pct,
+            index_disp=(str(round(idx)) if idx is not None else "-"),
+            prev_comment=(s_rec.get("前走コメント") or ""),
             prev1=dash(h.get("前走")), prev1_class=rating_class(h.get("前走")),
             prev2=dash(h.get("前々")), prev2_class=rating_class(h.get("前々")),
             prev3=dash(h.get("3走")),  prev3_class=rating_class(h.get("3走")),
