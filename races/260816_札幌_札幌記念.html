@@ -17,482 +17,491 @@
       <button type="button" class="btn-pixel" id="sort-btn" data-mode="no">馬番順</button>
     </div>
 
-    <div class="horse-list-flex">
-      <!-- 印〜補正指数: 画面幅に収まる可変レイアウト -->
-      <div class="hl-core">
-        <div class="grid-row grid-header core-cols">
-          <span class="mark-cell">印</span>
-          <span class="gr-name"><span class="nm">馬名</span></span>
-          <span class="gr-cell">オッズ</span>
-          <span class="gr-cell center">馬齢</span>
-          <span class="gr-cell center">脚質</span>
-          <span class="idx-cell" style="justify-content:flex-end;"><span class="idx-num">補正</span></span>
-        </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="1"
-             data-odds="9999"
-             data-index="106.0"
-             onclick="showDetail(1)">
+    <div class="horse-cards">
+      <div class="hc-legend">
+        <span>印</span><span>馬名</span><span>オッズ／馬齢／脚質／鞍上</span>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="1"
+           data-odds="9999"
+           data-index="106.0"
+           onclick="showDetail(1)">
+        <div class="hc-row1">
           <span class="mark-cell c-gray">☆</span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">1</span><span class="nm">イツモニコニコ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牝5</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:23px"></span>
-            <span class="idx-num">106.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牝5</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">Ｓ．ナ</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="2"
-             data-odds="9999"
-             data-index="97.0"
-             onclick="showDetail(2)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">106</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:80%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>かかりコーナー曲がれず</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">105</b></span>
+          <span><i>前々</i><b class="c-white">80</b></span>
+          <span><i>3走</i><b class="c-yellow">96</b></span>
+          <span><i>上3F</i><b class="c-red">33.0</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="2"
+           data-odds="9999"
+           data-index="97.0"
+           onclick="showDetail(2)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">2</span><span class="nm">ウインカーネリアン</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡9</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:21px"></span>
-            <span class="idx-num">97.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡9</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">三浦皇</span>
         </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="3"
-             data-odds="9999"
-             data-index="96.0"
-             onclick="showDetail(3)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">97</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:67%"></span></span>
+          <span class="l2-weight">59.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">117</b></span>
+          <span><i>前々</i><b class="c-white">50</b></span>
+          <span><i>3走</i><b class="c-red">125</b></span>
+          <span><i>上3F</i><b class="c-red">33.2</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="3"
+           data-odds="9999"
+           data-index="96.0"
+           onclick="showDetail(3)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">3</span><span class="nm">エイシンディード</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡3</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:21px"></span>
-            <span class="idx-num">96.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡3</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">川又賢</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="4"
-             data-odds="9999"
-             data-index="106.0"
-             onclick="showDetail(4)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">96</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:66%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-yellow">92</b></span>
+          <span><i>前々</i><b class="c-red">103</b></span>
+          <span><i>3走</i><b class="c-white">68</b></span>
+          <span><i>上3F</i><b class="c-green">34.1</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="4"
+           data-odds="9999"
+           data-index="106.0"
+           onclick="showDetail(4)">
+        <div class="hc-row1">
           <span class="mark-cell c-green">△</span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">4</span><span class="nm">エーティーマクフィ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡7</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:23px"></span>
-            <span class="idx-num">106.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡7</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">富田暁</span>
         </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="5"
-             data-odds="9999"
-             data-index="102.0"
-             onclick="showDetail(5)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">106</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:80%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">110</b></span>
+          <span><i>前々</i><b class="c-red">101</b></span>
+          <span><i>3走</i><b class="c-yellow">96</b></span>
+          <span><i>上3F</i><b class="c-yellow">33.5</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="5"
+           data-odds="9999"
+           data-index="102.0"
+           onclick="showDetail(5)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">5</span><span class="nm">サウンドモリアーナ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牝4</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:22px"></span>
-            <span class="idx-num">102.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牝4</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">武豊</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="6"
-             data-odds="9999"
-             data-index="95.0"
-             onclick="showDetail(6)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">102</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:74%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>重馬場合わなかった</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">70</b></span>
+          <span><i>前々</i><b class="c-red">110</b></span>
+          <span><i>3走</i><b class="c-red">102</b></span>
+          <span><i>上3F</i><b class="c-green">35.2</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="6"
+           data-odds="9999"
+           data-index="95.0"
+           onclick="showDetail(6)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">6</span><span class="nm">ジョーメッドヴィン</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡5</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:21px"></span>
-            <span class="idx-num">95.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡5</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">吉村智</span>
         </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="7"
-             data-odds="9999"
-             data-index="90.0"
-             onclick="showDetail(7)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">95</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:64%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">88</b></span>
+          <span><i>前々</i><b class="c-yellow">90</b></span>
+          <span><i>3走</i><b class="c-yellow">95</b></span>
+          <span><i>上3F</i><b class="c-green">34.7</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="7"
+           data-odds="9999"
+           data-index="90.0"
+           onclick="showDetail(7)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">7</span><span class="nm">ゾンニッヒ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡8</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:20px"></span>
-            <span class="idx-num">90.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡8</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">Ｚ．ロ</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="8"
-             data-odds="9999"
-             data-index="108.0"
-             onclick="showDetail(8)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">90</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:57%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">102</b></span>
+          <span><i>前々</i><b class="c-white">66</b></span>
+          <span><i>3走</i><b class="c-yellow">91</b></span>
+          <span><i>上3F</i><b class="c-yellow">33.5</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="8"
+           data-odds="9999"
+           data-index="108.0"
+           onclick="showDetail(8)">
+        <div class="hc-row1">
           <span class="mark-cell c-red">▲</span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">8</span><span class="nm">ダノンマッキンリー</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡5</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:24px"></span>
-            <span class="idx-num">108.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡5</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">池添謙</span>
         </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="9"
-             data-odds="9999"
-             data-index="100.0"
-             onclick="showDetail(9)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">108</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:83%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>後方13番手の競馬</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-yellow">96</b></span>
+          <span><i>前々</i><b class="c-red">104</b></span>
+          <span><i>3走</i><b class="c-red">106</b></span>
+          <span><i>上3F</i><b class="c-green">34.1</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="9"
+           data-odds="9999"
+           data-index="100.0"
+           onclick="showDetail(9)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">9</span><span class="nm">ナムラクララ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牝4</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:22px"></span>
-            <span class="idx-num">100.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牝4</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">浜中俊</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="10"
-             data-odds="9999"
-             data-index="89.0"
-             onclick="showDetail(10)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">100</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:71%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">104</b></span>
+          <span><i>前々</i><b class="c-red">104</b></span>
+          <span><i>3走</i><b class="c-white">68</b></span>
+          <span><i>上3F</i><b class="c-muted">-</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="10"
+           data-odds="9999"
+           data-index="89.0"
+           onclick="showDetail(10)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">10</span><span class="nm">パンジャタワー</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡4</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-yellow">
-            <span class="idx-bar" style="width:20px"></span>
-            <span class="idx-num">89.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">松山弘</span>
         </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="11"
-             data-odds="9999"
-             data-index="84.0"
-             onclick="showDetail(11)">
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">89</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:56%"></span></span>
+          <span class="l2-weight">58.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>前走距離長かった</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-yellow">98</b></span>
+          <span><i>前々</i><b class="c-red">111</b></span>
+          <span><i>3走</i><b class="c-white">52</b></span>
+          <span><i>上3F</i><b class="c-red">33.4</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="11"
+           data-odds="9999"
+           data-index="84.0"
+           onclick="showDetail(11)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">11</span><span class="nm">マイネルジェロディ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡8</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-yellow">
-            <span class="idx-bar" style="width:18px"></span>
-            <span class="idx-num">84.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡8</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">Ｒ．ヘ</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="12"
-             data-odds="9999"
-             data-index="82.0"
-             onclick="showDetail(12)">
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">84</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:49%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">86</b></span>
+          <span><i>前々</i><b class="c-white">86</b></span>
+          <span><i>3走</i><b class="c-white">67</b></span>
+          <span><i>上3F</i><b class="c-green">34.9</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="12"
+           data-odds="9999"
+           data-index="82.0"
+           onclick="showDetail(12)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">12</span><span class="nm">リラエンブレム</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡4</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-yellow">
-            <span class="idx-bar" style="width:18px"></span>
-            <span class="idx-num">82.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">Ｃ．ル</span>
         </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="13"
-             data-odds="9999"
-             data-index="108.0"
-             onclick="showDetail(13)">
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">82</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:46%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>前走距離大幅に長い</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">73</b></span>
+          <span><i>前々</i><b class="c-red">100</b></span>
+          <span><i>3走</i><b class="c-white">60</b></span>
+          <span><i>上3F</i><b class="c-green">34.4</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="13"
+           data-odds="9999"
+           data-index="108.0"
+           onclick="showDetail(13)">
+        <div class="hc-row1">
           <span class="mark-cell c-orange">○</span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">13</span><span class="nm">ルシード</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡4</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:24px"></span>
-            <span class="idx-num">108.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">Ｄ．レ</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="14"
-             data-odds="9999"
-             data-index="102.0"
-             onclick="showDetail(14)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">108</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:83%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">105</b></span>
+          <span><i>前々</i><b class="c-white">88</b></span>
+          <span><i>3走</i><b class="c-red">118</b></span>
+          <span><i>上3F</i><b class="c-green">34.2</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="14"
+           data-odds="9999"
+           data-index="102.0"
+           onclick="showDetail(14)">
+        <div class="hc-row1">
           <span class="mark-cell c-gray">☆</span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">14</span><span class="nm">レッドアヴァンティ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡7</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:22px"></span>
-            <span class="idx-num">102.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡7</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">岩田康</span>
         </div>
-        
-        <div class="grid-row core-cols h-odd"
-             data-no="15"
-             data-odds="9999"
-             data-index="119.0"
-             onclick="showDetail(15)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">102</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:74%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-yellow">94</b></span>
+          <span><i>前々</i><b class="c-red">118</b></span>
+          <span><i>3走</i><b class="c-white">81</b></span>
+          <span><i>上3F</i><b class="c-green">34.0</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="15"
+           data-odds="9999"
+           data-index="119.0"
+           onclick="showDetail(15)">
+        <div class="hc-row1">
           <span class="mark-cell c-yellow">◎</span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">15</span><span class="nm">ロジケープ</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡3</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:24px"></span>
-            <span class="idx-num">119.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡3</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">丹内祐</span>
         </div>
-        
-        <div class="grid-row core-cols h-even"
-             data-no="16"
-             data-odds="9999"
-             data-index="99.0"
-             onclick="showDetail(16)">
+        <div class="hc-row2">
+          <span class="l2-idx c-green">119</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:99%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">112</b></span>
+          <span><i>前々</i><b class="c-red">116</b></span>
+          <span><i>3走</i><b class="c-red">105</b></span>
+          <span><i>上3F</i><b class="c-muted">-</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="16"
+           data-odds="9999"
+           data-index="99.0"
+           onclick="showDetail(16)">
+        <div class="hc-row1">
           <span class="mark-cell c-muted"></span>
-          <span class="gr-name">
+          <span class="hc-name">
             <span class="no">16</span><span class="nm">ロードフォアエース</span>
           </span>
-          <span class="gr-cell c-muted">---</span>
-          <span class="gr-cell center c-white">牡5</span>
-          <span class="gr-cell center c-gray">不明</span>
-          <span class="idx-cell c-green">
-            <span class="idx-bar" style="width:22px"></span>
-            <span class="idx-num">99.0</span>
-          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡5</span>
+          <span class="hc-style c-gray">不明</span>
+          <span class="hc-jockey c-white">岩田望</span>
         </div>
-        
-      </div>
-
-      <!-- 鞍上・前走〜調1F: 横スクロール専用エリア -->
-      <div class="hl-extra-scroll">
-        <div class="hl-extra">
-          <div class="grid-row grid-header extra-cols">
-            <span class="gr-cell center">鞍上</span>
-            <span class="gr-cell">前走</span>
-            <span class="gr-cell">前々走</span>
-            <span class="gr-cell">3走前</span>
-            <span class="gr-cell">前3F</span>
-            <span class="gr-cell">調1F</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(1)">
-            <span class="gr-cell center c-white">Ｓ．ナ</span>
-            <span class="gr-cell c-red">105</span>
-            <span class="gr-cell c-white">80</span>
-            <span class="gr-cell c-yellow">96</span>
-            <span class="gr-cell c-red">33.0</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(2)">
-            <span class="gr-cell center c-white">三浦皇</span>
-            <span class="gr-cell c-red">117</span>
-            <span class="gr-cell c-white">50</span>
-            <span class="gr-cell c-red">125</span>
-            <span class="gr-cell c-red">33.2</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(3)">
-            <span class="gr-cell center c-white">川又賢</span>
-            <span class="gr-cell c-yellow">92</span>
-            <span class="gr-cell c-red">103</span>
-            <span class="gr-cell c-white">68</span>
-            <span class="gr-cell c-green">34.1</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(4)">
-            <span class="gr-cell center c-white">富田暁</span>
-            <span class="gr-cell c-red">110</span>
-            <span class="gr-cell c-red">101</span>
-            <span class="gr-cell c-yellow">96</span>
-            <span class="gr-cell c-yellow">33.5</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(5)">
-            <span class="gr-cell center c-white">武豊</span>
-            <span class="gr-cell c-white">70</span>
-            <span class="gr-cell c-red">110</span>
-            <span class="gr-cell c-red">102</span>
-            <span class="gr-cell c-green">35.2</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(6)">
-            <span class="gr-cell center c-white">吉村智</span>
-            <span class="gr-cell c-white">88</span>
-            <span class="gr-cell c-yellow">90</span>
-            <span class="gr-cell c-yellow">95</span>
-            <span class="gr-cell c-green">34.7</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(7)">
-            <span class="gr-cell center c-white">Ｚ．ロ</span>
-            <span class="gr-cell c-red">102</span>
-            <span class="gr-cell c-white">66</span>
-            <span class="gr-cell c-yellow">91</span>
-            <span class="gr-cell c-yellow">33.5</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(8)">
-            <span class="gr-cell center c-white">池添謙</span>
-            <span class="gr-cell c-yellow">96</span>
-            <span class="gr-cell c-red">104</span>
-            <span class="gr-cell c-red">106</span>
-            <span class="gr-cell c-green">34.1</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(9)">
-            <span class="gr-cell center c-white">浜中俊</span>
-            <span class="gr-cell c-red">104</span>
-            <span class="gr-cell c-red">104</span>
-            <span class="gr-cell c-white">68</span>
-            <span class="gr-cell c-muted">-</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(10)">
-            <span class="gr-cell center c-white">松山弘</span>
-            <span class="gr-cell c-yellow">98</span>
-            <span class="gr-cell c-red">111</span>
-            <span class="gr-cell c-white">52</span>
-            <span class="gr-cell c-red">33.4</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(11)">
-            <span class="gr-cell center c-white">Ｒ．ヘ</span>
-            <span class="gr-cell c-white">86</span>
-            <span class="gr-cell c-white">86</span>
-            <span class="gr-cell c-white">67</span>
-            <span class="gr-cell c-green">34.9</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(12)">
-            <span class="gr-cell center c-white">Ｃ．ル</span>
-            <span class="gr-cell c-white">73</span>
-            <span class="gr-cell c-red">100</span>
-            <span class="gr-cell c-white">60</span>
-            <span class="gr-cell c-green">34.4</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(13)">
-            <span class="gr-cell center c-white">Ｄ．レ</span>
-            <span class="gr-cell c-red">105</span>
-            <span class="gr-cell c-white">88</span>
-            <span class="gr-cell c-red">118</span>
-            <span class="gr-cell c-green">34.2</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(14)">
-            <span class="gr-cell center c-white">岩田康</span>
-            <span class="gr-cell c-yellow">94</span>
-            <span class="gr-cell c-red">118</span>
-            <span class="gr-cell c-white">81</span>
-            <span class="gr-cell c-green">34.0</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-odd"
-               onclick="showDetail(15)">
-            <span class="gr-cell center c-white">丹内祐</span>
-            <span class="gr-cell c-red">112</span>
-            <span class="gr-cell c-red">116</span>
-            <span class="gr-cell c-red">105</span>
-            <span class="gr-cell c-muted">-</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
-          <div class="grid-row extra-cols h-even"
-               onclick="showDetail(16)">
-            <span class="gr-cell center c-white">岩田望</span>
-            <span class="gr-cell c-yellow">91</span>
-            <span class="gr-cell c-white">89</span>
-            <span class="gr-cell c-yellow">90</span>
-            <span class="gr-cell c-green">34.9</span>
-            <span class="gr-cell c-muted">-</span>
-          </div>
-          
+        <div class="hc-row2">
+          <span class="l2-idx c-green">99</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:70%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>大外枠が響いた</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-yellow">91</b></span>
+          <span><i>前々</i><b class="c-white">89</b></span>
+          <span><i>3走</i><b class="c-yellow">90</b></span>
+          <span><i>上3F</i><b class="c-green">34.9</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
         </div>
       </div>
+      
     </div>
 
     <section class="pace-panel">
@@ -546,7 +555,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牝5 55.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">Ｓ．ナ</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">106.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">106</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">105 / 80 / 96</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">33.0 / -</span></div>
         </div>
@@ -603,7 +612,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡9 59.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">三浦皇</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">97.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">97</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">117 / 50 / 125</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">33.2 / -</span></div>
         </div>
@@ -662,7 +671,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡3 55.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">川又賢</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">96.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">96</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">92 / 103 / 68</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.1 / -</span></div>
         </div>
@@ -719,7 +728,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡7 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">富田暁</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">106.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">106</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">110 / 101 / 96</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">33.5 / -</span></div>
         </div>
@@ -776,7 +785,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牝4 55.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">武豊</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">102.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">102</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">70 / 110 / 102</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">35.2 / -</span></div>
         </div>
@@ -833,7 +842,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡5 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">吉村智</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">95.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">95</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">88 / 90 / 95</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.7 / -</span></div>
         </div>
@@ -890,7 +899,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡8 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">Ｚ．ロ</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">90.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">90</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">102 / 66 / 91</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">33.5 / -</span></div>
         </div>
@@ -947,7 +956,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡5 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">池添謙</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">108.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">108</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">96 / 104 / 106</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.1 / -</span></div>
         </div>
@@ -1004,7 +1013,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牝4 55.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">浜中俊</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">100.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">100</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">104 / 104 / 68</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">- / -</span></div>
         </div>
@@ -1061,7 +1070,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 58.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">松山弘</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-yellow">89.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-yellow">89</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">98 / 111 / 52</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">33.4 / -</span></div>
         </div>
@@ -1118,7 +1127,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡8 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">Ｒ．ヘ</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-yellow">84.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-yellow">84</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">86 / 86 / 67</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.9 / -</span></div>
         </div>
@@ -1177,7 +1186,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">Ｃ．ル</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-yellow">82.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-yellow">82</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">73 / 100 / 60</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.4 / -</span></div>
         </div>
@@ -1234,7 +1243,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">Ｄ．レ</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">108.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">108</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">105 / 88 / 118</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.2 / -</span></div>
         </div>
@@ -1291,7 +1300,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡7 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">岩田康</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">102.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">102</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">94 / 118 / 81</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.0 / -</span></div>
         </div>
@@ -1348,7 +1357,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡3 55.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">丹内祐</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">119.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">119</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">112 / 116 / 105</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">- / -</span></div>
         </div>
@@ -1405,7 +1414,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">牡5 57.0kg</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">岩田望</span></div>
           <div class="stat"><b>脚質</b><span class="c-gray">不明</span></div>
-          <div class="stat"><b>補正指数</b><span class="c-green">99.0</span></div>
+          <div class="stat"><b>補正指数</b><span class="c-green">99</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">91 / 89 / 90</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">34.9 / -</span></div>
         </div>
