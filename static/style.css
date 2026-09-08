@@ -31,7 +31,7 @@ html, body {
   font-family: var(--font-pixel);
   -webkit-text-size-adjust: 100%;
 }
-.wrap { max-width: 1400px; margin: 0 auto; }
+.wrap { max-width: 720px; margin: 0 auto; }
 .hidden { display: none !important; }
 
 /* ============ ヘッダーバー ============ */
@@ -58,61 +58,69 @@ html, body {
   text-align: center;
 }
 
-/* ============ 馬リスト（印〜補正指数は画面幅に収める／前走〜調1Fのみ横スクロール） ============ */
-.horse-list-flex { display: flex; align-items: flex-start; width: 100%; }
-
-.hl-core { flex: 1 1 auto; min-width: 0; }
-
-.hl-extra-scroll {
-  flex: 0 0 92px;
-  width: 92px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  border-left: 1px solid var(--c5-gray);
-}
-.hl-extra { min-width: 228px; }
-
-.grid-row {
-  display: grid;
-  align-items: center;
-  padding: 5px 3px;
-  font-size: 0.86rem;
-  gap: 0 2px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  cursor: pointer;
-}
-.grid-row.core-cols {
-  grid-template-columns: 16px minmax(0,1fr) 38px 26px 20px 46px;
-}
-.grid-row.extra-cols {
-  grid-template-columns: 40px 44px 40px 40px 40px 40px;
-}
-.grid-row.h-odd  { background: var(--c1-navy); }
-.grid-row.h-even { background: var(--c0-black); }
-.grid-row:hover, .grid-row:active { outline: 1px solid var(--c6-ltgray); outline-offset: -1px; }
-
-.grid-row.grid-header {
+/* ============ 馬リスト（カード形式・横スクロールなし）============ */
+.hc-legend {
+  display: flex; gap: 10px;
+  padding: 6px 10px;
   background: var(--c1-navy);
   border-bottom: 2px solid var(--c6-ltgray);
   color: var(--c6-ltgray);
   font-size: 0.72rem;
-  cursor: default;
 }
-.grid-row.grid-header:hover { outline: none; }
-.grid-row.grid-header .nm { color: var(--c6-ltgray); }
-.grid-row.grid-header .idx-num { color: var(--c6-ltgray); }
 
-.gr-name { display: flex; gap: 3px; min-width: 0; overflow: hidden; }
-.gr-name .no { color: var(--c7-white); flex-shrink: 0; }
-.gr-name .nm { color: var(--c7-white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.gr-name.selected .nm { color: var(--c10-yellow); }
+.h-card {
+  padding: 6px 10px 7px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+}
+.h-card.h-odd  { background: var(--c1-navy); }
+.h-card.h-even { background: var(--c0-black); }
+.h-card:hover, .h-card:active { outline: 1px solid var(--c6-ltgray); outline-offset: -1px; }
 
-.gr-cell { text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.gr-cell.center { text-align: center; }
+/* 1行目：印・馬名・オッズ・馬齢・脚質・鞍上 */
+.hc-row1 {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.95rem;
+}
+.hc-row1 .mark-cell { flex: 0 0 auto; width: 18px; text-align: center; }
+.hc-name { flex: 1 1 auto; min-width: 0; display: flex; gap: 3px; }
+.hc-name .no { color: var(--c7-white); flex-shrink: 0; }
+.hc-name .nm {
+  color: var(--c7-white); font-weight: 700;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.hc-odds { flex: 0 0 auto; min-width: 40px; text-align: right; font-family: var(--font-pixel); }
+.hc-age  { flex: 0 0 auto; font-size: 0.82rem; }
+.hc-style{ flex: 0 0 auto; font-size: 0.82rem; }
+.hc-jockey{ flex: 0 0 auto; font-size: 0.82rem; max-width: 4.2em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.idx-cell { display: flex; align-items: center; gap: 3px; justify-content: flex-end; min-width: 0; }
-.idx-bar { height: 5px; background: currentColor; flex-shrink: 0; }
-.idx-num { min-width: 22px; text-align: right; }
+/* 2行目：補正指数・バー・斤量・前走コメント */
+.hc-row2 {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 0 0 24px;
+  font-size: 0.74rem;
+}
+.l2-idx { font-family: var(--font-pixel); font-weight: 700; min-width: 22px; flex-shrink: 0; }
+.l2-bar-track {
+  width: 44px; height: 5px; flex-shrink: 0;
+  background: var(--c5-gray); border-radius: 2px; overflow: hidden;
+}
+.l2-bar { display: block; height: 100%; background: currentColor; }
+.l2-weight { color: var(--c7-white); font-family: var(--font-pixel); white-space: nowrap; flex-shrink: 0; }
+.l2-comment {
+  color: var(--c7-white); flex: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.l2-comment i { color: var(--c13-lav); font-style: normal; margin-right: 4px; }
+
+/* 3行目：前走・前々走・3走前・前3F・調1F（ラベル付き、折り返し可） */
+.hc-row3 {
+  display: flex; flex-wrap: wrap; gap: 3px 12px;
+  padding: 3px 0 0 24px;
+  font-size: 0.76rem;
+}
+.hc-row3 i { color: var(--c13-lav); font-style: normal; margin-right: 3px; }
+.hc-row3 b { font-weight: 700; }
 
 .mark-cell { text-align: center; font-family: var(--font-ui); font-weight: 700; }
 
