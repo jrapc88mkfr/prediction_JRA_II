@@ -669,12 +669,20 @@ def generate_mishap_comments(horses: list[dict], result_comments: dict = None, r
         max_tokens = max(1500, len(targets) * 120)
 
         try:
+            # client = anthropic.Anthropic(api_key=api_key)
+            # msg = client.messages.create(
+            #     model="claude-sonnet-4-6",
+            #     max_tokens=max_tokens,
+            #     messages=[{"role": "user", "content": prompt}],
+            # )
+
             client = anthropic.Anthropic(api_key=api_key)
             msg = client.messages.create(
-                model="claude-sonnet-4-6",
+                model="claude-haiku-4-5-20251001",
                 max_tokens=max_tokens,
                 messages=[{"role": "user", "content": prompt}],
-            )
+            )            
+
             raw = msg.content[0].text.strip()
 
             comments = None
