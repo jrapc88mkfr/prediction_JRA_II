@@ -1,6 +1,16 @@
 {
-  "generated_at": "2026-09-12T00:28:05",
+  "generated_at": "2026-09-12T00:39:34",
   "races": [
+    {
+      "file": "races/260913_阪神_ローズステークス.html",
+      "stem": "260913_阪神_ローズステークス",
+      "date": "2026/9/13",
+      "venue": "阪神",
+      "race_name": "ローズステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null
+    },
     {
       "file": "races/260913_阪神_セントライト記念.html",
       "stem": "260913_阪神_セントライト記念",
