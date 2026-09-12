@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-12T23:22:08",
+  "generated_at": "2026-09-12T23:44:27",
   "races": [
     {
       "file": "races/260913_阪神_ローズステークス.html",
@@ -104,8 +104,17 @@
       "venue": "中京",
       "race_name": "中京記念",
       "race_no": "07",
-      "has_result": false,
-      "bet": null
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      }
     }
   ]
 }
