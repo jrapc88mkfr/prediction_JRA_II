@@ -157,6 +157,56 @@ html, body {
   margin: 0;
 }
 
+/* ============ 買い目予想パネル（想定オッズ） ============ */
+.bet-panel {
+  background: var(--c0-black);
+  border-top: 1px solid var(--c5-gray);
+  border-bottom: 1px solid var(--c5-gray);
+  padding: 14px 16px 18px;
+  font-family: var(--font-ui);
+}
+.bet-panel .bet-title {
+  color: var(--c10-yellow);
+  font-family: var(--font-pixel);
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.bet-group { margin-bottom: 14px; }
+.bet-group-title {
+  color: var(--c6-ltgray);
+  font-size: 0.82rem;
+  margin: 0 0 6px;
+}
+.bet-grid {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.bet-chip {
+  background: var(--c1-navy);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  color: var(--c7-white);
+  display: flex; align-items: center; gap: 6px;
+}
+.bet-avg {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  color: var(--c7-white);
+}
+.bet-explain {
+  margin: 4px 0 0;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--c13-lav);
+}
+.bet-note {
+  margin: 10px 0 0;
+  font-size: 0.72rem;
+  color: var(--c13-lav);
+}
+
 /* ============ レース結果パネル（表の下）============ */
 .result-panel {
   background: var(--c1-navy);
@@ -195,6 +245,21 @@ html, body {
 }
 .badge-confirmed { background: var(--c11-green); color: #06210f; }
 .badge-pending { background: var(--c1-navy); color: var(--c10-yellow); border: 1px solid var(--c10-yellow); }
+
+/* 堅い/荒れる バッジ（補正後指数の分散から判定。詳細はodds_estimate.py参照） */
+.idx-shape {
+  font-family: var(--font-pixel); font-size: 0.72rem;
+  padding: 2px 8px; border-radius: 3px; white-space: nowrap;
+}
+.shape-kata      { background: var(--c11-green); color: #06210f; }
+.shape-yaya-kata { background: var(--c12-blue);  color: #06210f; }
+.shape-yaya-are  { background: var(--c9-orange); color: #2a1400; }
+.shape-are       { background: var(--c8-red);    color: var(--c7-white); }
+
+.idx-estodds {
+  font-family: var(--font-pixel); font-size: 0.78rem;
+  color: var(--c10-yellow); white-space: nowrap;
+}
 .idx-bet {
   font-family: var(--font-pixel); font-size: 0.8rem; white-space: nowrap;
   min-width: 70px; text-align: right;
