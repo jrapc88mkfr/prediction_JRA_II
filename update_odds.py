@@ -19,6 +19,8 @@ from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 
+from odds_estimate import estimate_formation
+
 # ============================================================
 # 設定
 # ============================================================
@@ -29,10 +31,12 @@ HEADERS  = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit
 # ============================================================
 # kichiuma からオッズ取得
 # ============================================================
-def fetch_odds(race_id: str, date: str, no: str, id_: str) -> dict:
+def fetch_race_page(race_id: str, date: str, no: str, id_: str):
     """
-    kichiuma.net の出馬表ページから最新オッズを取得する。
-    戻り値: {馬名: "12.3 (3.1.2.5)"} 形式の辞書
+    kichiuma.net の出馬表ページを1回だけ取得し、BeautifulSoupのrace_form内tr一覧を返す。
+    fetch_odds() と fetch_win_odds_by_no() の両方がこれを共有することで、
+    同じページへの二重リクエストを防ぐ。
+    戻り値: tr要素のリスト（取得失敗時は空リスト）
     """
     url = (f"https://kichiuma.net/php/search.php"
            f"?race_id={race_id}&date={date}&no={no}&id={id_}&p=rf")
@@ -43,18 +47,23 @@ def fetch_odds(race_id: str, date: str, no: str, id_: str) -> dict:
         r.encoding = r.apparent_encoding
     except Exception as e:
         print(f"[ODDS ERROR] {e}")
-        return {}
+        return []
 
     soup      = BeautifulSoup(r.text, "html.parser")
     race_form = soup.find("div", id="race_form")
     if not race_form:
         print("[ODDS] race_form が見つかりません")
-        return {}
+        return []
 
     table = race_form.find("table")
-    rows  = table.find_all("tr")
-    odds_dict = {}
+    return table.find_all("tr")
 
+
+def parse_odds_from_rows(rows) -> dict:
+    """
+    fetch_race_page() で取得した tr 一覧から {馬名: "オッズ (戦績)"} を組み立てる。
+    """
+    odds_dict = {}
     for row in rows:
         num_td   = row.find("td", class_=re.compile(r"W\d+"))
         horse_td = row.find("td", class_="horse_box")
@@ -91,12 +100,76 @@ def fetch_odds(race_id: str, date: str, no: str, id_: str) -> dict:
     return odds_dict
 
 
+def parse_win_odds_by_no_from_rows(rows) -> dict[str, float]:
+    """
+    fetch_race_page() で取得した tr 一覧から {馬番(str): 単勝オッズ(float)} を組み立てる。
+    馬連・3連複の想定オッズ計算（odds_estimate.estimate_formation）用。
+    """
+    odds_by_no: dict[str, float] = {}
+    for row in rows:
+        num_td   = row.find("td", class_=re.compile(r"W\d+"))
+        horse_td = row.find("td", class_="horse_box")
+        if not num_td or not horse_td:
+            continue
+
+        umaban = num_td.get_text(strip=True)
+        if not umaban.isdigit():
+            continue
+
+        text = horse_td.get_text(separator=" ").replace("\u3000", " ")
+        m    = re.search(r"\d{2}\.\dkg\s+([\d.]+)", text)
+        if not m:
+            continue
+        try:
+            odds_by_no[umaban] = float(m.group(1))
+        except ValueError:
+            continue
+
+    print(f"[ODDS(no)] {len(odds_by_no)}頭分の単勝オッズ（馬番キー）取得完了")
+    return odds_by_no
+
+
+# ============================================================
+# kichiuma からオッズ取得（互換用ラッパー。内部で1回のリクエストに統合）
+# ============================================================
+def fetch_odds(race_id: str, date: str, no: str, id_: str) -> dict:
+    """
+    kichiuma.net の出馬表ページから最新オッズを取得する。
+    戻り値: {馬名: "12.3 (3.1.2.5)"} 形式の辞書
+    """
+    rows = fetch_race_page(race_id, date, no, id_)
+    return parse_odds_from_rows(rows) if rows else {}
+
+
+def fetch_win_odds_by_no(race_id: str, date: str, no: str, id_: str) -> dict[str, float]:
+    """
+    fetch_odds() と同じページから、馬連・3連複の想定オッズ計算に使うため
+    {馬番(str): 単勝オッズ(float)} 形式で取得する（互換用ラッパー）。
+    """
+    rows = fetch_race_page(race_id, date, no, id_)
+    return parse_win_odds_by_no_from_rows(rows) if rows else {}
+
+
+def fetch_odds_and_win_odds(race_id: str, date: str, no: str, id_: str) -> tuple[dict, dict[str, float]]:
+    """
+    1回のHTTPリクエストで、{馬名: オッズ文字列} と {馬番: 単勝オッズfloat} の
+    両方をまとめて取得する。main() ではこちらを使う。
+    """
+    rows = fetch_race_page(race_id, date, no, id_)
+    if not rows:
+        return {}, {}
+    return parse_odds_from_rows(rows), parse_win_odds_by_no_from_rows(rows)
+
+
 # ============================================================
 # JSON 更新
 # ============================================================
-def update_json_odds(json_path: Path, odds_dict: dict) -> bool:
+def update_json_odds(json_path: Path, odds_dict: dict, win_odds_by_no: dict[str, float] | None = None) -> bool:
     """
     既存の JSON ファイルのオッズ戦績を更新する。
+    win_odds_by_no（馬番→単勝オッズ）が渡された場合は、
+    JSON内の betting_formation（馬連BOX3点＋3連複10点）を使って
+    想定オッズ（betting_estimate）も一緒に再計算する。
     戻り値: 更新があった場合 True
     """
     with open(json_path, encoding="utf-8") as f:
@@ -116,6 +189,21 @@ def update_json_odds(json_path: Path, odds_dict: dict) -> bool:
         name = row.get("馬名", "")
         if name in odds_dict:
             row["オッズ戦績"] = odds_dict.get(name, "")
+
+    # 馬連・3連複の想定オッズを再計算
+    # （単勝オッズは土日で何度も動くため、更新のたびに計算し直す。
+    #   ※あくまで単勝オッズから逆算した理論値であり実際の市場オッズではない）
+    formation = data.get("betting_formation")
+    if formation and win_odds_by_no:
+        umaren_combos     = [tuple(c) for c in formation.get("umaren", [])]
+        sanrenpuku_combos = [tuple(c) for c in formation.get("sanrenpuku", [])]
+        new_estimate = estimate_formation(
+            win_odds_by_no, umaren_combos, sanrenpuku_combos,
+            race_shape=data.get("race_shape"),
+        )
+        if new_estimate != data.get("betting_estimate"):
+            data["betting_estimate"] = new_estimate
+            updated = True
 
     if updated:
         # 更新日時を記録
@@ -265,9 +353,9 @@ def main():
             print("  race_id 取得失敗。スキップします")
             continue
 
-        odds_dict = fetch_odds(race_id, date_str, no, id_)
+        odds_dict, win_odds_by_no = fetch_odds_and_win_odds(race_id, date_str, no, id_)
         if odds_dict:
-            if update_json_odds(json_path, odds_dict):
+            if update_json_odds(json_path, odds_dict, win_odds_by_no):
                 total_updated += 1
 
     print(f"\n=== オッズ更新完了: {total_updated}ファイル更新 ===")

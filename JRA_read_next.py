@@ -41,6 +41,7 @@ from workout   import calc_workout_score, get_workout_rank
 from reporting   import predict_pace, calc_gekisou_index, make_comment
 from adjustment  import calc_mishap_bonus, calc_weight_bonus, \
                         get_max_weight, calc_adjusted_index, assign_marks
+from odds_estimate import build_formation
 
 def _calc_total_record(kisyu_text: str) -> str:
     total = [0, 0, 0, 0]
@@ -134,7 +135,7 @@ _rating_mod.parse_race_result = _parse_kichiuma_result
 # ============================================================
 # ★★★ ローカル実行時はここだけ入力する ★★★
 # GitHub Actions では run_schedule.py が自動的に上書きする
-TARGET_RACE = os.environ.get("TARGET_RACE", "セントウルS")
+TARGET_RACE = os.environ.get("TARGET_RACE", "セントライト記念")
 # ★★★★★★★★★★★★★★★★★★★★★★
 
 # ============================================================
@@ -887,6 +888,41 @@ def build_json(race_name: str, horses: list[dict],
     # ---- Step5: 補正後指数で印を付ける ----
     assign_marks(rows)
 
+    # 印がついた時点（＝補正後指数の高い順）の並びで、
+    # 決め打ちフォーメーション（馬連BOX3点＋3連複10点）を確定させる。
+    # ※単勝オッズを使う「想定オッズ」の計算は行わない
+    #   （単勝オッズは土日で何度も動くため、update_odds.py 側で
+    #    オッズ更新のたびに再計算する）
+    ranked_rows = sorted(rows, key=lambda r: -r.get("adjusted_index", 0))
+    ranked_nos  = [str(r["馬番"]) for r in ranked_rows]
+    try:
+        formation = build_formation(ranked_nos)
+        betting_formation = {
+            "umaren"    : [list(c) for c in formation["umaren"]],
+            "sanrenpuku": [list(c) for c in formation["sanrenpuku"]],
+        }
+    except ValueError as e:
+        print(f"[FORMATION] フォーメーション生成スキップ: {e}")
+        betting_formation = {}
+
+    # 「堅い/荒れる」判定：補正後指数1位と6位（3連複フォーメーション3列目の末尾）の
+    # 差を1位の値に対する比率で見る。指数の配点方式（スケール）に依存しないよう、
+    # 絶対値ではなく相対差で判定する。
+    #
+    # ※しきい値(0.35/0.20/0.10)は実績データで検証したものではなく、
+    #   経験則としての初期値。実際の出力を見ながら調整すること。
+    race_shape = {"label": "判定不能", "gap_ratio": None}
+    if len(ranked_rows) >= 6:
+        top1 = ranked_rows[0].get("adjusted_index", 0)
+        top6 = ranked_rows[5].get("adjusted_index", 0)
+        if top1 > 0:
+            gap_ratio = round((top1 - top6) / top1, 3)
+            if   gap_ratio >= 0.35: label = "堅い"
+            elif gap_ratio >= 0.20: label = "やや堅い"
+            elif gap_ratio >= 0.10: label = "やや荒れる"
+            else:                   label = "荒れる"
+            race_shape = {"label": label, "gap_ratio": gap_ratio}
+
     # 馬番順に戻す
     rows.sort(key=lambda r: r["馬番"])
 
@@ -931,6 +967,8 @@ def build_json(race_name: str, horses: list[dict],
         "summary"  : summary_rows,
         "rawdata"  : [rawdata.get(r["馬名"], {}) | {"馬名": r["馬名"]} for r in rows],
         "workdata" : work,
+        "betting_formation": betting_formation,
+        "race_shape": race_shape,
     }
 
 
