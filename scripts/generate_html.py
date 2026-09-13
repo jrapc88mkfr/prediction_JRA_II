@@ -36,6 +36,14 @@ PUBLIC_DIR = os.path.join(BASE, "public")
 
 env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
 
+# race_shape.label（日本語）→ CSSクラス名に使える英字スラッグへの変換
+SHAPE_CLASS = {
+    "堅い"    : "kata",
+    "やや堅い" : "yaya-kata",
+    "やや荒れる": "yaya-are",
+    "荒れる"   : "are",
+}
+
 
 def load_json(path):
     with open(path, encoding="utf-8") as f:
@@ -96,11 +104,14 @@ def build_all():
             race_no=race.get("race_no"),
             has_result=bool(result and result.get("confirmed")),
             bet=None,
+            race_shape=race.get("race_shape"),
+            race_shape_class=SHAPE_CLASS.get((race.get("race_shape") or {}).get("label"), ""),
+            betting_estimate=race.get("betting_estimate"),
         ))
         status = "確定" if manifest[-1]["has_result"] else "予想"
         print(f"  - {stem}.html ({status})")
 
-        bet = evaluate_race_bet(horses, result)
+        bet = evaluate_race_bet(horses, result, race)
         if bet:
             manifest[-1]["bet"] = bet
             bet_rows.append(dict(

@@ -127,36 +127,50 @@ def _yen(text):
     return int(m.group(1).replace(",", ""))
 
 
-def evaluate_race_bet(horses: list[dict], result: dict | None) -> dict | None:
+def evaluate_race_bet(horses: list[dict], result: dict | None, race: dict | None = None) -> dict | None:
     """1レース分の馬連BOX+3連複フォーメーションの的中判定・収支を計算する。
-    result が未確定/Noneなら None を返す。"""
+    result が未確定/Noneなら None を返す。
+
+    race（JSON全体）が渡され、かつ race["betting_formation"] があれば、
+    JRA_read_next.py が予想生成時に確定させた買い目をそのまま使う
+    （的中判定と、想定オッズ表示（betting_estimate）を同じ買い目基準で揃えるため）。
+    betting_formation が無い過去のレースJSON（本機能追加前に生成されたもの）は、
+    従来通り horses の index からその場で再計算するフォールバックを維持する。
+    """
     if not result or not result.get("confirmed"):
         return None
     top3 = result.get("top3") or []
     if len(top3) < 3:
         return None
 
-    ranked = sorted(
-        [h for h in horses if h.get("index") is not None],
-        key=lambda h: h["index"], reverse=True,
-    )
-    if len(ranked) < 6:
-        return None  # 頭数が少なすぎてフォーメーションが組めない
+    formation = (race or {}).get("betting_formation")
+    if formation and formation.get("umaren") and formation.get("sanrenpuku"):
+        # 馬番は betting_formation 内では文字列("2"等)、result.top3 内ではint(2等)なので
+        # 突き合わせのため int に揃える
+        umaren_combos = {frozenset(int(x) for x in c) for c in formation["umaren"]}
+        sanrenpuku_combos = {frozenset(int(x) for x in c) for c in formation["sanrenpuku"]}
+    else:
+        ranked = sorted(
+            [h for h in horses if h.get("index") is not None],
+            key=lambda h: h["index"], reverse=True,
+        )
+        if len(ranked) < 6:
+            return None  # 頭数が少なすぎてフォーメーションが組めない
 
-    nos = [h["no"] for h in ranked]
-    col_umaren = nos[0:3]                      # ◎○▲
-    col1, col2, col3 = nos[0:2], nos[0:3], nos[0:6]  # ◎○ / ◎○▲ / ◎○▲△☆1☆2
+        nos = [h["no"] for h in ranked]
+        col_umaren = nos[0:3]                      # ◎○▲
+        col1, col2, col3 = nos[0:2], nos[0:3], nos[0:6]  # ◎○ / ◎○▲ / ◎○▲△☆1☆2
 
-    umaren_combos = {frozenset(c) for c in combinations(col_umaren, 2)}
-    sanrenpuku_combos = set()
-    for x in col1:
-        for y in col2:
-            if y == x:
-                continue
-            for z in col3:
-                if z == x or z == y:
+        umaren_combos = {frozenset(c) for c in combinations(col_umaren, 2)}
+        sanrenpuku_combos = set()
+        for x in col1:
+            for y in col2:
+                if y == x:
                     continue
-                sanrenpuku_combos.add(frozenset((x, y, z)))
+                for z in col3:
+                    if z == x or z == y:
+                        continue
+                    sanrenpuku_combos.add(frozenset((x, y, z)))
 
     actual_1_2 = frozenset({top3[0]["no"], top3[1]["no"]})
     actual_top3 = frozenset({top3[0]["no"], top3[1]["no"], top3[2]["no"]})
