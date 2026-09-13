@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T08:02:09",
+  "generated_at": "2026-09-13T09:13:28",
   "races": [
     {
       "file": "races/260913_阪神_ローズステークス.html",
@@ -9,7 +9,10 @@
       "race_name": "ローズステークス",
       "race_no": "11",
       "has_result": false,
-      "bet": null
+      "bet": null,
+      "race_shape": null,
+      "race_shape_class": "",
+      "betting_estimate": null
     },
     {
       "file": "races/260913_中山_セントライト記念.html",
@@ -19,7 +22,10 @@
       "race_name": "セントライト記念",
       "race_no": "11",
       "has_result": false,
-      "bet": null
+      "bet": null,
+      "race_shape": null,
+      "race_shape_class": "",
+      "betting_estimate": null
     },
     {
       "file": "races/260906_阪神_セントウルS.html",
@@ -38,7 +44,10 @@
         "sanrenpuku_pay": 0,
         "payout": 0,
         "win": false
-      }
+      },
+      "race_shape": null,
+      "race_shape_class": "",
+      "betting_estimate": null
     },
     {
       "file": "races/260830_新潟_新潟記念.html",
@@ -57,7 +66,10 @@
         "sanrenpuku_pay": 810,
         "payout": 810,
         "win": true
-      }
+      },
+      "race_shape": null,
+      "race_shape_class": "",
+      "betting_estimate": null
     },
     {
       "file": "races/260823_札幌_キーンランドC.html",
@@ -76,7 +88,10 @@
         "sanrenpuku_pay": 0,
         "payout": 0,
         "win": false
-      }
+      },
+      "race_shape": null,
+      "race_shape_class": "",
+      "betting_estimate": null
     },
     {
       "file": "races/260816_札幌_札幌記念.html",
@@ -95,7 +110,10 @@
         "sanrenpuku_pay": 0,
         "payout": 0,
         "win": false
-      }
+      },
+      "race_shape": null,
+      "race_shape_class": "",
+      "betting_estimate": null
     },
     {
       "file": "races/260816_中京_中京記念.html",
@@ -114,7 +132,10 @@
         "sanrenpuku_pay": 0,
         "payout": 0,
         "win": false
-      }
+      },
+      "race_shape": null,
+      "race_shape_class": "",
+      "betting_estimate": null
     }
   ]
 }
