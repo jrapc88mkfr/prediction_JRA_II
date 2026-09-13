@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T13:01:56",
+  "generated_at": "2026-09-13T13:16:29",
   "races": [
     {
       "file": "races/260913_阪神_ローズステークス.html",
@@ -8,8 +8,17 @@
       "venue": "阪神",
       "race_name": "ローズステークス",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": null,
       "race_shape_class": "",
       "betting_estimate": null
@@ -21,8 +30,17 @@
       "venue": "中山",
       "race_name": "セントライト記念",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": null,
       "race_shape_class": "",
       "betting_estimate": null
@@ -147,8 +165,17 @@
       "venue": "札幌",
       "race_name": "クイーンS",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.127
@@ -163,8 +190,17 @@
       "venue": "小倉",
       "race_name": "北九州記念",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "荒れる",
         "gap_ratio": 0.096
