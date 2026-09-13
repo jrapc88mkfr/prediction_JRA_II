@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T12:49:17",
+  "generated_at": "2026-09-13T12:59:54",
   "races": [
     {
       "file": "races/260913_阪神_ローズステークス.html",
@@ -135,6 +135,22 @@
       },
       "race_shape": null,
       "race_shape_class": "",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/260802_札幌_クイーンS.html",
+      "stem": "260802_札幌_クイーンS",
+      "date": "2026/8/2",
+      "venue": "札幌",
+      "race_name": "クイーンS",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.127
+      },
+      "race_shape_class": "yaya-are",
       "betting_estimate": null
     }
   ]
