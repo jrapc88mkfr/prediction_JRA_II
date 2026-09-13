@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T21:54:24",
+  "generated_at": "2026-09-13T21:55:06",
   "races": [
     {
       "file": "races/260913_阪神_ローズステークス.html",
@@ -65,6 +65,31 @@
       },
       "race_shape": null,
       "race_shape_class": "",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/260830_新潟_新潟記念.html",
+      "stem": "260830_新潟_新潟記念",
+      "date": "2026/8/30",
+      "venue": "新潟",
+      "race_name": "新潟記念",
+      "race_no": "8",
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": true,
+        "umaren_pay": 930,
+        "sanrenpuku_hit": true,
+        "sanrenpuku_pay": 810,
+        "payout": 1740,
+        "win": true
+      },
+      "race_shape": {
+        "label": "やや堅い",
+        "gap_ratio": 0.273
+      },
+      "race_shape_class": "yaya-kata",
       "betting_estimate": null
     },
     {
