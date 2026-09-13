@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-13T13:01:00",
+  "generated_at": "2026-09-13T13:01:56",
   "races": [
     {
       "file": "races/260913_阪神_ローズステークス.html",
@@ -154,6 +154,22 @@
         "gap_ratio": 0.127
       },
       "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/260705_小倉_北九州記念.html",
+      "stem": "260705_小倉_北九州記念",
+      "date": "2026/7/5",
+      "venue": "小倉",
+      "race_name": "北九州記念",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "荒れる",
+        "gap_ratio": 0.096
+      },
+      "race_shape_class": "are",
       "betting_estimate": null
     }
   ]
