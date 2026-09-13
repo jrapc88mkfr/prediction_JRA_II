@@ -13,12 +13,27 @@
     <span class="race-title" style="color:var(--c13-lav); font-size:0.85rem;">更新: {{ generated_at }}</span>
   </div>
 
+  <p class="footer-help" style="text-align:left; padding:8px 12px;">
+    バッジ（堅い/やや堅い/やや荒れる/荒れる）は補正後指数1位と6位の差から見た決着の割れやすさの目安。
+    「想定」は3連複フォーメーション10点の想定平均オッズ（単勝オッズからのHarville法による理論値）。
+    「期待値」はそこにバッジ別の想定的中率（参考値・実績未検証）を掛けた参考値で、いずれも実際の市場オッズ・的中率を保証するものではありません。
+  </p>
+
   <div class="horse-list">
     {% for r in races %}
     <a class="grid-row idx-row {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}" href="races/{{ r.stem }}.html">
       <span class="idx-date">{{ r.date }}</span>
       <span class="idx-venue">{{ r.venue }}{% if r.race_no %} {{ r.race_no }}R{% endif %}</span>
       <span class="idx-name">{{ r.race_name }}</span>
+      {% if r.race_shape and r.race_shape.label and r.race_shape.label != '判定不能' %}
+      <span class="idx-shape shape-{{ r.race_shape_class }}">{{ r.race_shape.label }}</span>
+      {% endif %}
+      {% if r.betting_estimate and r.betting_estimate.sanrenpuku_avg %}
+      <span class="idx-estodds">
+        想定{{ r.betting_estimate.sanrenpuku_avg }}倍
+        {% if r.betting_estimate.expected_value %}／期待値{{ r.betting_estimate.expected_value }}倍{% endif %}
+      </span>
+      {% endif %}
       <span class="idx-badge {{ 'badge-confirmed' if r.has_result else 'badge-pending' }}">
         {{ '確定' if r.has_result else '予想' }}
       </span>

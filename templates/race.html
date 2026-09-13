@@ -59,6 +59,72 @@
       <p class="pace-body">{{ pace_forecast }}</p>
     </section>
 
+    {% if race.betting_formation and race.betting_formation.sanrenpuku %}
+    <section class="bet-panel">
+      <p class="bet-title">
+        買い目予想（想定）
+        {% if race.race_shape and race.race_shape.label and race.race_shape.label != '判定不能' %}
+        <span class="idx-shape shape-{{ race.race_shape_class }}">{{ race.race_shape.label }}</span>
+        {% endif %}
+      </p>
+      {% if race.race_shape and race.race_shape.label and race.race_shape.label != '判定不能' %}
+      <p class="bet-explain">
+        「堅い/やや堅い/やや荒れる/荒れる」は、補正後指数1位と6位の差を1位の値に対する比率で見た目安です。
+        差が大きいほど上位馬の地力差が大きく「堅い」決着になりやすく、差が小さいほど上位が入れ替わりやすい
+        「荒れる」レースと判定しています（しきい値は経験則の初期値で、実績データによる検証はまだ行っていません）。
+      </p>
+      {% endif %}
+
+      <div class="bet-group">
+        <p class="bet-group-title">馬連BOX（補正指数1〜3位）　{{ race.betting_formation.umaren|length }}点</p>
+        <div class="bet-grid">
+          {% for combo in race.betting_formation.umaren %}
+          <span class="bet-chip">
+            {{ combo|join('-') }}
+            {% if race.betting_estimate and race.betting_estimate.umaren %}
+            <b class="c-yellow">{{ race.betting_estimate.umaren.get(combo|join('-'), '-') }}</b>
+            {% endif %}
+          </span>
+          {% endfor %}
+        </div>
+        {% if race.betting_estimate and race.betting_estimate.umaren_avg %}
+        <p class="bet-avg">想定平均：<b class="c-green">{{ race.betting_estimate.umaren_avg }}倍</b></p>
+        {% endif %}
+      </div>
+
+      <div class="bet-group">
+        <p class="bet-group-title">3連複フォーメーション（1列目1-2位／2列目1-3位／3列目1-6位）　{{ race.betting_formation.sanrenpuku|length }}点</p>
+        <div class="bet-grid">
+          {% for combo in race.betting_formation.sanrenpuku %}
+          <span class="bet-chip">
+            {{ combo|join('-') }}
+            {% if race.betting_estimate and race.betting_estimate.sanrenpuku %}
+            <b class="c-yellow">{{ race.betting_estimate.sanrenpuku.get(combo|join('-'), '-') }}</b>
+            {% endif %}
+          </span>
+          {% endfor %}
+        </div>
+        {% if race.betting_estimate and race.betting_estimate.sanrenpuku_avg %}
+        <p class="bet-avg">
+          3連複10点の想定平均：<b class="c-green">{{ race.betting_estimate.sanrenpuku_avg }}倍</b>
+          {% if race.betting_estimate.expected_value %}
+          　想定期待値：<b class="c-orange">{{ race.betting_estimate.expected_value }}倍</b>
+          {% endif %}
+        </p>
+        <p class="bet-explain">
+          「3連複10点の想定平均」は、この10点それぞれの想定オッズ（単勝オッズからの理論値）を単純平均した値です。
+          {% if race.betting_estimate.expected_value %}
+          「想定期待値」は、そこに「{{ race.race_shape.label }}」ラベルに対応する想定的中率（参考値：{{ (race.betting_estimate.assumed_hit_rate * 100)|round(0) }}%）を掛けたものです。
+          この的中率は指数のばらつきから仮に置いた経験則で、実績データによる検証はまだ行っていません。目安としてご覧ください。
+          {% endif %}
+        </p>
+        {% endif %}
+      </div>
+
+      <p class="bet-note">※単勝オッズから逆算した理論値（Harville法）。実際の市場オッズとは異なる場合があります。</p>
+    </section>
+    {% endif %}
+
     <section class="result-panel">
       <p class="rp-title">レース結果</p>
       {% if result and result.confirmed %}
