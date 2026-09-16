@@ -22,28 +22,30 @@
   <div class="horse-list">
     {% for r in races %}
     <a class="grid-row idx-row {{ 'h-odd' if loop.index0 % 2 == 0 else 'h-even' }}" href="races/{{ r.stem }}.html">
-      <span class="idx-date">{{ r.date }}</span>
-      <span class="idx-venue">{{ r.venue }}{% if r.race_no %} {{ r.race_no }}R{% endif %}</span>
-      <span class="idx-name">{{ r.race_name }}</span>
-      {% if r.race_shape and r.race_shape.label and r.race_shape.label != '判定不能' %}
-      <span class="idx-shape shape-{{ r.race_shape_class }}">{{ r.race_shape.label }}</span>
-      {% endif %}
-      {% if r.betting_estimate and r.betting_estimate.sanrenpuku_avg %}
-      <span class="idx-estodds">
-        想定{{ r.betting_estimate.sanrenpuku_avg }}倍
-        {% if r.betting_estimate.expected_value %}／期待値{{ r.betting_estimate.expected_value }}倍{% endif %}
-      </span>
-      {% endif %}
-      <span class="idx-badge {{ 'badge-confirmed' if r.has_result else 'badge-pending' }}">
-        {{ '確定' if r.has_result else '予想' }}
-      </span>
-      {% if r.bet %}
-      <span class="idx-bet {{ 'c-yellow' if r.bet.win else 'c-red' }}">
-        {{ '勝' if r.bet.win else '敗' }}{% if r.bet.win %}・{{ '{:,}'.format(r.bet.payout) }}円{% endif %}
-      </span>
-      {% else %}
-      <span class="idx-bet"></span>
-      {% endif %}
+      <div class="idx-line1">
+        <span class="idx-date">{{ r.date }}</span>
+        <span class="idx-venue">{{ r.venue }}{% if r.race_no %} {{ r.race_no }}R{% endif %}</span>
+        <span class="idx-name">{{ r.race_name }}</span>
+      </div>
+      <div class="idx-line2">
+        {% if r.race_shape and r.race_shape.label and r.race_shape.label != '判定不能' %}
+        <span class="idx-shape shape-{{ r.race_shape_class }}">{{ r.race_shape.label }}</span>
+        {% endif %}
+        {% if r.betting_estimate and r.betting_estimate.sanrenpuku_avg %}
+        <span class="idx-estodds">
+          想定{{ r.betting_estimate.sanrenpuku_avg }}倍
+          {% if r.betting_estimate.expected_value %}／期待値{{ r.betting_estimate.expected_value }}倍{% endif %}
+        </span>
+        {% endif %}
+        <span class="idx-badge {{ 'badge-confirmed' if r.has_result else 'badge-pending' }}">
+          {{ '確定' if r.has_result else '予想' }}
+        </span>
+        {% if r.bet %}
+        <span class="idx-bet {{ 'c-yellow' if r.bet.win else 'c-red' }}">
+          {{ '勝' if r.bet.win else '敗' }}{% if r.bet.win %}・{{ '{:,}'.format(r.bet.payout) }}円{% endif %}
+        </span>
+        {% endif %}
+      </div>
     </a>
     {% endfor %}
     {% if not races %}
