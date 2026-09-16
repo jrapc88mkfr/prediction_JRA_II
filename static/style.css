@@ -231,14 +231,21 @@ html, body {
 
 /* ============ index.html（レース一覧）============ */
 .grid-row.idx-row {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; flex-direction: column; align-items: stretch; gap: 6px;
   padding: 12px 14px; text-decoration: none; color: inherit;
   font-family: var(--font-ui);
+}
+.idx-line1 {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: nowrap; min-width: 0;
+}
+.idx-line2 {
+  display: flex; align-items: center; gap: 8px;
   flex-wrap: wrap;
 }
-.idx-date { color: var(--c13-lav); font-size: 0.85rem; font-family: var(--font-pixel); white-space: nowrap; }
+.idx-date { color: var(--c6-ltgray); font-size: 0.85rem; font-family: var(--font-pixel); white-space: nowrap; }
 .idx-venue { color: var(--c6-ltgray); font-size: 0.85rem; white-space: nowrap; }
-.idx-name { flex: 1; min-width: 100px; color: var(--c7-white); font-size: 1rem; }
+.idx-name { flex: 1; min-width: 0; color: var(--c7-white); font-size: 1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .idx-badge {
   font-family: var(--font-pixel); font-size: 0.78rem;
   padding: 3px 10px; border-radius: 3px; white-space: nowrap;
