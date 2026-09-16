@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T12:16:35",
+  "generated_at": "2026-09-16T12:17:06",
   "races": [
     {
       "file": "races/260913_阪神_ローズステークス.html",
@@ -19,9 +19,34 @@
         "payout": 0,
         "win": false
       },
-      "race_shape": null,
-      "race_shape_class": "",
-      "betting_estimate": null
+      "race_shape": {
+        "label": "荒れる",
+        "gap_ratio": 0.078
+      },
+      "race_shape_class": "are",
+      "betting_estimate": {
+        "umaren": {
+          "9-4": 6784,
+          "9-12": 237,
+          "4-12": 1367
+        },
+        "umaren_avg": 2796,
+        "sanrenpuku": {
+          "9-4-12": 22907,
+          "9-4-5": 140987,
+          "9-4-6": 12206,
+          "9-4-7": 2745,
+          "9-12-5": 4696,
+          "9-12-6": 406,
+          "9-12-7": 90,
+          "4-12-5": 27362,
+          "4-12-6": 2366,
+          "4-12-7": 526
+        },
+        "sanrenpuku_avg": 21429,
+        "assumed_hit_rate": 0.18,
+        "expected_value": 3857
+      }
     },
     {
       "file": "races/260913_中山_セントライト記念.html",
@@ -41,9 +66,34 @@
         "payout": 0,
         "win": false
       },
-      "race_shape": null,
-      "race_shape_class": "",
-      "betting_estimate": null
+      "race_shape": {
+        "label": "荒れる",
+        "gap_ratio": 0.098
+      },
+      "race_shape_class": "are",
+      "betting_estimate": {
+        "umaren": {
+          "9-2": 49,
+          "9-4": 182,
+          "2-4": 288
+        },
+        "umaren_avg": 173,
+        "sanrenpuku": {
+          "9-2-4": 748,
+          "9-2-5": 76,
+          "9-2-6": 70,
+          "9-2-10": 79,
+          "9-4-5": 288,
+          "9-4-6": 267,
+          "9-4-10": 302,
+          "2-4-5": 466,
+          "2-4-6": 432,
+          "2-4-10": 489
+        },
+        "sanrenpuku_avg": 322,
+        "assumed_hit_rate": 0.18,
+        "expected_value": 58
+      }
     },
     {
       "file": "races/260906_阪神_セントウルS.html",
