@@ -673,8 +673,8 @@
       "venue": "中山",
       "race_no": "11",
       "work_slug": "st-lite-kinen",
-      "active": true,
-      "memo": ""
+      "active": false,
+      "memo": "処理済み"
     },
     {
       "race_name": "ローズステークス",
@@ -682,8 +682,8 @@
       "venue": "阪神",
       "race_no": "11",
       "work_slug": "rose-stakes",
-      "active": true,
-      "memo": ""
+      "active": false,
+      "memo": "処理済み"
     },
     {
       "race_name": "阪神ジャンプステークス",
@@ -691,7 +691,7 @@
       "venue": "阪神",
       "race_no": "11",
       "work_slug": "hanshin-jump-stakes",
-      "active": false,
+      "active": true,
       "memo": ""
     },
     {
@@ -700,7 +700,7 @@
       "venue": "中山",
       "race_no": "11",
       "work_slug": "all-comers",
-      "active": false,
+      "active": true,
       "memo": ""
     },
     {
@@ -709,7 +709,7 @@
       "venue": "阪神",
       "race_no": "11",
       "work_slug": "kobe-shimbun-hai",
-      "active": false,
+      "active": true,
       "memo": ""
     },
     {
