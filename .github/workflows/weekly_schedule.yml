@@ -1,8 +1,8 @@
-name: 週ごとのレース更新日曜12時
+name: 週ごとのレース更新毎週水曜12時
 
 on:
   schedule:
-    - cron: "0 15 * * 0"   # 毎週日曜 24:00 JST (=翌月曜 00:00 JST / 15:00 UTC 日曜)
+    - cron: "0 3 * * 3"   # 毎週水曜 12:00 JST (=03:00 UTC 水曜)    
   workflow_dispatch: {}
 
 permissions:
