@@ -1,8 +1,10 @@
 """
 3ハロンVII - schedule.json 自動アクティブ化スクリプト
 
-・「次の日曜日（今日が日曜ならその日）」の日付に一致するレースを active:true にする
+・「次の土曜日〜月曜日」（今日が土日月ならその週の対応する日を含む）の日付に
+  一致するレースを active:true にする
   → run_schedule.py が拾って JRA_read_next.py による予想生成の対象にする
+  （JRAは基本土日開催だが、祝日月曜に開催されるレースもあるため月曜まで含める）
 ・すでに active:true だが日付が過去になっているレース（前週分の消し忘れ）は
   active:false, memo:"処理済み" に戻す
 
@@ -30,6 +32,18 @@ def next_target_sunday(today=None):
     return today + datetime.timedelta(days=days_ahead)
 
 
+def target_weekend_dates(today=None):
+    """
+    次の土曜日〜月曜日（今日が土日月ならその週の対応する日を含む）の日付集合を返す。
+    JRAは基本土日開催だが、祝日月曜に開催されるレースもあるため月曜まで含める。
+    next_target_sunday() を基準に ±1日した3日間。
+    """
+    sunday = next_target_sunday(today)
+    saturday = sunday - datetime.timedelta(days=1)
+    monday = sunday + datetime.timedelta(days=1)
+    return {saturday, sunday, monday}
+
+
 def main():
     if not os.path.exists(SCHEDULE_PATH):
         print(f"[警告] {SCHEDULE_PATH} が見つかりません。")
@@ -39,8 +53,9 @@ def main():
         schedule = json.load(f)
 
     today = datetime.date.today()
-    target = next_target_sunday(today)
-    print(f"今日: {today}  対象日(今週末): {target}")
+    targets = target_weekend_dates(today)
+    sat, sun, mon = sorted(targets)
+    print(f"今日: {today}  対象期間: {sat}(土)〜{mon}(月)")
 
     activated, deactivated = [], []
     for race in schedule.get("races", []):
@@ -48,7 +63,7 @@ def main():
         if d is None:
             continue
 
-        if d == target:
+        if d in targets:
             if not race.get("active"):
                 activated.append(race["race_name"])
             race["active"] = True
@@ -65,7 +80,7 @@ def main():
     if activated:
         print("active:true にしたレース: " + ", ".join(activated))
     else:
-        print(f"{target} に該当するレースはありませんでした（開催なし週の可能性）。")
+        print(f"{sat}〜{mon} に該当するレースはありませんでした（開催なし週の可能性）。")
     if deactivated:
         print("処理済みに戻したレース: " + ", ".join(deactivated))
 
