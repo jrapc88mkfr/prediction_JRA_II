@@ -11,7 +11,8 @@ name: 競馬予想データ自動生成
 
 on:
   schedule:
-    - cron: "30 22 * * 5"   # 毎週土曜 7:30 JST（金曜UTC22:30）
+    - cron: "30 22 * * 5"   # 土曜 7:30 JST
+    - cron: "0 16 * * 5"    # 土曜 1:00 JST（= 金曜16:00 UTC）
   workflow_dispatch:          # 手動実行ボタン（テスト用）
     inputs:
       race_name:
