@@ -26,10 +26,14 @@ jobs:
 
     steps:
       # 1. リポジトリをチェックアウト
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+      #   with:
+      #     token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # 2. Python セットアップ
       - name: Set up Python
@@ -52,8 +56,11 @@ jobs:
 
       # 5. 生成した JSON と schedule.json をコミット・プッシュ
       - name: Commit and push
+        # env:
+        #   GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
