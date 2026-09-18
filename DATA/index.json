@@ -1,6 +1,54 @@
 {
-  "generated_at": "2026-09-18T12:47:03",
+  "generated_at": "2026-09-18T23:23:54",
   "races": [
+    {
+      "file": "races/260921_阪神_神戸新聞杯.html",
+      "stem": "260921_阪神_神戸新聞杯",
+      "date": "2026/9/21",
+      "venue": "阪神",
+      "race_name": "神戸新聞杯",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.196
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/260920_中山_オールカマー.html",
+      "stem": "260920_中山_オールカマー",
+      "date": "2026/9/20",
+      "venue": "中山",
+      "race_name": "オールカマー",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.167
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/260919_阪神_阪神ジャンプステークス.html",
+      "stem": "260919_阪神_阪神ジャンプステークス",
+      "date": "2026/9/19",
+      "venue": "阪神",
+      "race_name": "阪神ジャンプステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.191
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
     {
       "file": "races/260913_阪神_ローズステークス.html",
       "stem": "260913_阪神_ローズステークス",
