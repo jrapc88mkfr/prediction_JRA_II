@@ -44,6 +44,9 @@ jobs:
       - name: Update odds
         run: python update_odds.py
 
+      - name: Regenerate HTML
+        run: python scripts/generate_html.py
+
       - name: Commit and push
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
