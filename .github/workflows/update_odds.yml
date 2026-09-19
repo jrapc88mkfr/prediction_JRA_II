@@ -9,7 +9,6 @@
 #   日曜  8:00 → cron: "0 23 * * 6"  (土曜UTC23時)
 #   日曜 12:00 → cron: "0  3 * * 0"  (日曜UTC3時)
 #   日曜 15:00 → cron: "0  6 * * 0"  (日曜UTC6時)
-
 name: オッズ更新
 
 on:
@@ -43,6 +42,9 @@ jobs:
 
       - name: Update odds
         run: python update_odds.py
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 jinja2
 
       - name: Regenerate HTML
         run: python scripts/generate_html.py
