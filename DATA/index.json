@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T08:55:33",
+  "generated_at": "2026-09-19T11:42:10",
   "races": [
     {
       "file": "races/260921_阪神_神戸新聞杯.html",
@@ -39,37 +39,15 @@
       "date": "2026/9/19",
       "venue": "阪神",
       "race_name": "阪神ジャンプステークス",
-      "race_no": "11",
+      "race_no": "4",
       "has_result": false,
       "bet": null,
       "race_shape": {
-        "label": "やや荒れる",
-        "gap_ratio": 0.191
+        "label": "荒れる",
+        "gap_ratio": 0.048
       },
-      "race_shape_class": "yaya-are",
-      "betting_estimate": {
-        "umaren": {
-          "4-7": 21,
-          "4-9": 14,
-          "7-9": 55
-        },
-        "umaren_avg": 30,
-        "sanrenpuku": {
-          "4-7-9": 52,
-          "4-7-15": 9.8,
-          "4-7-8": 142,
-          "4-9-15": 6.4,
-          "4-5-7": 214,
-          "4-5-9": 139,
-          "4-8-9": 92,
-          "7-9-15": 29,
-          "7-8-9": 406,
-          "5-7-9": 614
-        },
-        "sanrenpuku_avg": 170,
-        "assumed_hit_rate": 0.28,
-        "expected_value": 48
-      }
+      "race_shape_class": "are",
+      "betting_estimate": null
     },
     {
       "file": "races/260913_阪神_ローズステークス.html",
