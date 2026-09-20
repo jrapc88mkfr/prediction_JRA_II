@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T08:19:46",
+  "generated_at": "2026-09-20T10:37:53",
   "races": [
     {
       "file": "races/260921_阪神_神戸新聞杯.html",
@@ -17,26 +17,26 @@
       "race_shape_class": "yaya-are",
       "betting_estimate": {
         "umaren": {
-          "4-11": 390,
-          "5-11": 1293,
-          "4-5": 871
+          "4-11": 387,
+          "5-11": 1287,
+          "4-5": 859
         },
-        "umaren_avg": 852,
+        "umaren_avg": 844,
         "sanrenpuku": {
-          "4-5-11": 10454,
-          "4-5-7": 4712,
-          "4-5-6": 12558,
-          "4-7-11": 2096,
-          "4-6-11": 5586,
-          "5-7-11": 7042,
-          "5-6-11": 18768,
-          "1-4-11": 48,
-          "1-4-5": 108,
-          "1-5-11": 163
+          "4-5-11": 10314,
+          "4-5-7": 4646,
+          "4-5-6": 12226,
+          "4-7-11": 2078,
+          "4-6-11": 5468,
+          "5-7-11": 7003,
+          "5-6-11": 18427,
+          "1-4-11": 49,
+          "1-4-5": 110,
+          "1-5-11": 167
         },
-        "sanrenpuku_avg": 6154,
+        "sanrenpuku_avg": 6049,
         "assumed_hit_rate": 0.28,
-        "expected_value": 1723
+        "expected_value": 1694
       }
     },
     {
@@ -46,8 +46,17 @@
       "venue": "中山",
       "race_name": "オールカマー",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.167
