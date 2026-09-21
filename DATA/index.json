@@ -1,6 +1,38 @@
 {
-  "generated_at": "2026-09-21T06:00:07",
+  "generated_at": "2026-09-21T22:36:09",
   "races": [
+    {
+      "file": "races/260922_中山_Mディープインパクト.html",
+      "stem": "260922_中山_Mディープインパクト",
+      "date": "2026/9/22",
+      "venue": "中山",
+      "race_name": "Mディープインパクト",
+      "race_no": "10",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや堅い",
+        "gap_ratio": 0.204
+      },
+      "race_shape_class": "yaya-kata",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/260922_中山_JRAアニバーサリー.html",
+      "stem": "260922_中山_JRAアニバーサリー",
+      "date": "2026/9/22",
+      "venue": "中山",
+      "race_name": "JRAアニバーサリー",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "堅い",
+        "gap_ratio": 0.378
+      },
+      "race_shape_class": "kata",
+      "betting_estimate": null
+    },
     {
       "file": "races/260921_阪神_神戸新聞杯.html",
       "stem": "260921_阪神_神戸新聞杯",
@@ -8,8 +40,17 @@
       "venue": "阪神",
       "race_name": "神戸新聞杯",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.196
