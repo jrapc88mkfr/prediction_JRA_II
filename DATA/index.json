@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T23:59:54",
+  "generated_at": "2026-09-21T05:59:55",
   "races": [
     {
       "file": "races/260921_阪神_神戸新聞杯.html",
@@ -15,7 +15,29 @@
         "gap_ratio": 0.196
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "1-5": 28,
+          "1-7": 7.1,
+          "5-7": 430
+        },
+        "umaren_avg": 155,
+        "sanrenpuku": {
+          "1-5-7": 82,
+          "1-5-10": 215,
+          "1-5-9": 45,
+          "1-7-10": 52,
+          "1-7-9": 11,
+          "1-4-5": 76,
+          "1-4-7": 18,
+          "5-7-10": 5559,
+          "5-7-9": 1204,
+          "4-5-7": 2005
+        },
+        "sanrenpuku_avg": 927,
+        "assumed_hit_rate": 0.28,
+        "expected_value": 260
+      }
     },
     {
       "file": "races/260920_中山_オールカマー.html",
