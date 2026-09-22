@@ -55,6 +55,19 @@ def dash(v):
     return v if v not in (None, "") else "-"
 
 
+def signed(v):
+    """能力指数以外の補正値の短縮表示。正数には+を付け、0はそのまま「0」、
+    Noneは「-」にする（設計書Ver.03 8.1.10の「正数には+を付ける」に準拠）。"""
+    if v is None:
+        return "-"
+    n = _to_num(v)
+    if n is None:
+        return "-"
+    if n == int(n):
+        n = int(n)
+    return f"+{n}" if n > 0 else f"{n}"
+
+
 def build_horses(race: dict) -> list[dict]:
     """race JSON (pyxel/summary/rawdata) -> テンプレートに渡す馬リスト"""
     summary_map = {s["馬名"]: s for s in race.get("summary", [])}
@@ -70,11 +83,38 @@ def build_horses(race: dict) -> list[dict]:
         no = h.get("馬番")
         name = h.get("馬名")
 
-        # 指数は「補正後指数」を正とする（印(◎○▲…)はこの値の順位で付与されているため）
+        # 指数は「総合指数」(summary側キー名は補正後指数のまま)を正とする
+        # （印(◎○▲…)はこの値の順位で付与されているため）
         s_rec = summary_map.get(name, {})
         idx = _to_num(s_rec.get("補正後指数"))
         if idx is None:
             idx = _to_num(h.get("総合指数"))
+
+        # ---- 総合指数の内訳（設計書Ver.03: 能力指数+トレンド+しくじり+斤量+激走）----
+        # トレンド(上昇下降度)は summary ではなく pyxel 側にしか無いのでそちらから取る。
+        # 激走は summary["激走指数"] が実体としてはレース内最大値10点で正規化済みの値
+        # （JRA_read_next.py 内の命名ゆれ。設計書でいう「激走補正」に相当する）。
+        ability_val = _to_num(s_rec.get("能力指数"))
+        trend_val   = _to_num(h.get("上昇下降度"))
+        mishap_val  = _to_num(s_rec.get("しくじり補正"))
+        weight_val  = _to_num(s_rec.get("斤量補正"))
+        gekisou_val = _to_num(s_rec.get("激走指数"))
+        breakdown = dict(
+            ability=ability_val,
+            ability_disp=(str(round(ability_val)) if ability_val is not None else "-"),
+            trend=trend_val, trend_disp=signed(trend_val),
+            mishap=mishap_val, mishap_disp=signed(mishap_val),
+            weight=weight_val, weight_disp=signed(weight_val),
+            gekisou=gekisou_val, gekisou_disp=signed(gekisou_val),
+            total=idx,
+            total_disp=(str(round(idx)) if idx is not None else "-"),
+        )
+
+        # 総合指数の色は「馬印(◎○▲△☆)」の色に合わせて目立たせる。
+        # 印なしの馬は従来通りスコア基準の色（score_class）にフォールバック。
+        mark = h.get("印") or ""
+        mark_cls = MARK_CLASS.get(mark, "c-muted")
+        idx_class = mark_cls if mark else score_class(idx)
 
         bar_px = 2
         if idx is not None:
@@ -89,7 +129,7 @@ def build_horses(race: dict) -> list[dict]:
             record=f"（{record}）" if record else "",
             sex=h.get("性齢"), weight=h.get("斤量"),
             jockey=h.get("騎手"), style=style, style_class=STYLE_CLASS.get(style, "c-gray"),
-            index=idx, index_class=score_class(idx), index_bar_px=bar_px, index_bar_pct=bar_pct,
+            index=idx, index_class=idx_class, index_bar_px=bar_px, index_bar_pct=bar_pct,
             index_disp=(str(round(idx)) if idx is not None else "-"),
             prev_comment=(s_rec.get("前走コメント") or ""),
             prev1=dash(h.get("前走")), prev1_class=rating_class(h.get("前走")),
@@ -97,17 +137,18 @@ def build_horses(race: dict) -> list[dict]:
             prev3=dash(h.get("3走")),  prev3_class=rating_class(h.get("3走")),
             last3f=dash(h.get("前3F")), last3f_class=last3f_class(h.get("前3F")),
             train1f=dash(h.get("調1F")), train1f_class=train1f_class(h.get("調1F")),
-            mark=h.get("印") or "", mark_class=MARK_CLASS.get(h.get("印"), "c-muted"),
+            mark=mark, mark_class=mark_cls,
             lane_color=LANE_COLORS[(no - 1) % 8] if no else "#333",
             summary=s_rec,
             rawdata=raw_map.get(name),
+            breakdown=breakdown,
         ))
     return horses
 
 
 # ---------------------------------------------------------------
 # 的中判定・回収率計算
-#   馬連BOX  : 補正後指数 上位1〜3位(◎○▲) の3頭box = 3点
+#   馬連BOX  : 総合指数 上位1〜3位(◎○▲) の3頭box = 3点
 #   3連複F   : 1列目=上位1-2位(◎○) / 2列目=上位1-3位(◎○▲) / 3列目=上位1-6位(◎○▲△☆1☆2) = 10点
 #   計13点 x 100円 = 1,300円/レース
 # ---------------------------------------------------------------
