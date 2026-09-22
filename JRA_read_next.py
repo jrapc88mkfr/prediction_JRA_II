@@ -20,6 +20,7 @@ import os
 import re
 import json
 import math
+import pandas as pd
 import requests
 import anthropic
 from bs4 import BeautifulSoup
@@ -34,9 +35,8 @@ except ImportError:
     pass  # GitHub Actions では不要（Secrets から自動注入）
 
 # 各モジュールをimport（同じフォルダに置く）
-from records   import get_record, time_to_seconds
 from pace      import get_running_style
-from rating    import single_race_rating, horse_rating
+from rating    import single_race_rating, calc_trend_score , calc_current_ability
 from workout   import calc_workout_score, get_workout_rank
 from reporting   import predict_pace, calc_gekisou_index, make_comment
 from adjustment  import calc_mishap_bonus, calc_weight_bonus, \
@@ -135,7 +135,7 @@ _rating_mod.parse_race_result = _parse_kichiuma_result
 # ============================================================
 # ★★★ ローカル実行時はここだけ入力する ★★★
 # GitHub Actions では run_schedule.py が自動的に上書きする
-TARGET_RACE = os.environ.get("TARGET_RACE", "セントライト記念")
+TARGET_RACE = os.environ.get("TARGET_RACE", "キーンランドC")
 # ★★★★★★★★★★★★★★★★★★★★★★
 
 # ============================================================
@@ -802,14 +802,31 @@ def build_json(race_name: str, horses: list[dict],
         # 脚質判定（rawdata の前走テキストから）
         style = get_running_style(raw)
 
-        # レース指数（前走・前々走・3走前それぞれ）
-        r1 = single_race_rating(raw.get("前走",   ""))
-        r2 = single_race_rating(raw.get("前々走",  ""))
-        r3 = single_race_rating(raw.get("3走前",   ""))
+        # レース指数（前走・前々走・3走前）
+        r1 = single_race_rating(raw.get("前走", ""))
+        r2 = single_race_rating(raw.get("前々走", ""))
+        r3 = single_race_rating(raw.get("3走前", ""))
 
-        # 平均指数
-        avg_scores = [s for s in [r1, r2, r3] if s > 0]
-        avg_rating = round(sum(avg_scores)/len(avg_scores)) if avg_scores else 0
+        # ==========================================
+        # A：現在能力
+        # ==========================================
+        ability_rating = calc_current_ability(
+            r1, r2, r3
+        )
+
+        # ==========================================
+        # B：上昇・下降度
+        # ==========================================
+        trend_score = calc_trend_score(
+            r1, r2, r3
+        )
+
+        # ==========================================
+        # A＋B：今回の基礎指数
+        # ==========================================
+        base_rating = round(
+            ability_rating + trend_score
+        )
 
         # 上がり3F: kichiuma取得済みの値を優先、なければ前走テキストから抽出
         prev_3f = h.get("prev_3f")
@@ -823,7 +840,6 @@ def build_json(race_name: str, horses: list[dict],
         last1f = w.get("調1F")
 
         rows.append({
-            # --- pyxel ビューア用フィールド ---
             "馬番"      : no,
             "馬名"      : name,
             "オッズ戦績": h.get("odds_record", ""),
@@ -831,59 +847,76 @@ def build_json(race_name: str, horses: list[dict],
             "斤量"      : h["weight"] + "kg" if h["weight"] else "",
             "騎手"      : h["jockey"],
             "脚質"      : style,
-            "総合指数"  : avg_rating,
+
+            # A+Bを基礎指数として使用
+            "レース指数"  : base_rating,
+
+            # 3走の個別指数
             "前走"      : r1 if r1 > 0 else None,
             "前々"      : r2 if r2 > 0 else None,
             "3走"       : r3 if r3 > 0 else None,
+
             "前3F"      : prev_3f,
             "調1F"      : last1f,
             "印"        : "",
-            # --- 追加フィールド ---
+
+            # 詳細指数
             "前走指数"  : r1,
             "前々走指数": r2,
             "3走前指数" : r3,
-            "能力指数"  : avg_rating,
+
+            # A
+            "3走指数"  : ability_rating,
+
+            # B
+            "上昇下降度": trend_score,
+
             "追切評価"  : w_rank,
             "追切スコア": w_score,
             "前走コメント": comments.get(name, ""),
         })
 
+
     # ---- Step2: 展開予想（全馬の脚質が揃ってから） ----
-    # reporting.predict_pace は DataFrame + pace_module 形式だが
-    # ここでは脚質カウントで簡易判定する
-    from collections import Counter
-    style_counts = Counter(r["脚質"] for r in rows)
-    lead = style_counts.get("逃", 0)
-    late = style_counts.get("差", 0) + style_counts.get("追", 0)
-    if   lead >= 3:              pace = "Hペース"
-    elif lead == 2:              pace = "Mペース"
-    elif lead <= 1 and late >= 8: pace = "Sペース"
-    else:                        pace = "Mペース"
+    df_pace = pd.DataFrame(rows)
+    pace = predict_pace(df_pace)
+
 
     # ---- Step3: 激走指数・コメント ----
     for r in rows:
         r["展開予想"]    = pace
-        r["激走指数"]    = calc_gekisou_index(r)
+        r["激走P"]    = calc_gekisou_index(r)
         r["新聞コメント"] = make_comment(r)
+
+    # ---- レース内最大値を10点として正規化 ----
+    max_gekisou = max(r["激走P"] for r in rows)
+    for r in rows:
+        if max_gekisou > 0:
+            gekisou_bonus = round(r["激走P"] / max_gekisou * 10, 1)
+        else:
+            gekisou_bonus = 0
+        r["激走指数"] = gekisou_bonus        
 
     # ---- Step4: しくじり補正 + 斤量補正 → 補正後総合指数 ----
     max_weight, max_sex_age = get_max_weight(rows)
     for r in rows:
         mishap_comment = r.get("前走コメント", "")
         weight_str     = r.get("斤量", "")
-        base           = r.get("総合指数", 0)
+        base           = r.get("レース指数", 0)
         sex_str        = r.get("性齢", "")        
+
+        gekisou_bonus = r.get("激走指数", 0)
 
         mishap_bonus  = calc_mishap_bonus(mishap_comment)
         weight_bonus  = calc_weight_bonus(weight_str, max_weight, sex_str , max_sex_age)
-        adjusted      = calc_adjusted_index(base, mishap_comment, weight_str , max_weight , sex_str , max_sex_age )
+        adjusted      = calc_adjusted_index(base, mishap_comment, weight_str , max_weight , sex_str , max_sex_age , gekisou_bonus)
 
         r["しくじり補正"] = mishap_bonus
         r["斤量補正"]     = weight_bonus
         r["adjusted_index"] = adjusted
 
         if mishap_bonus > 0 or weight_bonus > 0:
-            print(f"  [補正] {r['馬名']}: 基礎{base} + しくじり{mishap_bonus} + 斤量{weight_bonus} = {adjusted}")
+            print(f"  [補正] {r['馬名']}: 基礎{base} + しくじり{mishap_bonus} + 斤量{weight_bonus} + 激走指数{gekisou_bonus} = {adjusted}")
 
     # ---- Step5: 補正後指数で印を付ける ----
     assign_marks(rows)
@@ -935,7 +968,7 @@ def build_json(race_name: str, horses: list[dict],
         "斤量"    : r["斤量"],
         "騎手"    : r["騎手"],
         "脚質"    : r["脚質"],
-        "総合指数": r["総合指数"],
+        "総合指数": r.get("adjusted_index", r["レース指数"]),
         "前走"    : r["前走"],
         "前々"    : r["前々"],
         "3走"     : r["3走"],
@@ -946,8 +979,8 @@ def build_json(race_name: str, horses: list[dict],
 
     summary_rows = [{
         "馬名"        : r["馬名"],
-        "能力指数"    : r["能力指数"],
-        "補正後指数"  : r.get("adjusted_index", r["能力指数"]),
+        "能力指数"    : r["レース指数"],
+        "補正後指数"  : r.get("adjusted_index", r["レース指数"]),
         "しくじり補正": r.get("しくじり補正", 0),
         "斤量補正"    : r.get("斤量補正", 0),
         "追切評価"    : r["追切評価"],

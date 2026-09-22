@@ -3,8 +3,7 @@
 import re
 
 from records import get_record
-from records import time_to_seconds
-
+# from records import time_to_seconds
 
 # ==========================================
 # レース結果解析
@@ -252,30 +251,107 @@ def last_race_rating(row):
     )
 
 
+# 2026/09/21 変更
 # ==========================================
-# 過去3走平均指数
+# A：現在能力指数
 # ==========================================
 
-def horse_rating(row):
+def calc_current_ability(r1, r2, r3):
+    """
+    前3走から現在能力を算出する。
 
-    scores = []
+    前走   35%
+    前々走 35%
+    3走前  30%
 
-    for col in ["前走", "前々走", "3走前"]:
+    欠損レースがある場合は、
+    有効なレースだけでウェイトを再配分する。
+    """
 
-        text = row.get(col, "")
+    values = [
+        (r1, 0.35),
+        (r2, 0.35),
+        (r3, 0.30)
+    ]
 
-        if str(text).strip():
+    valid = [
+        (float(v), w)
+        for v, w in values
+        if v is not None and float(v) > 0
+    ]
 
-            scores.append(
-                race_rating(text)
-            )
-
-    if not scores:
+    if not valid:
         return 0
 
-    return round(
-        sum(scores) / len(scores)
-    )
+    total_weight = sum(w for _, w in valid)
+
+    score = sum(
+        v * w
+        for v, w in valid
+    ) / total_weight
+
+    return round(score)
+
+# ==========================================
+# B：上昇・下降度
+# ==========================================
+
+def calc_trend_score(r1, r2, r3):
+    """
+    前3走の指数から上昇・下降傾向を算出する。
+
+    Bは「能力そのもの」ではなく、
+    最近の調子の方向性を軽く反映する。
+
+    前々走 → 前走を重視
+    3走前 → 前々走も加味
+
+    Bは最大±3点に制限する。
+    """
+
+    trend = 0.0
+
+    # 前々走 → 前走
+    if (
+        r1 is not None and
+        r2 is not None and
+        r1 > 0 and
+        r2 > 0
+    ):
+        trend += 0.15 * (float(r1) - float(r2))
+
+    # 3走前 → 前々走
+    if (
+        r2 is not None and
+        r3 is not None and
+        r2 > 0 and
+        r3 > 0
+    ):
+        trend += 0.10 * (float(r2) - float(r3))
+
+    # 上昇・下降度は最大±3点
+    trend = max(-3, min(3, trend))
+
+    return round(trend, 1)
+
+def horse_rating(row):
+    """A：現在能力指数"""
+
+    r1 = race_rating(row.get("前走", ""))
+    r2 = race_rating(row.get("前々走", ""))
+    r3 = race_rating(row.get("3走前", ""))
+
+    return calc_current_ability(r1, r2, r3)
+
+
+def horse_trend(row):
+    """B：上昇下降度"""
+
+    r1 = race_rating(row.get("前走", ""))
+    r2 = race_rating(row.get("前々走", ""))
+    r3 = race_rating(row.get("3走前", ""))
+
+    return calc_trend_score(r1, r2, r3)
 
 
 # ==========================================

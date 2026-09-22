@@ -4,51 +4,53 @@ import re
 # ① 予想ペース
 # =====================================
 
-def predict_pace(df, pace_module):
+def predict_pace(df):
     """
     脚質分布から展開予想
     """
 
-    styles = df.apply(pace_module.get_running_style, axis=1)
-    counts = styles.value_counts().to_dict()
+    counts = df["脚質"].value_counts()
 
-    lead = counts.get("逃げ", 0)
-    front = counts.get("先行", 0)
-    late = counts.get("差し", 0) + counts.get("追込", 0)
+    lead = counts.get("逃", 0)
+    front = counts.get("先", 0)
+    late = counts.get("差", 0) + counts.get("追", 0)
 
     if lead >= 3:
         return "Hペース"
+    elif lead >=1 and front >= 7 :
+        return "Hペース"    
     elif lead == 2:
         return "Mペース"
-    elif lead <= 1 and late >= 8:
+    elif lead <= 1 and late >= 8 :
         return "Sペース"
     else:
         return "Mペース"
     
 # =====================================
-# 展開ボーナス
+# 展開ボーナス(2026/09/21)
 # =====================================
 def pace_fit_score(style, pace):
 
-    if "Sペース" in pace:
-        if style in ["逃げ", "先行"]:
+    style = str(style).strip()
+
+    if pace == "Sペース":
+        if style in ["逃", "先"]:
             return 3
-        elif style == "差し":
+        elif style == "差":
             return 0
-        else:
+        elif style == "追":
             return -1
 
-    elif "Hペース" in pace:
-        if style in ["差し", "追込"]:
+    elif pace == "Hペース":
+        if style in ["差", "追"]:
             return 3
-        elif style == "逃げ":
+        elif style == "逃":
             return -2
-        else:
+        elif style == "先":
             return 0
 
-    else:
-        return 0
-
+    # Mペース
+    return 0
 # =====================================
 # ② 激走指数
 # =====================================
@@ -117,7 +119,7 @@ def calc_gekisou_index(row):
         # ⑤ 総合
         # =========================
         score = (
-            bad_run * 1.5 +
+            bad_run * 2.0 +
             ability * 2.0 +
             kick * 2.0 +
             fit * 5.0   # ←展開はかなり重要なので重め
@@ -156,14 +158,14 @@ def make_comment(row):
     else:
         comment += "やや割引。"
 
-    # 脚質コメント
-    if "逃げ" in pace:
+    #2026/09/21 変更
+    if pace == "逃":
         comment += "単騎逃げなら粘り込み注意。"
-    elif "先行" in pace:
+    elif pace == "先":
         comment += "好位抜け出し警戒。"
-    elif "差し" in pace:
+    elif pace == "差":
         comment += "展開ハマれば一発。"
-    elif "追込" in pace:
+    elif pace == "追":
         comment += "展開待ちだが末脚は確実。"
 
     return comment
@@ -175,12 +177,19 @@ def make_comment(row):
 
 def build_report(df, pace_module):
 
-    df["脚質"] = df.apply(pace_module.get_running_style, axis=1)
+    # ① 脚質を決定
+    df["脚質"] = df.apply(pace_module.get_running_style,axis=1)
 
-    df["激走指数"] = df.apply(calc_gekisou_index, axis=1)
-
-    df["新聞コメント"] = df.apply(make_comment, axis=1)
-
+    # ② レース全体の展開を予測
     pace = predict_pace(df, pace_module)
+
+    # ③ 各馬に展開予想をセット
+    df["展開予想"] = pace
+
+    # ④ 展開を含めて激走指数を計算
+    df["激走指数"] = df.apply(calc_gekisou_index,axis=1)
+
+    # ⑤ 新聞コメント
+    df["新聞コメント"] = df.apply(make_comment,axis=1)
 
     return df, pace

@@ -171,12 +171,12 @@ def get_max_weight(rows: list):
 
 
 # ============================================================
-# ③ 補正後総合指数の計算
+# ③ 総合指数の計算
 # ============================================================
 def calc_adjusted_index(base_index: int,
                         mishap_comment: str,
                         weight_str: str,
-                        max_weight: float , sex_age: str, max_sex_age: str ) -> int:
+                        max_weight: float , sex_age: str, max_sex_age: str , gekisou_bonus:float) -> int:
     """
     しくじり補正 + 斤量補正を加えた補正後総合指数を返す。
 
@@ -184,13 +184,14 @@ def calc_adjusted_index(base_index: int,
     mishap_comment: 前走コメント文字列
     weight_str    : この馬の斤量 ("57.0" or "57.0kg")
     max_weight    : レース内最大斤量
+    gekisou_bonus : 激走ボーナス
 
     例:
         base=85, しくじり"出遅れ"(+10), 斤量差1kg(+2) → 97
     """
     mishap  = calc_mishap_bonus(mishap_comment)
     weight  = calc_weight_bonus(weight_str, max_weight,sex_age,max_sex_age)
-    adjusted = base_index + mishap + weight
+    adjusted = base_index + mishap + weight + + gekisou_bonus
     return round(adjusted)
 
 
