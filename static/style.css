@@ -111,7 +111,7 @@ html, body {
   color: var(--c7-white); flex: 1; min-width: 0;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.l2-comment i { color: var(--c13-lav); font-style: normal; margin-right: 4px; }
+.l2-comment i { color: var(--c6-ltgray); font-style: normal; margin-right: 4px; }
 
 /* 3行目：前走・前々走・3走前・前3F・調1F（ラベル付き、折り返し可） */
 .hc-row3 {
@@ -119,7 +119,7 @@ html, body {
   padding: 3px 0 0 24px;
   font-size: 0.76rem;
 }
-.hc-row3 i { color: var(--c13-lav); font-style: normal; margin-right: 3px; }
+.hc-row3 i { color: var(--c6-ltgray); font-style: normal; margin-right: 3px; }
 .hc-row3 b { font-weight: 700; }
 
 .mark-cell { text-align: center; font-family: var(--font-ui); font-weight: 700; }
@@ -130,11 +130,11 @@ html, body {
 .c-yellow { color: var(--c10-yellow); }
 .c-green  { color: var(--c11-green); }
 .c-blue   { color: var(--c12-blue); }
-.c-lav    { color: var(--c13-lav); }
+.c-lav    { color: var(--c6-ltgray); }
 .c-pink   { color: var(--c14-pink); }
 .c-gray   { color: var(--c6-ltgray); }
 .c-white  { color: var(--c7-white); }
-.c-muted  { color: var(--c13-lav); }
+.c-muted  { color: var(--c6-ltgray); }
 
 /* ============ 展開予想パネル ============ */
 .pace-panel {
@@ -199,12 +199,12 @@ html, body {
   margin: 4px 0 0;
   font-size: 0.7rem;
   line-height: 1.5;
-  color: var(--c13-lav);
+  color: var(--c6-ltgray);
 }
 .bet-note {
   margin: 10px 0 0;
   font-size: 0.72rem;
-  color: var(--c13-lav);
+  color: var(--c6-ltgray);
 }
 
 /* ============ レース結果パネル（表の下）============ */
@@ -222,10 +222,10 @@ html, body {
 .rp-payout { display: flex; gap: 28px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px; flex-wrap: wrap; }
 .rp-payout .p-label { color: var(--c12-blue); font-size: 0.85rem; display: block; margin-bottom: 2px; }
 .rp-payout .p-value { color: var(--c11-green); font-size: 1.1rem; }
-.result-pending { color: var(--c13-lav); font-size: 0.95rem; }
+.result-pending { color: var(--c6-ltgray); font-size: 0.95rem; }
 
 .footer-help {
-  color: var(--c13-lav); font-size: 0.72rem;
+  color: var(--c6-ltgray); font-size: 0.72rem;
   padding: 8px 10px; text-align: center;
 }
 
@@ -253,7 +253,7 @@ html, body {
 .badge-confirmed { background: var(--c11-green); color: #06210f; }
 .badge-pending { background: var(--c1-navy); color: var(--c10-yellow); border: 1px solid var(--c10-yellow); }
 
-/* 堅い/荒れる バッジ（補正後指数の分散から判定。詳細はodds_estimate.py参照） */
+/* 堅い/荒れる バッジ（総合指数の分散から判定。詳細はodds_estimate.py参照） */
 .idx-shape {
   font-family: var(--font-pixel); font-size: 0.72rem;
   padding: 2px 8px; border-radius: 3px; white-space: nowrap;
@@ -308,22 +308,24 @@ html, body {
   background: var(--c1-navy); border-radius: 6px;
   padding: 12px 14px; margin-bottom: 16px; font-size: 0.95rem;
 }
-.d-statline .stat b { display: block; font-size: 0.7rem; color: var(--c13-lav); font-weight: 400; }
+.d-statline .stat b { display: block; font-size: 0.7rem; color: var(--c6-ltgray); font-weight: 400; }
 .d-statline .stat span { font-family: var(--font-pixel); font-size: 1.15rem; }
+.d-statline .stat.stat-total span { font-size: 1.55rem; font-weight: 700; }
+.d-statline .stat.stat-total b { color: var(--c10-yellow); font-size: 0.75rem; }
 
 .d-section-title {
   color: var(--c10-yellow); font-family: var(--font-pixel);
   font-size: 0.95rem; margin: 18px 0 8px; letter-spacing: 0.05em;
 }
 .d-past { border-bottom: 1px dashed var(--c5-gray); padding: 7px 0; line-height: 1.6; font-size: 0.88rem; }
-.d-past .pr-label { color: var(--c13-lav); font-size: 0.75rem; margin-right: 6px; }
+.d-past .pr-label { color: var(--c6-ltgray); font-size: 0.75rem; margin-right: 6px; }
 .d-work { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--c7-white); font-size: 0.9rem; }
 .d-comment {
   background: var(--c1-navy); border-left: 3px solid var(--c10-yellow);
   padding: 10px 14px; border-radius: 0 6px 6px 0; margin-top: 8px;
   line-height: 1.7; font-size: 0.92rem;
 }
-.d-comment.sub { border-left-color: var(--c13-lav); color: var(--c13-lav); font-size: 0.85rem; }
+.d-comment.sub { border-left-color: var(--c6-ltgray); color: var(--c6-ltgray); font-size: 0.85rem; }
 
 @media (max-width: 600px) {
   .race-title { font-size: 0.82rem; }
