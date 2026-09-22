@@ -69,7 +69,7 @@
       </p>
       {% if race.race_shape and race.race_shape.label and race.race_shape.label != '判定不能' %}
       <p class="bet-explain">
-        「堅い/やや堅い/やや荒れる/荒れる」は、補正後指数1位と6位の差を1位の値に対する比率で見た目安です。
+        「堅い/やや堅い/やや荒れる/荒れる」は、総合指数1位と6位の差を1位の値に対する比率で見た目安です。
         差が大きいほど上位馬の地力差が大きく「堅い」決着になりやすく、差が小さいほど上位が入れ替わりやすい
         「荒れる」レースと判定しています（しきい値は経験則の初期値で、実績データによる検証はまだ行っていません）。
       </p>
@@ -163,7 +163,7 @@
           <div class="stat"><b>性齢/斤量</b><span class="c-white">{{ h.sex }} {{ h.weight }}</span></div>
           <div class="stat"><b>騎手</b><span class="c-white">{{ h.jockey }}</span></div>
           <div class="stat"><b>脚質</b><span class="{{ h.style_class }}">{{ h.style }}</span></div>
-          <div class="stat"><b>補正指数</b><span class="{{ h.index_class }}">{{ h.index_disp }}</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="{{ h.index_class }}">{{ h.index_disp }}</span></div>
           <div class="stat"><b>前走/前々/3走</b><span class="c-white">{{ h.prev1 }} / {{ h.prev2 }} / {{ h.prev3 }}</span></div>
           <div class="stat"><b>前3F/調1F</b><span class="c-white">{{ h.last3f }} / {{ h.train1f }}</span></div>
         </div>
@@ -190,12 +190,18 @@
         {% if h.summary %}
         <p class="d-section-title">総合評価</p>
         <div class="d-statline">
-          <div class="stat"><b>能力指数</b><span class="c-white">{{ h.summary.get('能力指数','-') }}</span></div>
-          <div class="stat"><b>補正後指数</b><span class="c-white">{{ h.summary.get('補正後指数','-') }}</span></div>
-          <div class="stat"><b>しくじり補正</b><span class="c-white">{{ h.summary.get('しくじり補正','-') }}</span></div>
-          <div class="stat"><b>斤量補正</b><span class="c-white">{{ h.summary.get('斤量補正','-') }}</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="{{ h.index_class }}">{{ h.breakdown.total_disp }}</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">{{ h.breakdown.ability_disp }}</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">{{ h.breakdown.trend_disp }}</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">{{ h.breakdown.mishap_disp }}</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">{{ h.breakdown.weight_disp }}</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">{{ h.breakdown.gekisou_disp }}</span></div>
+        </div>
+        {% if h.summary.get('追切評価') %}
+        <div class="d-statline" style="margin-top:10px;">
           <div class="stat"><b>追切評価</b><span class="c-yellow">{{ h.summary.get('追切評価','-') }}</span></div>
         </div>
+        {% endif %}
         {% if h.summary.get('新聞コメント') %}<div class="d-comment">{{ h.summary.get('新聞コメント') }}</div>{% endif %}
         {% if h.summary.get('前走コメント') %}<div class="d-comment sub">前走メモ：{{ h.summary.get('前走コメント') }}</div>{% endif %}
         {% endif %}
