@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T06:44:21",
+  "generated_at": "2026-09-22T06:45:57",
   "races": [
     {
       "file": "races/260921_阪神_神戸新聞杯.html",
@@ -108,39 +108,17 @@
         "investment": 1300,
         "umaren_hit": false,
         "umaren_pay": 0,
-        "sanrenpuku_hit": false,
-        "sanrenpuku_pay": 0,
-        "payout": 0,
-        "win": false
+        "sanrenpuku_hit": true,
+        "sanrenpuku_pay": 1110,
+        "payout": 1110,
+        "win": true
       },
       "race_shape": {
         "label": "荒れる",
-        "gap_ratio": 0.078
+        "gap_ratio": 0.064
       },
       "race_shape_class": "are",
-      "betting_estimate": {
-        "umaren": {
-          "9-4": 6784,
-          "9-12": 237,
-          "4-12": 1367
-        },
-        "umaren_avg": 2796,
-        "sanrenpuku": {
-          "9-4-12": 22907,
-          "9-4-5": 140987,
-          "9-4-6": 12206,
-          "9-4-7": 2745,
-          "9-12-5": 4696,
-          "9-12-6": 406,
-          "9-12-7": 90,
-          "4-12-5": 27362,
-          "4-12-6": 2366,
-          "4-12-7": 526
-        },
-        "sanrenpuku_avg": 21429,
-        "assumed_hit_rate": 0.18,
-        "expected_value": 3857
-      }
+      "betting_estimate": null
     },
     {
       "file": "races/260913_中山_セントライト記念.html",
