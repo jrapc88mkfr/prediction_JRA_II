@@ -44,7 +44,8 @@ jobs:
       # 3. 依存ライブラリをインストール
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 anthropic python-dotenv
+          # pip install requests beautifulsoup4 anthropic python-dotenv
+          pip install -r requirements.txt
 
       # 4. schedule.json から active なレースを取得してスクリプト実行
       - name: Run JRA_read_next.py
