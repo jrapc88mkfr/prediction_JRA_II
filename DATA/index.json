@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T22:28:13",
+  "generated_at": "2026-09-25T23:10:30",
   "races": [
     {
       "file": "races/260927_中山_スプリンターズS.html",
@@ -11,10 +11,10 @@
       "has_result": false,
       "bet": null,
       "race_shape": {
-        "label": "やや荒れる",
-        "gap_ratio": 0.16
+        "label": "荒れる",
+        "gap_ratio": 0.05
       },
-      "race_shape_class": "yaya-are",
+      "race_shape_class": "are",
       "betting_estimate": null
     },
     {
@@ -27,10 +27,10 @@
       "has_result": false,
       "bet": null,
       "race_shape": {
-        "label": "やや荒れる",
-        "gap_ratio": 0.147
+        "label": "やや堅い",
+        "gap_ratio": 0.247
       },
-      "race_shape_class": "yaya-are",
+      "race_shape_class": "yaya-kata",
       "betting_estimate": null
     },
     {
