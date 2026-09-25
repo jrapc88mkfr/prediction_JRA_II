@@ -65,7 +65,7 @@ def _parse_kichiuma_result(text):
     result = {
         "track": None, "surface": None, "distance": None,
         "time": None, "margin": None, "rank": None,
-        "popularity": None, "last3f": None,
+        "popularity": None, "last3f": None, "baba": None,
     }
     # 競馬場
     for t in ["東京","中山","阪神","京都","中京","新潟","札幌","函館","福島","小倉"]:
@@ -77,10 +77,11 @@ def _parse_kichiuma_result(text):
     if m:
         result["surface"]  = m.group(1)
         result["distance"] = int(m.group(2))
-    # タイム
-    m = re.search(r"(\d+:\d+\.\d+)[良稍重不]", text)
+    # タイム・馬場状態
+    m = re.search(r"(\d+:\d+\.\d+)([良稍重不])", text)
     if m:
         result["time"] = m.group(1)
+        result["baba"] = m.group(2)
     # 着順: 日付(YY.MM.DD)の直後
     m = re.search(r"\d{2}\.\d{2}\.\d{2}\s+(\d+)\s+", text)
     if m:
@@ -135,7 +136,7 @@ _rating_mod.parse_race_result = _parse_kichiuma_result
 # ============================================================
 # ★★★ ローカル実行時はここだけ入力する ★★★
 # GitHub Actions では run_schedule.py が自動的に上書きする
-TARGET_RACE = os.environ.get("TARGET_RACE", "キーンランドC")
+TARGET_RACE = os.environ.get("TARGET_RACE", "スプリンターズS")
 # ★★★★★★★★★★★★★★★★★★★★★★
 
 # ============================================================

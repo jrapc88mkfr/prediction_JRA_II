@@ -2,8 +2,7 @@
 
 import re
 
-from records import get_record
-# from records import time_to_seconds
+from records import get_record, time_to_seconds
 
 # ==========================================
 # レース結果解析
@@ -21,7 +20,8 @@ def parse_race_result(text):
         "margin": None,
         "rank": None,
         "popularity": None,
-        "last3f": None
+        "last3f": None,
+        "baba": None
     }
 
     tracks = [
@@ -41,11 +41,12 @@ def parse_race_result(text):
         result["distance"] = int(m.group(1))
         result["surface"] = m.group(2)
 
-    # タイム
-    m = re.search(r'\d+(?:芝|ダ)\s+(\d+:\d+\.\d+)', text)
+    # タイム・馬場状態
+    m = re.search(r'\d+(?:芝|ダ)\s+(\d+:\d+\.\d+)([良稍重不])?', text)
 
     if m:
         result["time"] = m.group(1)
+        result["baba"] = m.group(2)
 
     # 着順
     m = re.search(r'(\d+)着', text)
@@ -75,6 +76,45 @@ def parse_race_result(text):
 
 
 # ==========================================
+# 馬場差補正
+#   records.py のレコードは良馬場基準とみなし、
+#   稍重・重・不良のタイムを良馬場換算してから
+#   レコードと比較する。
+#
+#   芝：馬場が悪くなるほど時計が掛かる（遅くなる）
+#       → 補正を引いて良馬場換算（＝タイムを良くする）
+#   ダート：馬場が悪くなるほど（締まって）時計が速くなりやすい
+#       → 補正を足して良馬場換算（＝タイムを悪くする）
+#
+#   ※実績データによる検証は未実施の経験則の初期値。
+#     今後の実績を見て調整すること。
+# ==========================================
+
+BABA_CORRECTION_SEC = {
+    ("芝", "良"): 0.0,
+    ("芝", "稍"): 0.5,
+    ("芝", "重"): 1.5,
+    ("芝", "不"): 2.5,
+
+    ("ダ", "良"): 0.0,
+    ("ダ", "稍"): -0.3,
+    ("ダ", "重"): -0.8,
+    ("ダ", "不"): -1.2,
+}
+
+
+def baba_correction_seconds(surface, baba):
+    """
+    良馬場換算のための補正秒数を返す。
+    surface/baba が取れない組み合わせは補正なし（0.0）。
+    """
+    if not surface or not baba:
+        return 0.0
+
+    return BABA_CORRECTION_SEC.get((surface, baba), 0.0)
+
+
+# ==========================================
 # タイム指数
 # ==========================================
 
@@ -95,6 +135,13 @@ def calc_time_rating(info):
     try:
 
         race_sec = time_to_seconds(info["time"])
+
+        # 馬場状態を良馬場換算に補正
+        race_sec -= baba_correction_seconds(
+            info.get("surface"),
+            info.get("baba")
+        )
+
         record_sec = time_to_seconds(record)
 
         diff = race_sec - record_sec
