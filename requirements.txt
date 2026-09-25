@@ -3,5 +3,3 @@ numpy
 requests
 beautifulsoup4
 lxml
-math
-anthropic
