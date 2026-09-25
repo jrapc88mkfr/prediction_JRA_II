@@ -1,6 +1,38 @@
 {
-  "generated_at": "2026-09-22T06:48:02",
+  "generated_at": "2026-09-25T22:28:13",
   "races": [
+    {
+      "file": "races/260927_中山_スプリンターズS.html",
+      "stem": "260927_中山_スプリンターズS",
+      "date": "2026/9/27",
+      "venue": "中山",
+      "race_name": "スプリンターズS",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.16
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/260926_阪神_シリウスステークス.html",
+      "stem": "260926_阪神_シリウスステークス",
+      "date": "2026/9/26",
+      "venue": "阪神",
+      "race_name": "シリウスステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.147
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
     {
       "file": "races/260921_阪神_神戸新聞杯.html",
       "stem": "260921_阪神_神戸新聞杯",
