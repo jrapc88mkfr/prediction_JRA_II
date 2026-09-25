@@ -1,0 +1,11 @@
+pandas
+numpy
+requests
+beautifulsoup4
+lxml
+os
+re
+json
+math
+requests
+anthropic
