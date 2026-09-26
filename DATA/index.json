@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T23:10:30",
+  "generated_at": "2026-09-26T01:13:26",
   "races": [
     {
       "file": "races/260927_中山_スプリンターズS.html",
@@ -15,7 +15,29 @@
         "gap_ratio": 0.05
       },
       "race_shape_class": "are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "10-16": 126,
+          "15-16": 83,
+          "10-15": 32
+        },
+        "umaren_avg": 80,
+        "sanrenpuku": {
+          "10-15-16": 262,
+          "10-13-16": 262,
+          "10-13-15": 63,
+          "1-10-16": 1318,
+          "1-10-15": 319,
+          "1-15-16": 840,
+          "13-15-16": 167,
+          "6-10-16": 618,
+          "6-10-15": 149,
+          "6-15-16": 394
+        },
+        "sanrenpuku_avg": 439,
+        "assumed_hit_rate": 0.18,
+        "expected_value": 79
+      }
     },
     {
       "file": "races/260926_阪神_シリウスステークス.html",
@@ -31,7 +53,29 @@
         "gap_ratio": 0.247
       },
       "race_shape_class": "yaya-kata",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "14-16": 134,
+          "3-16": 178,
+          "3-14": 109
+        },
+        "umaren_avg": 141,
+        "sanrenpuku": {
+          "3-14-16": 770,
+          "3-8-16": 860,
+          "3-8-14": 520,
+          "3-12-16": 866,
+          "3-12-14": 524,
+          "3-6-16": 307,
+          "3-6-14": 186,
+          "8-14-16": 641,
+          "12-14-16": 647,
+          "6-14-16": 229
+        },
+        "sanrenpuku_avg": 555,
+        "assumed_hit_rate": 0.4,
+        "expected_value": 222
+      }
     },
     {
       "file": "races/260921_阪神_神戸新聞杯.html",
