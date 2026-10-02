@@ -1,6 +1,38 @@
 {
-  "generated_at": "2026-09-27T11:24:31",
+  "generated_at": "2026-10-02T20:18:18",
   "races": [
+    {
+      "file": "races/261004_東京_毎日王冠.html",
+      "stem": "261004_東京_毎日王冠",
+      "date": "2026/10/4",
+      "venue": "東京",
+      "race_name": "毎日王冠",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "荒れる",
+        "gap_ratio": 0.075
+      },
+      "race_shape_class": "are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261004_京都_京都大賞典.html",
+      "stem": "261004_京都_京都大賞典",
+      "date": "2026/10/4",
+      "venue": "京都",
+      "race_name": "京都大賞典",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.147
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
     {
       "file": "races/260927_中山_スプリンターズS.html",
       "stem": "260927_中山_スプリンターズS",
@@ -8,8 +40,17 @@
       "venue": "中山",
       "race_name": "スプリンターズS",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "荒れる",
         "gap_ratio": 0.05
@@ -46,8 +87,17 @@
       "venue": "阪神",
       "race_name": "シリウスステークス",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 13,
+        "investment": 1300,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "やや堅い",
         "gap_ratio": 0.247
