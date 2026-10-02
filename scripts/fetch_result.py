@@ -4,8 +4,12 @@
 DATA/races/*.json を確認し、
   ・DATA/results/{stem}_result.json がまだ無い
   ・レース日が今日以前（＝もう開催済みのはず）
-なものだけ netkeiba から結果・払戻(1〜3着 / 馬連 / 3連複)を取得して
+なものだけ netkeiba から結果・払戻(1〜3着 / 単勝 / 複勝 / 馬連 / 3連複)を取得して
 DATA/results/{stem}_result.json を新規作成する。
+
+【2026/10 追加】単勝・複勝の払戻も保存する（◎の単勝・複勝を買い目に加えたため）。
+  既に結果ファイルがあっても tansho / fukusho が空・未保存のものは再取得して補完する
+  （過去レースの結果ファイルを手で削除しなくても自動でバックフィルされる）。
 
 ・馬番はnetkeiba側の列構成に依存せず、取得した馬名を
   DATA/races/*.json 内の馬名と突き合わせて確定させる(安定重視)。
@@ -124,9 +128,30 @@ def _find_race_section(soup, race_name):
     return None
 
 
+def _extract_nos(tr):
+    """td.Result 内の馬番(数字)を、葉に近い要素から順に拾う（li/span/div のどれでも対応）"""
+    for sel in ("td.Result span", "td.Result li", "td.Result div"):
+        nos = []
+        for x in tr.select(sel):
+            t = x.get_text(strip=True)
+            if t.isdigit() and t not in nos:
+                nos.append(t)
+        if nos:
+            return nos
+    return []
+
+
+def _split_payouts(payout_td):
+    """複勝のように <br> 区切りで複数入る払戻 td を『○○円』ごとに分割"""
+    if not payout_td:
+        return []
+    txt = payout_td.get_text("\n", strip=True)
+    return [t.strip() for t in txt.split("\n") if "円" in t]
+
+
 def _parse_race_section(container):
-    """該当レースの結果コンテナから 1-3着(名前) / 馬連 / 3連複 を取り出す"""
-    result = {"top3": [], "umaren": "", "sanrenpuku": ""}
+    """該当レースの結果コンテナから 1-3着(名前) / 単勝 / 複勝 / 馬連 / 3連複 を取り出す"""
+    result = {"top3": [], "umaren": "", "sanrenpuku": "", "tansho": [], "fukusho": []}
 
     result_table = container.find("table", class_="TablePaybackResult")
     if result_table:
@@ -146,6 +171,17 @@ def _parse_race_section(container):
             if not th:
                 continue
             label = th.get_text(strip=True)
+
+            # --- 単勝・複勝: 馬番ごとに払戻を持たせる ---
+            if label in ("単勝", "複勝"):
+                nos = _extract_nos(tr)
+                pays = _split_payouts(tr.find("td", class_="Payout"))
+                if _DEBUG and len(nos) != len(pays):
+                    print(f"[DEBUG] {label}: 馬番{nos} と払戻{pays} の数が一致しません")
+                items = [{"no": int(n), "payout": p} for n, p in zip(nos, pays)]
+                result["tansho" if label == "単勝" else "fukusho"] = items
+                continue
+
             if label not in ("馬連", "3連複", "３連複"):
                 continue
             combo_items = [li.get_text(strip=True)
@@ -231,8 +267,16 @@ def main():
         if not fname.endswith(".json"):
             continue
         stem = fname[:-5]
-        if os.path.exists(os.path.join(RESULTS_DIR, f"{stem}_result.json")):
-            continue  # 取得済み
+        res_path = os.path.join(RESULTS_DIR, f"{stem}_result.json")
+        if os.path.exists(res_path):
+            try:
+                with open(res_path, encoding="utf-8") as f:
+                    old = json.load(f)
+            except Exception:
+                old = {}
+            # 単勝・複勝まで取得済みならスキップ。無ければ再取得して補完（バックフィル）
+            if old.get("tansho") and old.get("fukusho"):
+                continue
         with open(os.path.join(RACES_DIR, fname), encoding="utf-8") as f:
             race = json.load(f)
         if not is_race_over(race.get("date", "")):
@@ -261,6 +305,8 @@ def main():
             "top3": top3,
             "umaren": raw.get("umaren", ""),
             "sanrenpuku": raw.get("sanrenpuku", ""),
+            "tansho": raw.get("tansho", []),
+            "fukusho": raw.get("fukusho", []),
         }
         out_path = os.path.join(RESULTS_DIR, f"{stem}_result.json")
         with open(out_path, "w", encoding="utf-8") as f:

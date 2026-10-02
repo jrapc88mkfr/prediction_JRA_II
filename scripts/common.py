@@ -150,12 +150,37 @@ def build_horses(race: dict) -> list[dict]:
 # 的中判定・回収率計算
 #   馬連BOX  : 総合指数 上位1〜3位(◎○▲) の3頭box = 3点
 #   3連複F   : 1列目=上位1-2位(◎○) / 2列目=上位1-3位(◎○▲) / 3列目=上位1-6位(◎○▲△☆1☆2) = 10点
-#   計13点 x 100円 = 1,300円/レース
+#   単勝     : ◎の単勝 = 1点   （2026/10追加）
+#   複勝     : ◎の複勝 = 1点   （2026/10追加）
+#   計15点 x 100円 = 1,500円/レース
+#   ※結果JSONに単勝・複勝の払戻(tansho/fukusho)が無いレースは、取得できるまで
+#     従来の13点(1,300円)で判定する（払戻不明のまま「外れ」扱いにして成績を歪めないため）
 # ---------------------------------------------------------------
 from itertools import combinations
 import re as _re
 
 BET_UNIT = 100
+
+
+def _find_honmei_no(horses):
+    """◎の馬番。印が無ければ総合指数1位の馬番"""
+    for h in horses:
+        if h.get("mark") == "◎":
+            return h.get("no")
+    ranked = sorted([h for h in horses if h.get("index") is not None],
+                    key=lambda h: h["index"], reverse=True)
+    return ranked[0]["no"] if ranked else None
+
+
+def _honmei_payout(items, honmei_no):
+    """tansho / fukusho のリスト [{"no":9,"payout":"150円"},...] から◎の払戻(円)を返す。着外なら0"""
+    for it in items or []:
+        try:
+            if int(it.get("no")) == int(honmei_no):
+                return _yen(it.get("payout")) or 0
+        except (TypeError, ValueError):
+            continue
+    return 0
 
 
 def _yen(text):
@@ -224,13 +249,27 @@ def evaluate_race_bet(horses: list[dict], result: dict | None, race: dict | None
     umaren_pay = umaren_pay or 0
     sanrenpuku_pay = sanrenpuku_pay or 0
 
-    n_points = len(umaren_combos) + len(sanrenpuku_combos)
+    # ---- ◎の単勝・複勝（2026/10追加）----
+    honmei_no = _find_honmei_no(horses)
+    has_honmei = bool(honmei_no is not None
+                      and result.get("tansho") and result.get("fukusho"))
+    tansho_pay = fukusho_pay = 0
+    if has_honmei:
+        tansho_pay = _honmei_payout(result.get("tansho"), honmei_no)
+        fukusho_pay = _honmei_payout(result.get("fukusho"), honmei_no)
+
+    n_points = len(umaren_combos) + len(sanrenpuku_combos) + (2 if has_honmei else 0)
     investment = n_points * BET_UNIT
-    payout = umaren_pay + sanrenpuku_pay
+    payout = umaren_pay + sanrenpuku_pay + tansho_pay + fukusho_pay
 
     return dict(
         n_points=n_points,
         investment=investment,
+        honmei_no=honmei_no, has_honmei=has_honmei,
+        tansho_points=1 if has_honmei else 0, fukusho_points=1 if has_honmei else 0,
+        umaren_points=len(umaren_combos), sanrenpuku_points=len(sanrenpuku_combos),
+        tansho_hit=tansho_pay > 0, tansho_pay=tansho_pay,
+        fukusho_hit=fukusho_pay > 0, fukusho_pay=fukusho_pay,
         umaren_hit=umaren_hit, umaren_pay=umaren_pay,
         sanrenpuku_hit=sanrenpuku_hit, sanrenpuku_pay=sanrenpuku_pay,
         payout=payout,
@@ -244,7 +283,28 @@ def summarize_bets(entries: list[dict]) -> dict:
     wins = sum(1 for e in entries if e["win"])
     investment = sum(e["investment"] for e in entries)
     payout = sum(e["payout"] for e in entries)
+
+    # 券種別の成績（どの券種が効いているか切り分けるため）
+    def _by(kind, subset):
+        k = len(subset)
+        hits = sum(1 for e in subset if e.get(kind + "_hit"))
+        inv = sum(e.get(kind + "_points", 0) for e in subset) * BET_UNIT
+        pay = sum(e.get(kind + "_pay", 0) for e in subset)
+        return dict(
+            n=k, hits=hits, investment=inv, payout=pay,
+            hit_rate=round(hits / k * 100, 1) if k else 0.0,
+            recovery_rate=round(pay / inv * 100, 1) if inv else 0.0,
+        )
+    honmei_entries = [e for e in entries if e.get("has_honmei")]
+    by_type = dict(
+        tansho=_by("tansho", honmei_entries),
+        fukusho=_by("fukusho", honmei_entries),
+        umaren=_by("umaren", entries),
+        sanrenpuku=_by("sanrenpuku", entries),
+    )
     return dict(
+        n_legacy=n - len(honmei_entries),   # 単勝・複勝の払戻が未取得で13点判定のままのレース数
+        by_type=by_type,
         n_races=n,
         wins=wins,
         losses=n - wins,
