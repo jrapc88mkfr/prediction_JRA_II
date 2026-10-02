@@ -65,7 +65,7 @@
     </div>
     <div class="summary-row">
       <span class="s-label">投資額</span>
-      <span class="s-value c-white">{{ '{:,}'.format(bet_summary.investment) }}円（1,300円 × {{ bet_summary.n_races }}レース）</span>
+      <span class="s-value c-white">{{ '{:,}'.format(bet_summary.investment) }}円（{{ bet_summary.n_races }}レース）</span>
     </div>
     <div class="summary-row">
       <span class="s-label">回収額</span>
@@ -75,8 +75,19 @@
       <span class="s-label">回収率</span>
       <span class="s-value {{ 'c-green' if bet_summary.recovery_rate >= 100 else 'c-red' }}">{{ bet_summary.recovery_rate }}%</span>
     </div>
+    {% if bet_summary.by_type %}
+    {% for key, label in [('tansho','◎単勝'), ('fukusho','◎複勝'), ('umaren','馬連BOX'), ('sanrenpuku','3連複F')] %}
+    {% set t = bet_summary.by_type[key] %}
+    {% if t.n %}
+    <div class="summary-row">
+      <span class="s-label">{{ label }}</span>
+      <span class="s-value c-white">{{ t.hits }}/{{ t.n }}的中（{{ t.hit_rate }}%）　回収率 <span class="{{ 'c-green' if t.recovery_rate >= 100 else 'c-red' }}">{{ t.recovery_rate }}%</span></span>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
   </div>
-  <p class="footer-help">馬連BOX(総合指数1〜3位:◎○▲) + 3連複フォーメーション(1列目◎○/2列目◎○▲/3列目◎○▲△☆1☆2) 計13点・1,300円/レースで判定</p>
+  <p class="footer-help">◎の単勝 + ◎の複勝 + 馬連BOX(総合指数1〜3位:◎○▲) + 3連複フォーメーション(1列目◎○/2列目◎○▲/3列目◎○▲△☆1☆2) 計15点・1,500円/レースで判定。「勝」は4券種のうち1つでも的中した場合。{% if bet_summary.n_legacy %}※単勝・複勝の払戻が未取得の{{ bet_summary.n_legacy }}レースは従来の13点(1,300円)で判定しています。{% endif %}</p>
   {% endif %}
 </div>
 </body>
