@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T22:58:12",
+  "generated_at": "2026-10-03T01:45:27",
   "races": [
     {
       "file": "races/261004_東京_毎日王冠.html",
@@ -15,7 +15,29 @@
         "gap_ratio": 0.075
       },
       "race_shape_class": "are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "6-14": 19,
+          "9-14": 160,
+          "6-9": 58
+        },
+        "umaren_avg": 79,
+        "sanrenpuku": {
+          "6-9-14": 181,
+          "6-9-10": 403,
+          "6-9-12": 848,
+          "6-10-14": 127,
+          "6-12-14": 268,
+          "9-10-14": 1201,
+          "9-12-14": 2526,
+          "4-6-14": 40,
+          "4-6-9": 127,
+          "4-9-14": 378
+        },
+        "sanrenpuku_avg": 610,
+        "assumed_hit_rate": 0.18,
+        "expected_value": 110
+      }
     },
     {
       "file": "races/261004_京都_京都大賞典.html",
@@ -31,7 +53,29 @@
         "gap_ratio": 0.147
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "6-18": 18,
+          "16-18": 62,
+          "6-16": 77
+        },
+        "umaren_avg": 52,
+        "sanrenpuku": {
+          "6-16-18": 127,
+          "6-16-17": 668,
+          "6-12-18": 199,
+          "6-12-16": 913,
+          "6-17-18": 146,
+          "16-17-18": 535,
+          "12-16-18": 731,
+          "1-6-18": 48,
+          "1-6-16": 221,
+          "1-16-18": 177
+        },
+        "sanrenpuku_avg": 377,
+        "assumed_hit_rate": 0.28,
+        "expected_value": 106
+      }
     },
     {
       "file": "races/260927_中山_スプリンターズS.html",
