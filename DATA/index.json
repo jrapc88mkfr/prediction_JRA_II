@@ -1,6 +1,38 @@
 {
-  "generated_at": "2026-10-04T11:47:18",
+  "generated_at": "2026-10-09T20:30:01",
   "races": [
+    {
+      "file": "races/261012_京都_スワンステークス.html",
+      "stem": "261012_京都_スワンステークス",
+      "date": "2026/10/12",
+      "venue": "京都",
+      "race_name": "スワンステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.109
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261010_東京_サウジアラビアロイヤルカップ.html",
+      "stem": "261010_東京_サウジアラビアロイヤルカップ",
+      "date": "2026/10/10",
+      "venue": "東京",
+      "race_name": "サウジアラビアロイヤルカップ",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや堅い",
+        "gap_ratio": 0.211
+      },
+      "race_shape_class": "yaya-kata",
+      "betting_estimate": null
+    },
     {
       "file": "races/261004_東京_毎日王冠.html",
       "stem": "261004_東京_毎日王冠",
@@ -8,8 +40,27 @@
       "venue": "東京",
       "race_name": "毎日王冠",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 15,
+        "investment": 1500,
+        "honmei_no": 14,
+        "has_honmei": true,
+        "tansho_points": 1,
+        "fukusho_points": 1,
+        "umaren_points": 3,
+        "sanrenpuku_points": 10,
+        "tansho_hit": false,
+        "tansho_pay": 0,
+        "fukusho_hit": false,
+        "fukusho_pay": 0,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "荒れる",
         "gap_ratio": 0.075
@@ -46,8 +97,27 @@
       "venue": "京都",
       "race_name": "京都大賞典",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 15,
+        "investment": 1500,
+        "honmei_no": 18,
+        "has_honmei": true,
+        "tansho_points": 1,
+        "fukusho_points": 1,
+        "umaren_points": 3,
+        "sanrenpuku_points": 10,
+        "tansho_hit": false,
+        "tansho_pay": 0,
+        "fukusho_hit": false,
+        "fukusho_pay": 0,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.147
