@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T20:30:01",
+  "generated_at": "2026-10-10T00:03:01",
   "races": [
     {
       "file": "races/261012_京都_スワンステークス.html",
@@ -7,6 +7,22 @@
       "date": "2026/10/12",
       "venue": "京都",
       "race_name": "スワンステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.109
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261011_東京_アイルランドトロフィー.html",
+      "stem": "261011_東京_アイルランドトロフィー",
+      "date": "2026/10/11",
+      "venue": "東京",
+      "race_name": "アイルランドトロフィー",
       "race_no": "11",
       "has_result": false,
       "bet": null,
