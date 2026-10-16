@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T23:01:21",
+  "generated_at": "2026-10-16T23:01:39",
   "races": [
     {
       "file": "races/261018_京都_秋華賞.html",
@@ -88,44 +88,6 @@
         "sanrenpuku_avg": 845,
         "assumed_hit_rate": 0.28,
         "expected_value": 237
-      }
-    },
-    {
-      "file": "races/261010_東京_サウジアラビアロイヤルカップ.html",
-      "stem": "261010_東京_サウジアラビアロイヤルカップ",
-      "date": "2026/10/10",
-      "venue": "東京",
-      "race_name": "サウジアラビアロイヤルカップ",
-      "race_no": "11",
-      "has_result": false,
-      "bet": null,
-      "race_shape": {
-        "label": "やや堅い",
-        "gap_ratio": 0.211
-      },
-      "race_shape_class": "yaya-kata",
-      "betting_estimate": {
-        "umaren": {
-          "2-4": 27,
-          "4-8": 204,
-          "2-8": 230
-        },
-        "umaren_avg": 154,
-        "sanrenpuku": {
-          "4-8-10": 1720,
-          "4-8-9": 836,
-          "4-5-8": 115,
-          "2-4-8": 505,
-          "2-4-5": 14,
-          "2-4-10": 212,
-          "2-4-9": 103,
-          "2-8-10": 1959,
-          "2-8-9": 952,
-          "2-5-8": 132
-        },
-        "sanrenpuku_avg": 655,
-        "assumed_hit_rate": 0.4,
-        "expected_value": 262
       }
     },
     {
