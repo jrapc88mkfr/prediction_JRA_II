@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T19:14:10",
+  "generated_at": "2026-10-16T22:49:35",
   "races": [
     {
       "file": "races/261018_京都_秋華賞.html",
@@ -13,6 +13,22 @@
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.102
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261017_東京_富士ステークス.html",
+      "stem": "261017_東京_富士ステークス",
+      "date": "2026/10/17",
+      "venue": "東京",
+      "race_name": "富士ステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.1
       },
       "race_shape_class": "yaya-are",
       "betting_estimate": null
