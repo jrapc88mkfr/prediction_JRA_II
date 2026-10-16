@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T22:49:35",
+  "generated_at": "2026-10-16T23:01:21",
   "races": [
     {
       "file": "races/261018_京都_秋華賞.html",
@@ -88,44 +88,6 @@
         "sanrenpuku_avg": 845,
         "assumed_hit_rate": 0.28,
         "expected_value": 237
-      }
-    },
-    {
-      "file": "races/261011_東京_アイルランドトロフィー.html",
-      "stem": "261011_東京_アイルランドトロフィー",
-      "date": "2026/10/11",
-      "venue": "東京",
-      "race_name": "アイルランドトロフィー",
-      "race_no": "11",
-      "has_result": false,
-      "bet": null,
-      "race_shape": {
-        "label": "やや荒れる",
-        "gap_ratio": 0.109
-      },
-      "race_shape_class": "yaya-are",
-      "betting_estimate": {
-        "umaren": {
-          "2-11": 86,
-          "2-5": 388,
-          "5-11": 63
-        },
-        "umaren_avg": 179,
-        "sanrenpuku": {
-          "2-11-16": 74,
-          "2-5-11": 668,
-          "2-5-9": 2294,
-          "2-5-16": 358,
-          "2-9-11": 475,
-          "2-3-11": 176,
-          "2-3-5": 853,
-          "5-11-16": 54,
-          "5-9-11": 346,
-          "3-5-11": 129
-        },
-        "sanrenpuku_avg": 543,
-        "assumed_hit_rate": 0.28,
-        "expected_value": 152
       }
     },
     {
