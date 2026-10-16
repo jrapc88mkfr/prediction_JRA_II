@@ -87,6 +87,7 @@
   {"race_name": "サウジアラビアロイヤルカップ", "date": "2026/10/10", "venue": "東京", "race_no": "11", "work_slug": "saudi-arabia-royal-cup", "active": false, "memo": " ✓処理済み"},
   {"race_name": "アイルランドトロフィー", "date": "2026/10/11", "venue": "東京", "race_no": "11", "work_slug": "ireland-trophy", "active": false, "memo": "  ✓処理済み"},
   {"race_name": "スワンステークス", "date": "2026/10/12", "venue": "京都", "race_no": "11", "work_slug": "swan-stakes", "active": false, "memo": " ✓処理済み"},
+  {"race_name": "富士ステークス", "date": "2026/10/17", "venue": "東京", "race_no": "11", "work_slug": "fuji-stakes", "active": true, "memo": ""},  
   {"race_name": "秋華賞", "date": "2026/10/18", "venue": "京都", "race_no": "11", "work_slug": "shuka-sho", "active": false, "memo": " ✓処理済み"},
   {"race_name": "アルテミスステークス", "date": "2026/10/24", "venue": "東京", "race_no": "11", "work_slug": "artemis-stakes", "active": false, "memo": ""},
   {"race_name": "菊花賞", "date": "2026/10/25", "venue": "京都", "race_no": "11", "work_slug": "kikka-sho", "active": false, "memo": ""},
