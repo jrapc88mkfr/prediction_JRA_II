@@ -1,6 +1,38 @@
 {
-  "generated_at": "2026-10-25T10:43:34",
+  "generated_at": "2026-10-30T20:20:09",
   "races": [
+    {
+      "file": "races/261101_東京_天皇賞秋.html",
+      "stem": "261101_東京_天皇賞秋",
+      "date": "2026/11/1",
+      "venue": "東京",
+      "race_name": "天皇賞秋",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "荒れる",
+        "gap_ratio": 0.037
+      },
+      "race_shape_class": "are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261031_京都_ファンタジーステークス.html",
+      "stem": "261031_京都_ファンタジーステークス",
+      "date": "2026/10/31",
+      "venue": "京都",
+      "race_name": "ファンタジーステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.113
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
     {
       "file": "races/261025_京都_菊花賞.html",
       "stem": "261025_京都_菊花賞",
@@ -8,8 +40,27 @@
       "venue": "京都",
       "race_name": "菊花賞",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 15,
+        "investment": 1500,
+        "honmei_no": 10,
+        "has_honmei": true,
+        "tansho_points": 1,
+        "fukusho_points": 1,
+        "umaren_points": 3,
+        "sanrenpuku_points": 10,
+        "tansho_hit": false,
+        "tansho_pay": 0,
+        "fukusho_hit": true,
+        "fukusho_pay": 210,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 210,
+        "win": true
+      },
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.14
@@ -46,8 +97,27 @@
       "venue": "東京",
       "race_name": "アルテミスステークス",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 15,
+        "investment": 1500,
+        "honmei_no": 1,
+        "has_honmei": true,
+        "tansho_points": 1,
+        "fukusho_points": 1,
+        "umaren_points": 3,
+        "sanrenpuku_points": 10,
+        "tansho_hit": false,
+        "tansho_pay": 0,
+        "fukusho_hit": false,
+        "fukusho_pay": 0,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.113
