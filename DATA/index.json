@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T20:20:09",
+  "generated_at": "2026-10-31T02:03:23",
   "races": [
     {
       "file": "races/261101_東京_天皇賞秋.html",
@@ -15,7 +15,29 @@
         "gap_ratio": 0.037
       },
       "race_shape_class": "are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "1-6": 27,
+          "1-15": 111,
+          "6-15": 1054
+        },
+        "umaren_avg": 397,
+        "sanrenpuku": {
+          "1-6-15": 731,
+          "1-6-10": 352,
+          "1-6-17": 84,
+          "1-15-17": 348,
+          "1-2-6": 1482,
+          "1-2-15": 6153,
+          "1-10-15": 1460,
+          "6-15-17": 4004,
+          "6-10-15": 16750,
+          "2-6-15": 70533
+        },
+        "sanrenpuku_avg": 10189,
+        "assumed_hit_rate": 0.18,
+        "expected_value": 1834
+      }
     },
     {
       "file": "races/261031_京都_ファンタジーステークス.html",
@@ -31,7 +53,29 @@
         "gap_ratio": 0.113
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "2-8": 28,
+          "3-8": 9.3,
+          "2-3": 100
+        },
+        "umaren_avg": 46,
+        "sanrenpuku": {
+          "2-8-9": 171,
+          "2-3-8": 61,
+          "2-3-4": 245,
+          "2-3-9": 738,
+          "2-3-6": 161,
+          "2-4-8": 57,
+          "2-6-8": 37,
+          "3-8-9": 55,
+          "3-4-8": 18,
+          "3-6-8": 12
+        },
+        "sanrenpuku_avg": 156,
+        "assumed_hit_rate": 0.28,
+        "expected_value": 44
+      }
     },
     {
       "file": "races/261025_京都_菊花賞.html",
