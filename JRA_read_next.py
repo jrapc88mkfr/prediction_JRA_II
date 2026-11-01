@@ -136,7 +136,7 @@ _rating_mod.parse_race_result = _parse_kichiuma_result
 # ============================================================
 # ★★★ ローカル実行時はここだけ入力する ★★★
 # GitHub Actions では run_schedule.py が自動的に上書きする
-TARGET_RACE = os.environ.get("TARGET_RACE", "スプリンターズS")
+TARGET_RACE = os.environ.get("TARGET_RACE", "中京記念")
 # ★★★★★★★★★★★★★★★★★★★★★★
 
 # ============================================================
@@ -326,18 +326,73 @@ def get_entry_table(race_id: str, date: str, no: str, id_: str) -> list[dict]:
 # ============================================================
 # 日付ユーティリティ
 # ============================================================
+# ------------------------------------------------------------
+# 調教テキストのパース（純粋関数・テスト可能）
+# 「最終追い切り」を優先し、無ければ「N週前追い切り」を補助的に使う
+# ------------------------------------------------------------
+USE_WORK_FALLBACK = True   # 最終追い切りが無い馬に１週前等を使うか
+
+_WORK_LABEL_RE = re.compile(r"(最終追い切り|[1-9１-９一二三四五六七八九]+週前追い切り)")
+_WORK_CLOCK_RE = re.compile(r"(\d+F)\s+((?:\d+\.\d+-?)+)\s*（([^）]*)）")
+_WORK_PLACE_RE = re.compile(r"([^\s\n]+?・[^\s\n（]+?・[良稍重不]+)[（(]([^）)]*)[）)]")
+
+
+def _parse_work_text(text: str) -> list[dict]:
+    """
+    1頭分の調教テキストから追い切りブロックを抽出する。
+    戻り値: [{"区分", "場所", "時計", "内容"}, ...]（出現順）
+    追い切り無し・データなしのブロックは clock が空になる。
+    """
+    text = text.replace("\u3000", " ")
+    blocks = []
+    matches = list(_WORK_LABEL_RE.finditer(text))
+    for i, m in enumerate(matches):
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        seg = text[m.start():end]
+        label = m.group(1)
+
+        if "追い切り無し" in seg:
+            blocks.append({"区分": label, "場所": "", "時計": "", "内容": ""})
+            continue
+
+        place = ""
+        pm = _WORK_PLACE_RE.search(seg)
+        if pm:
+            place = pm.group(1)
+
+        clock, content = "", ""
+        cm = _WORK_CLOCK_RE.search(seg)
+        if cm:
+            dist, times, content = cm.group(1), cm.group(2), cm.group(3)
+            clock = f"{dist} {times}（{content}）"
+
+        blocks.append({"区分": label, "場所": place, "時計": clock, "内容": content})
+    return blocks
+
+
+def _pick_work_block(blocks: list[dict]) -> dict | None:
+    """最終追い切りを優先。無ければ（フラグ有効時）直近の週前追い切りを使う。"""
+    for b in blocks:
+        if b["区分"] == "最終追い切り" and b["時計"]:
+            return b
+    if USE_WORK_FALLBACK:
+        for b in blocks:
+            if b["時計"]:
+                return b
+    return None
+
+
 def get_work_data(race_name: str, year: int, work_slug: str = "") -> dict:
     """
     keibanomiryoku.com から調教データを取得する。
-    work_slug: schedule.json の work_slug フィールド。空の場合はスキップ。
-    戻り値: {馬名: {"調教場所・馬場": ..., "時計": ..., "内容": ..., "調1F": ...}}
+    最終追い切りを優先し、無い場合のみ１週前等にフォールバックする。
+    戻り値: {馬名: {"調教場所・馬場", "時計", "内容", "調1F", "追切区分"}}
     """
     if not work_slug:
         print(f"[WORK] '{race_name}' の work_slug が未設定です。スキップします。")
         return {}
 
-    slug = work_slug
-    url = f"https://www.keibanomiryoku.com/article/{slug}-{year}-work-out.html"
+    url = f"https://www.keibanomiryoku.com/article/{work_slug}-{year}-work-out.html"
     print(f"[WORK] {url}")
 
     headers = {"User-Agent": "Mozilla/5.0"}
@@ -352,49 +407,36 @@ def get_work_data(race_name: str, year: int, work_slug: str = "") -> dict:
 
     for h3 in soup.find_all("h3"):
         horse_name = h3.get_text(strip=True)
-        node  = h3.next_sibling
-        place = ""
-        clock = ""
-        content = ""
-        label = ""
+        if not horse_name:
+            continue
 
+        # h3 直後〜次の h3 までのテキストを結合
+        parts = []
+        node = h3.next_sibling
         while node:
-            node = getattr(node, "next_sibling", None)
-            if not node:
-                break
             if getattr(node, "name", None) == "h3":
                 break
+            t = node.get_text("\n", strip=True) if hasattr(node, "get_text") else str(node).strip()
+            if t:
+                parts.append(t)
+            node = getattr(node, "next_sibling", None)
+        text = "\n".join(parts)
 
-            txt = node.get_text("\n", strip=True) if hasattr(node, "get_text") else ""
+        blocks = _parse_work_text(text)
+        picked = _pick_work_block(blocks)
 
-            # 「追い切り無し」は明示的にデータなし扱いとして抜ける
-            if "追い切り無し" in txt:
-                break
+        if picked:
+            place, clock, content, label = picked["場所"], picked["時計"], picked["内容"], picked["区分"]
+        else:
+            place, clock, content, label = "", "", "", ""
 
-            # 「最終追い切り」だけでなく「１週前追い切り」「２週前追い切り」等も
-            # 拾えるように、"追い切り" を含む行を広く対象にする。
-            # （直前追い切りが未発表のとき、サイト側のラベルが変わるため）
-            if "追い切り" in txt:
-                lines = [x.strip() for x in txt.split("\n") if x.strip()]
-                if len(lines) >= 3:
-                    label = lines[0]
-                    place = lines[1]
-                    clock = lines[2]
-                    m = re.search(r"（(.*?)）", clock)
-                    if m:
-                        content = m.group(1)
-                break
-
-        if horse_name:
-            # 調1F を時計文字列から抽出
-            last1f = _extract_last1f(clock)
-            work_data[horse_name] = {
-                "調教場所・馬場": place,
-                "時計"          : clock,
-                "内容"          : content,
-                "調1F"          : last1f,
-                "追切区分"      : label,   # 例: "最終追い切り" / "１週前追い切り"
-            }
+        work_data[horse_name] = {
+            "調教場所・馬場": place,
+            "時計"          : clock,
+            "内容"          : content,
+            "調1F"          : _extract_last1f(clock),
+            "追切区分"      : label,   # 例: "最終追い切り" / "１週前追い切り"
+        }
 
     print(f"[WORK] {len(work_data)}頭分の調教データ取得")
     return work_data
