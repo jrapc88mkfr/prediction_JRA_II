@@ -68,19 +68,26 @@ def calc_gekisou_index(row):
 
         rating = max(ratings)
 
-        last = str(row.get("前走", ""))
-
-        # 前走人気
-        pop = re.search(r"(\d+)番人気", last)
-        pop = int(pop.group(1)) if pop else 10
-
-        # 前走着順
-        rank = re.search(r"(\d+)着", last)
-        rank = int(rank.group(1)) if rank else 10
-
-        # 上がり3F
-        last3f = re.search(r"3F\s+(\d+\.\d+)", last)
-        last3f = float(last3f.group(1)) if last3f else 36.0
+        # 【v4修正】従来は row["前走"] (数値の指数) に正規表現をかけていたため
+        # 人気・着順・上がりが取れず bad_run と kick が常に 0 だった
+        # (実績269頭すべてで再現確認済み)。kichiuma形式の前走テキストが
+        # "前走テキスト" で渡された場合はそちらを解析する。
+        last = str(row.get("前走テキスト", "") or "")
+        if last:
+            m = re.search(r"(\d+)人", last)
+            pop = int(m.group(1)) if m else 10
+            m = re.search(r"\d{2}\.\d{2}\.\d{2}\s+(\d+)\s+", last)
+            rank = int(m.group(1)) if m else 10
+            m = re.search(r"\d+:\d+\.\d+[良稍重不]\s+([\d.]+)\s+", last)
+            last3f = float(m.group(1)) if m else 36.0
+        else:
+            last = str(row.get("前走", ""))
+            pop_m = re.search(r"(\d+)番人気", last)
+            pop = int(pop_m.group(1)) if pop_m else 10
+            rank_m = re.search(r"(\d+)着", last)
+            rank = int(rank_m.group(1)) if rank_m else 10
+            l3_m = re.search(r"3F\s+(\d+\.\d+)", last)
+            last3f = float(l3_m.group(1)) if l3_m else 36.0
 
         # =========================
         # ① 人気×着順ギャップ
@@ -151,7 +158,7 @@ def make_comment(row):
         comment += "評価は中位。"
 
     # 追い切り
-    if "A" in workout:
+    if "S" in workout or "A" in workout:  # v4: S評価も「抜群」扱い (従来はSが素通りして「やや割引」になっていた)
         comment += "追い切り抜群。"
     elif "B" in workout:
         comment += "仕上がり良好。"

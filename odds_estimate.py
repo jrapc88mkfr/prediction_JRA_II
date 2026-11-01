@@ -30,36 +30,35 @@ def build_formation(ranked_nos: list[str]) -> dict:
     """
     補正後指数の高い順に並んだ馬番リストから、決め打ちの買い目フォーメーションを生成する。
 
-    馬連BOX　　　　　：補正指数1〜3位（◎○▲）の3頭ボックス　　　　　　→ 3点
-    3連複フォーメーション：1列目1〜2位（◎○）／2列目1〜3位（◎○▲）／
-                        3列目1〜6位（◎○▲△☆1☆2）　　　　　　　　→ 10点
+    【v4変更】1位軸フォーメーション（点数は従来と同じ13点）
+    馬連　　　　　　：1位から2・3・4位への流し　　　　　　　　　　　→ 3点
+    3連複　　　　　：1位を軸に、2〜6位から2頭を選ぶ　　　　　　　　→ 10点
 
-    ranked_nos: 補正後指数が高い順に並んだ馬番のリスト（例: ["2","5","6","8","9","10",...]）
+    根拠: 実績18レースで、v3ランキング (1位指名の複勝的中 12/18) を使い
+    同じ13点で3方式を比較したところ、1位軸が 3連複4的中・回収率0.355 と
+    従来フォーメーション (3的中・0.216) / BOX (2的中・0.149) を上回った。
+    ただし n=18 と小さく、1位が3着内に入ることが前提の構造なので、
+    1位の信頼度が低いレース (recommendation が「見送り推奨」) では
+    使わない判断も含めて運用すること。
+
+    ranked_nos: 順位が高い順に並んだ馬番のリスト（例: ["2","5","6","8","9","10",...]）
     戻り値: {"umaren": [("2","5"), ...], "sanrenpuku": [("2","5","6"), ...]}
     """
     if len(ranked_nos) < 6:
         raise ValueError("フォーメーションには最低6頭分の順位付けが必要です")
 
-    # 馬連BOX：上位3頭の2頭ずつの組み合わせ → 3C2 = 3点
-    # 表示は馬番の若い順（昇順）にする（例: 9-2 ではなく 2-9）
-    top3 = ranked_nos[:3]
-    umaren = [tuple(sorted(c, key=int)) for c in itertools.combinations(top3, 2)]
+    axis = ranked_nos[0]
+    # 馬連：1位軸流し (相手は2・3・4位) → 3点
+    umaren = [
+        tuple(sorted((axis, other), key=int))
+        for other in ranked_nos[1:4]
+    ]
 
-    # 3連複フォーメーション：列ごとの候補から重複なしの組み合わせを列挙 → 10点
-    col1 = ranked_nos[:2]   # ◎○
-    col2 = ranked_nos[:3]   # ◎○▲
-    col3 = ranked_nos[:6]   # ◎○▲△☆1☆2
-
-    sanrenpuku = set()
-    for a in col1:
-        for b in col2:
-            for c in col3:
-                combo = {a, b, c}
-                if len(combo) == 3:
-                    # 表示は馬番の若い順（昇順）にする
-                    sanrenpuku.add(tuple(sorted(combo, key=int)))
-
-    # 補正後指数の順位が高い馬から順に並べ、見やすくする
+    # 3連複：1位軸、相手は2〜6位から2頭 → C(5,2) = 10点
+    sanrenpuku = [
+        tuple(sorted((axis, a, b), key=int))
+        for a, b in itertools.combinations(ranked_nos[1:6], 2)
+    ]
     sanrenpuku_sorted = sorted(
         sanrenpuku,
         key=lambda combo: tuple(ranked_nos.index(x) for x in combo),

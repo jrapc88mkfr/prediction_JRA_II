@@ -89,13 +89,19 @@ def calc_mishap_bonus(comment: str) -> int:
 
     total = 0
     for group in MISHAP_BONUS_GROUPS:
-        # グループ内でマッチしたキーワードの最大値のみ採用
-        group_max = 0
-        for keyword in group:
-            if keyword in comment:
-                bonus = MISHAP_BONUS_TABLE.get(keyword, 0)
-                group_max = max(group_max, bonus)
-        total += group_max
+        # グループ内でマッチしたキーワードから1つだけ採用（二重計上防止）。
+        # 【v4修正】従来は group_max の初期値が 0 だったため、マイナス補正
+        # (休養系: -6/-12) が max() で常に 0 に潰れ、ペナルティが一度も
+        # 適用されていなかった（実績269頭で休養キーワード23頭中、適用0頭）。
+        # 「絶対値が最大のキーワード」を採ることで、正の補正では従来通り
+        # 最大値、休養系では最も重いペナルティが選ばれるようにした。
+        matched = [
+            MISHAP_BONUS_TABLE.get(keyword, 0)
+            for keyword in group
+            if keyword in comment
+        ]
+        if matched:
+            total += max(matched, key=abs)
 
     # グループ未所属キーワード（距離・初距離等）
     ungrouped = set(MISHAP_BONUS_TABLE.keys())

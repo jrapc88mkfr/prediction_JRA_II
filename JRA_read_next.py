@@ -1,7 +1,37 @@
 # ============================================================
-# JRA_read_next.py  競馬予想データ自動生成 次期バージョン
+# JRA_read_next_v4.py  競馬予想データ自動生成 的中率改善バージョン (実績検証つき)
 #
-# 【変更点】
+# 【v4での変更点】（v3から。同梱の修正版モジュール3点とセットで使うこと）
+#   6. reporting.py 修正版に合わせ、前走テキストを激走指数の計算に渡す
+#      （人気×着順ギャップと切れ味ボーナスが復活する。ただし修正版の
+#      激走指数は実績18Rでは単体で当てておらず、v3のランキングには
+#      従来通り使っていない。効くかどうかは今後のデータで再検証）
+#   7. adjustment.py 修正版で休養ペナルティが実際に効くようになる
+#      （印まわりの補正後指数が変わる。ランキングへの影響はない）
+#   8. odds_estimate.py 修正版でフォーメーションが1位軸 (13点は同じ) に
+#      なる。実績18R・v3ランキングでの比較: 3連複 従来3的中/回収率0.216
+#      → 1位軸 4的中/0.355
+#
+# 【v3での変更点】（v2から。元の JRA_read_next.py / v2 は変更していません）
+#   5. 過去18レースの実績検証に基づき、勝率の元になるモデルを
+#      「総合指数」から「クラス調整スコア」に差し替え、
+#      温度=12 / 市場ブレンド=0.5 に設定。フォーメーションも
+#      最終確率の順で組むようにした。詳細は同梱の検証レポート参照。
+#
+# 【v2での変更点】
+#   1. 補正後指数を「勝率（確率）」に変換する層を追加 (softmax)
+#      指数の順位だけでなく、1位の強さ・2位との差を数値化する。
+#   2. 単勝オッズから求めた市場の勝率とブレンドする (市場は強い予測子。
+#      ただし生成時点のオッズは早い段階のものなので、重みは控えめが既定。
+#      最終的には backtest.py で重みを実績データから決めること)
+#   3. 信頼度による「見送り」判定を追加。信頼度の低いレースを買わない
+#      ことが、買ったレースでの的中率を上げる最も確実な方法の一つ。
+#      しきい値は初期値であり backtest.py での検証・調整が前提。
+#   4. 出馬表の dosuu_box（距離・芝ダ・コース別成績）を取得していなかった
+#      問題を修正し、rawdata に「適性データ」として保存する
+#      （まずは蓄積用。指数への反映はバックテストで効果を確認してから）
+#
+# 【旧バージョンからの変更点】
 #   - kichiuma.net から出馬表を自動取得（JRA URL不要）
 #   - race_id を レース名辞書から自動生成
 #   - Claude API で前走しくじりコメントを自動生成
@@ -273,6 +303,16 @@ def get_entry_table(race_id: str, date: str, no: str, id_: str) -> list[dict]:
         # オッズ戦績: "7.2 (2.0.0.1)" 形式
         odds_record = f"{odds_val} ({record})" if odds_val and record else odds_val
 
+        # v2: dosuu_box（距離・芝ダ・コース別成績）も取得する。
+        # 旧版ではコメント上「td[03]」とされながら実際には読まれておらず、
+        # コース/距離適性という強い特徴量が捨てられていた。
+        # まずは生テキストをそのまま保存し、蓄積→検証→指数反映の順で使う。
+        dosuu_td = next(
+            (td for td in all_tds if "dosuu_box" in (td.get("class") or [])),
+            None
+        )
+        aptitude_text = dosuu_td.get_text(separator=" ", strip=True) if dosuu_td else ""
+
         # --- 前走データ: class=CY/CY1/CY2 の td を取得 ---
         # CY=通常, CY1=1着, CY2=2着 のバリエーションあり
         # 休養tdはclassなしなので自動的にスキップされる
@@ -315,6 +355,7 @@ def get_entry_table(race_id: str, date: str, no: str, id_: str) -> list[dict]:
             "prev_3f"    : prev_3f,
             "prev_raw"   : prev1,
             "kyuyo"      : kyuyo_text,
+            "aptitude"   : aptitude_text,
         })
         print(f"  [{num}] {name}  前走={repr(prev1[:40])}")
 
@@ -819,6 +860,166 @@ def generate_mishap_comments(horses: list[dict], result_comments: dict = None, r
 
 
 # ============================================================
+# v2: 勝率の確率化・市場ブレンド・信頼度判定（純粋関数群）
+#
+# 方針:
+#   - 指数そのものの作り方（rating.py 等）は変えない。ここは
+#     「指数 → 確率 → 買う/見送りの判断」に変換する層だけを足す。
+#   - パラメータは環境変数で上書き可能にし、backtest.py の
+#     グリッドサーチ結果をそのまま反映できるようにする。
+#   - しきい値・重みはすべて「実績未検証の初期値」。
+#     過去データで検証せずに本番の重みを上げないこと。
+# ============================================================
+PROB_TEMPERATURE = float(os.environ.get("PROB_TEMPERATURE", "12.0"))  # v3: 実績18Rで検証した値 (クラススコア用)
+MARKET_BLEND     = float(os.environ.get("MARKET_BLEND", "0.50"))      # v3: 実績18Rで検証した値 市場の勝率の混合率 0..1
+CONF_STRONG_PROB = float(os.environ.get("CONF_STRONG_PROB", "0.32"))  # 「勝負」判定: 1位の確率
+CONF_STRONG_GAP  = float(os.environ.get("CONF_STRONG_GAP", "0.08"))   # 「勝負」判定: 1位と2位の確率差
+CONF_NORMAL_PROB = float(os.environ.get("CONF_NORMAL_PROB", "0.22"))  # 「通常」判定: 1位の確率
+
+
+def parse_win_odds(odds_record: str):
+    """'7.2 (2.0.0.1)' のような オッズ戦績 文字列から単勝オッズ(float)を取り出す。無ければ None"""
+    m = re.match(r"\s*([\d.]+)", str(odds_record or ""))
+    if not m:
+        return None
+    try:
+        v = float(m.group(1))
+        return v if v > 1.0 else None
+    except ValueError:
+        return None
+
+
+def model_win_probs(rows: list[dict], temperature: float = None) -> dict:
+    """
+    補正後指数 adjusted_index を softmax で勝率に変換する。
+    戻り値: {馬番: 確率}（合計は1.0）。指数が同点なら均等に近づく。
+    """
+    t = PROB_TEMPERATURE if temperature is None else temperature
+    t = max(0.5, float(t))
+    scores = {r["馬番"]: float(r.get("adjusted_index", 0) or 0) for r in rows}
+    if not scores:
+        return {}
+    mx = max(scores.values())
+    exps = {k: math.exp((v - mx) / t) for k, v in scores.items()}
+    total = sum(exps.values())
+    return {k: v / total for k, v in exps.items()}
+
+
+def market_win_probs(rows: list[dict]) -> dict:
+    """
+    単勝オッズの逆数から市場の勝率を作り、控除率分を正規化して合計1にする。
+    オッズが取れない馬が1頭でもいれば市場ブレンドは行わず {} を返す
+    （中途半端なブレンドは順位を歪めるため）。
+    """
+    raw = {}
+    for r in rows:
+        odds = parse_win_odds(r.get("オッズ戦績", ""))
+        if odds is None:
+            return {}
+        raw[r["馬番"]] = 1.0 / odds
+    total = sum(raw.values())
+    return {k: v / total for k, v in raw.items()} if total > 0 else {}
+
+
+def blend_probs(model: dict, market: dict, blend: float = None) -> dict:
+    """モデル確率と市場確率の加重平均。市場が無ければモデル確率をそのまま返す。"""
+    if not market:
+        return dict(model)
+    b = MARKET_BLEND if blend is None else blend
+    b = max(0.0, min(1.0, float(b)))
+    out = {k: (1 - b) * p + b * market.get(k, 0.0) for k, p in model.items()}
+    total = sum(out.values())
+    return {k: v / total for k, v in out.items()} if total > 0 else dict(model)
+
+
+# ============================================================
+# v3: クラス調整スコア
+#
+# 実績18レース (2026/7/5〜10/24) の診断で判明したこと:
+#   - 従来の総合指数は「勝ち馬の指数順位の中央値が8位」と、
+#     ほぼランダムに近い並びだった (1位指名の単勝的中 3/18)。
+#   - 原因のひとつは、タイム指数がコースレコードとの差だけで、
+#     レースの格 (クラス) を見ていないこと。格上挑戦の凡走と
+#     格下での好走が同じ物差しで測られていた。
+#   - そこで「着順のパーセンタイル + 格付け点」を直近重視で
+#     加重したクラス調整スコアを作り、前走人気で微調整する。
+#     検証結果 (全18R): このスコア単体で 複勝(1位指名が3着内) 10/18、
+#     市場ブレンド後は 単勝 6/18・複勝 12/18。未来側8Rでも
+#     複勝 5/8 と、従来指数 (3/8)・人気のみ (4/8) を上回った。
+#     ただし n=18 は小さく、単勝の未来側は人気・従来と同数 (2/8)。
+#     「複勝・フォーメーションの改善」として採用し、単勝の
+#     優位性は今後のデータ蓄積で再検証すること。
+# ============================================================
+GRADE_POINTS = {"GI": 12, "Jpn1": 12, "GII": 9, "Jpn2": 9,
+                "GIII": 6, "Jpn3": 6, "OP": 3, "L": 3}
+CLASS_WEIGHTS = (0.5, 0.3, 0.2)   # 前走 / 前々走 / 3走前
+
+
+def class_ability_score(raw: dict):
+    """
+    rawdata の前3走テキストからクラス調整スコアを返す。前走データが無い馬は None。
+    スコア = Σ[ (1-(着順-1)/(頭数-1))*100 + 格付け点 ] を CLASS_WEIGHTS で加重
+             - (前走人気-1) * 1.5
+    """
+    weighted = 0.0
+    w_total = 0.0
+    first_pop = None
+    for i, key in enumerate(("前走", "前々走", "3走前")):
+        text = str((raw or {}).get(key, "") or "")
+        if not text.strip():
+            continue
+        info = _parse_kichiuma_result(text)
+        rank = info.get("rank")
+        if not rank:
+            continue
+        m_field = re.search(r"(\d+)ト", text)
+        field = int(m_field.group(1)) if m_field else 16
+        pct = (1 - (rank - 1) / max(1, field - 1)) * 100
+        weighted += (pct + GRADE_POINTS.get(info.get("grade", ""), 0)) * CLASS_WEIGHTS[i]
+        w_total += CLASS_WEIGHTS[i]
+        if i == 0:
+            first_pop = info.get("popularity")
+    if w_total == 0:
+        return None
+    score = weighted / w_total
+    if first_pop:
+        score -= (first_pop - 1) * 1.5
+    return round(score, 1)
+
+
+def model_probs_from_scores(scores: dict, temperature: float = None) -> dict:
+    """{馬番: スコア} を softmax で勝率に変換する (合計1.0)"""
+    if not scores:
+        return {}
+    t = max(0.5, PROB_TEMPERATURE if temperature is None else float(temperature))
+    mx = max(scores.values())
+    exps = {k: math.exp((v - mx) / t) for k, v in scores.items()}
+    total = sum(exps.values())
+    return {k: v / total for k, v in exps.items()}
+
+
+def race_recommendation(probs: dict) -> dict:
+    """
+    確率の集中度から買い方を3段階で返す。
+    的中率を上げる要点は「全部のレースを同じだけ買わない」こと。
+    見送り推奨のレースを実際に見送った場合の的中率は backtest.py で測る。
+    しきい値は初期値（未検証）。backtest.py の結果で調整すること。
+    """
+    if not probs:
+        return {"label": "判定不能", "top1_prob": None, "gap": None}
+    ordered = sorted(probs.values(), reverse=True)
+    top1 = ordered[0]
+    gap = round(top1 - ordered[1], 4) if len(ordered) >= 2 else top1
+    if top1 >= CONF_STRONG_PROB and gap >= CONF_STRONG_GAP:
+        label = "勝負（信頼度・高）"
+    elif top1 >= CONF_NORMAL_PROB:
+        label = "通常"
+    else:
+        label = "見送り推奨（信頼度・低）"
+    return {"label": label, "top1_prob": round(top1, 4), "gap": gap}
+
+
+# ============================================================
 # JSON組み立て
 # ============================================================
 def build_json(race_name: str, horses: list[dict],
@@ -928,7 +1129,12 @@ def build_json(race_name: str, horses: list[dict],
     # ---- Step3: 激走指数・コメント ----
     for r in rows:
         r["展開予想"]    = pace
-        r["激走P"]    = calc_gekisou_index(r)
+        # v4: 修正版 reporting.calc_gekisou_index が前走の人気・着順・上がりを
+        # 読めるよう、前走テキストを渡す (従来は数値の指数しか渡っておらず、
+        # 人気×着順ギャップと切れ味ボーナスが常に0だった)
+        _r = dict(r)
+        _r["前走テキスト"] = rawdata.get(r["馬名"], {}).get("前走", "")
+        r["激走P"]    = calc_gekisou_index(_r)
         r["新聞コメント"] = make_comment(r)
 
     # ---- レース内最大値を10点として正規化 ----
@@ -961,15 +1167,44 @@ def build_json(race_name: str, horses: list[dict],
         if mishap_bonus > 0 or weight_bonus > 0:
             print(f"  [補正] {r['馬名']}: 基礎{base} + しくじり{mishap_bonus} + 斤量{weight_bonus} + 激走指数{gekisou_bonus} = {adjusted}")
 
-    # ---- Step5: 補正後指数で印を付ける ----
+    # ---- v3 Step5': クラス調整スコア → 勝率 → 最終ランキング ----
+    # モデル確率は「総合指数」ではなく「クラス調整スコア」から作る。
+    # (実績検証で、総合指数は勝ち馬をほぼ当てられていなかったため)
+    for r in rows:
+        r["クラススコア"] = class_ability_score(rawdata.get(r["馬名"], {}))
+    _class_scores = {
+        r["馬番"]: (r["クラススコア"] if r["クラススコア"] is not None else 40.0)
+        for r in rows
+    }
+    _model_probs  = model_probs_from_scores(_class_scores)
+    _market_probs = market_win_probs(rows)
+    _final_probs  = blend_probs(_model_probs, _market_probs)
+    for r in rows:
+        r["win_prob"] = _final_probs.get(r["馬番"], 0.0)
+    recommendation = race_recommendation(_final_probs)
+    prediction = [
+        {
+            "馬番"      : r["馬番"],
+            "馬名"      : r["馬名"],
+            "class_score": r["クラススコア"],
+            "model_prob": round(_model_probs.get(r["馬番"], 0.0), 4),
+            "market_prob": (round(_market_probs[r["馬番"]], 4) if r["馬番"] in _market_probs else None),
+            "win_prob"  : round(_final_probs.get(r["馬番"], 0.0), 4),
+        }
+        for r in sorted(rows, key=lambda r: -r["win_prob"])
+    ]
+    print(f"[PREDICT] 推奨={recommendation['label']} "
+          f"1位確率={recommendation['top1_prob']} 差={recommendation['gap']} "
+          f"市場ブレンド={'あり' if _market_probs else 'なし(オッズ不足)'}")
+
+    # ---- Step5: 補正後指数で印を付ける (印の付け方は従来通り) ----
     assign_marks(rows)
 
-    # 印がついた時点（＝補正後指数の高い順）の並びで、
-    # 決め打ちフォーメーション（馬連BOX3点＋3連複10点）を確定させる。
+    # v3: フォーメーションは最終確率 (win_prob) の高い順で確定させる。
     # ※単勝オッズを使う「想定オッズ」の計算は行わない
     #   （単勝オッズは土日で何度も動くため、update_odds.py 側で
     #    オッズ更新のたびに再計算する）
-    ranked_rows = sorted(rows, key=lambda r: -r.get("adjusted_index", 0))
+    ranked_rows = sorted(rows, key=lambda r: -r.get("win_prob", 0))
     ranked_nos  = [str(r["馬番"]) for r in ranked_rows]
     try:
         formation = build_formation(ranked_nos)
@@ -988,9 +1223,10 @@ def build_json(race_name: str, horses: list[dict],
     # ※しきい値(0.35/0.20/0.10)は実績データで検証したものではなく、
     #   経験則としての初期値。実際の出力を見ながら調整すること。
     race_shape = {"label": "判定不能", "gap_ratio": None}
-    if len(ranked_rows) >= 6:
-        top1 = ranked_rows[0].get("adjusted_index", 0)
-        top6 = ranked_rows[5].get("adjusted_index", 0)
+    _adj_ranked = sorted(rows, key=lambda r: -r.get("adjusted_index", 0))
+    if len(_adj_ranked) >= 6:
+        top1 = _adj_ranked[0].get("adjusted_index", 0)
+        top6 = _adj_ranked[5].get("adjusted_index", 0)
         if top1 > 0:
             gap_ratio = round((top1 - top6) / top1, 3)
             if   gap_ratio >= 0.35: label = "堅い"
@@ -1028,6 +1264,8 @@ def build_json(race_name: str, horses: list[dict],
         "斤量補正"    : r.get("斤量補正", 0),
         "追切評価"    : r["追切評価"],
         "激走指数"    : r["激走指数"],
+        "クラススコア": r.get("クラススコア"),
+        "勝率"        : round(r.get("win_prob", 0.0), 4),
         "新聞コメント": r["新聞コメント"],
         "前走コメント": r["前走コメント"],
         "備考"        : f"予想ペース：{pace}",
@@ -1045,6 +1283,15 @@ def build_json(race_name: str, horses: list[dict],
         "workdata" : work,
         "betting_formation": betting_formation,
         "race_shape": race_shape,
+        # v2追加: 確率と買い方判定。update_odds.py 側でオッズ更新時に
+        # market_win_probs / blend_probs を再計算すると、最終オッズに
+        # 基づく確率・推奨に更新できる（関数はいずれも純粋関数）。
+        "prediction": prediction,
+        "recommendation": recommendation,
+        "prediction_params": {
+            "temperature": PROB_TEMPERATURE,
+            "market_blend": MARKET_BLEND if _market_probs else 0.0,
+        },
     }
 
 
@@ -1217,6 +1464,7 @@ def main(race_name: str = None, date_str: str = None,
             "時計"          : w.get("時計", ""),
             "内容"          : w.get("内容", ""),
             "休養情報"      : absence,
+            "適性データ"    : h.get("aptitude", ""),   # v2: dosuu_box（距離・芝ダ・コース別成績）
         }
     print(f"[RAW] rawdata {len(rawdata)}頭分 組み立て完了")
 
