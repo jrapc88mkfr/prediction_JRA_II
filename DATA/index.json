@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-01T00:06:58",
+  "generated_at": "2026-11-01T01:42:03",
   "races": [
     {
       "file": "races/261101_東京_天皇賞秋.html",
@@ -15,7 +15,29 @@
         "gap_ratio": 0.046
       },
       "race_shape_class": "are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "1-6": 28,
+          "1-15": 118,
+          "6-15": 1274
+        },
+        "umaren_avg": 473,
+        "sanrenpuku": {
+          "1-6-15": 827,
+          "1-6-10": 403,
+          "1-6-17": 81,
+          "1-6-11": 79,
+          "1-15-17": 352,
+          "1-10-15": 1749,
+          "1-11-15": 344,
+          "6-15-17": 4673,
+          "6-10-15": 23092,
+          "6-11-15": 4571
+        },
+        "sanrenpuku_avg": 3617,
+        "assumed_hit_rate": 0.18,
+        "expected_value": 651
+      }
     },
     {
       "file": "races/261031_京都_ファンタジーステークス.html",
@@ -24,14 +46,55 @@
       "venue": "京都",
       "race_name": "ファンタジーステークス",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 15,
+        "investment": 1500,
+        "honmei_no": 8,
+        "has_honmei": true,
+        "tansho_points": 1,
+        "fukusho_points": 1,
+        "umaren_points": 3,
+        "sanrenpuku_points": 10,
+        "tansho_hit": false,
+        "tansho_pay": 0,
+        "fukusho_hit": false,
+        "fukusho_pay": 0,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "荒れる",
         "gap_ratio": 0.085
       },
       "race_shape_class": "are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "2-8": 43,
+          "4-8": 7.1,
+          "2-4": 130
+        },
+        "umaren_avg": 60,
+        "sanrenpuku": {
+          "2-8-10": 113,
+          "2-8-9": 333,
+          "2-4-8": 73,
+          "2-4-10": 408,
+          "2-4-9": 1199,
+          "2-3-8": 95,
+          "2-3-4": 345,
+          "4-8-10": 17,
+          "4-8-9": 51,
+          "3-4-8": 15
+        },
+        "sanrenpuku_avg": 265,
+        "assumed_hit_rate": 0.18,
+        "expected_value": 48
+      }
     },
     {
       "file": "races/261025_京都_菊花賞.html",
