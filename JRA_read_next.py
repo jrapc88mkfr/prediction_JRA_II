@@ -1022,6 +1022,74 @@ def race_recommendation(probs: dict) -> dict:
 # ============================================================
 # JSON組み立て
 # ============================================================
+# ============================================================
+# v4r 追加：記録専用の特徴量（予想ロジックには一切使わない）
+# 将来の候補検証（馬場適性・脚質・騎手など）のために、発走前の時点で
+# 得られる情報を構造化して保存する。v4 からの変更はこの記録追加のみで、
+# 順位・確率・買い目・推奨の計算には手を入れていない。
+# ============================================================
+def calc_wakuban(baban: int, tousuu: int) -> int:
+    """馬番と頭数から枠番を求める（JRAの枠番割り付けルール）。
+    9頭以上では8枠に配分し、余りは後ろの枠から1頭ずつ増やす。"""
+    if tousuu <= 8:
+        return baban
+    base, r = divmod(tousuu, 8)
+    sizes = [base + (1 if i >= 8 - r else 0) for i in range(8)]
+    acc = 0
+    for i, s in enumerate(sizes):
+        acc += s
+        if baban <= acc:
+            return i + 1
+    return 8
+
+
+def parse_past_race_features(texts: list) -> dict:
+    """過去走テキスト（kichiuma形式）から候補検証用の特徴量を抽出する純粋関数。
+    馬場別成績（良/稍重/重/不良ごとの出走数・3着内数）、脚質前方率
+    （最初の通過順位÷頭数の平均。小さいほど前で競馬をする）、
+    前走の馬体重・増減・騎手を返す。"""
+    going_stats = {"良": [0, 0], "稍重": [0, 0], "重": [0, 0], "不良": [0, 0]}
+    front_rates = []
+    n_parsed = 0
+    for text in texts:
+        if not text:
+            continue
+        m_fin = re.search(r"\d{2}\.\d{2}\.\d{2}\s+(\d{1,2})\s", text)
+        m_go = re.search(r"\d+:\d+\.\d(良|稍重|重|不良)", text)
+        m_hd = re.search(r"(\d+)ト\s*\d+ワク\s+(\d+)", text)
+        if m_fin and m_go:
+            fin = int(m_fin.group(1))
+            st = going_stats[m_go.group(1)]
+            st[0] += 1
+            if fin <= 3:
+                st[1] += 1
+            n_parsed += 1
+        if m_hd:
+            field = int(m_hd.group(1))
+            pos1 = int(m_hd.group(2))
+            if field > 0:
+                front_rates.append(pos1 / field)
+    last_weight = None
+    last_weight_diff = None
+    last_jockey = None
+    if texts and texts[0]:
+        m_wt = re.search(r"(\d{3})\(([+-]?\d+)\)", texts[0])
+        if m_wt:
+            last_weight = int(m_wt.group(1))
+            last_weight_diff = int(m_wt.group(2))
+        m_jk = re.search(r"\d{2}\.\d([^\d\s]+?)\d+人", texts[0])
+        if m_jk:
+            last_jockey = m_jk.group(1)
+    return {
+        "馬場別成績": {k: {"出走": v[0], "3着内": v[1]} for k, v in going_stats.items()},
+        "脚質前方率": (round(sum(front_rates) / len(front_rates), 3) if front_rates else None),
+        "前走馬体重": last_weight,
+        "前走馬体重増減": last_weight_diff,
+        "前走騎手": last_jockey,
+        "特徴量対象走数": n_parsed,
+    }
+
+
 def build_json(race_name: str, horses: list[dict],
                work: dict, comments: dict,
                rawdata: dict,
@@ -1271,6 +1339,25 @@ def build_json(race_name: str, horses: list[dict],
         "備考"        : f"予想ペース：{pace}",
     } for r in rows]
 
+    # v4r: 記録拡張（予想ロジックは v4 から不変更）
+    _tousuu = len(rows)
+    horse_data = []
+    for r in rows:
+        _raw = rawdata.get(r["馬名"], {})
+        _feat = parse_past_race_features(
+            [_raw.get(k, "") for k in ("前走", "前々走", "3走前", "4走前")])
+        horse_data.append({
+            "馬番"      : r["馬番"],
+            "馬名"      : r["馬名"],
+            "枠番"      : calc_wakuban(int(r["馬番"]), _tousuu),
+            "騎手"      : r["騎手"],
+            "斤量"      : r["斤量"],
+            "脚質"      : r["脚質"],
+            "追切評価"  : r["追切評価"],
+            "追切スコア": r["追切スコア"],
+            **_feat,
+        })
+
     return {
         "race_name": race_name,
         "course"   : venue,
@@ -1287,6 +1374,7 @@ def build_json(race_name: str, horses: list[dict],
         # market_win_probs / blend_probs を再計算すると、最終オッズに
         # 基づく確率・推奨に更新できる（関数はいずれも純粋関数）。
         "prediction": prediction,
+        "horse_data": horse_data,
         "recommendation": recommendation,
         "prediction_params": {
             "temperature": PROB_TEMPERATURE,
