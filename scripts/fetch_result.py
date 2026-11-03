@@ -24,6 +24,7 @@ import json
 import os
 import re
 import sys
+import unicodedata
 import time
 import datetime
 
@@ -84,6 +85,7 @@ _RACE_ALIASES = {
     "優駿牝馬": "オークス", "オークス": "優駿牝馬",
 }
 
+_NORM_STRIP = re.compile(r"[\s　()（）「」『』・･\-]")
 
 def _race_core(name):
     n = name
@@ -95,6 +97,21 @@ def _race_core(name):
             break
     return n.strip()
 
+def _norm(s):
+    """全角/半角・括弧・空白・記号の表記ゆれを吸収して比較用の文字列にする"""
+    s = unicodedata.normalize("NFKC", str(s))
+    return _NORM_STRIP.sub("", s)
+
+
+def _race_name_candidates(race_name):
+    """ファイル名のレース名から、照合に使う正規化済みの名前の集合を作る"""
+    core = _race_core(race_name)
+    names = {_norm(race_name), _norm(core)}
+    alias_keys = {_norm(k): _norm(v) for k, v in _RACE_ALIASES.items()}
+    for n in list(names):
+        if n in alias_keys:
+            names.add(alias_keys[n])
+    return names
 
 def _find_kaisai_id(session, date8, track):
     url = f"https://race.netkeiba.com/top/payback_list.html?kaisai_date={date8}"
@@ -107,24 +124,49 @@ def _find_kaisai_id(session, date8, track):
             return m.group(1)
     return None
 
-
-def _find_race_section(soup, race_name):
-    core = _race_core(race_name)
-    candidates = {race_name, core}
-    if core in _RACE_ALIASES:
-        candidates.add(_RACE_ALIASES[core])
+def _find_race_section(soup, race_name, race_no=None):
+    """
+    払戻ページからレースのコンテナを探す。
+    1) 正規化した名前の完全一致（「天皇賞(秋)」⇔「天皇賞秋」も一致）
+    2) 見つからなければ「○R」のレース番号で照合（race_noが分かる場合）
+    """
+    targets = _race_name_candidates(race_name)
+    entries = []  # (正規化名, レース番号, コンテナ, 元のタイトル)
 
     for p in soup.find_all("p", class_="AllResultRaceTitle"):
         span = p.find("span", class_="RacePaybackType")
         if not span:
             continue
         title_txt = span.get_text(strip=True)
-        name_only = re.sub(r"^\d+R\s*", "", title_txt)
-        for cand in candidates:
-            if cand == name_only or cand in name_only or name_only in cand:
-                container = p.find_parent("div", id=re.compile(r"^tab_PaybackRaceNum_\d+_con$"))
-                if container:
+        norm_title = _norm(title_txt)                      # 例: "11R天皇賞秋"
+        m = re.match(r"(\d+)R", norm_title)
+        this_no = int(m.group(1)) if m else None
+        name_only = re.sub(r"^\d+R", "", norm_title)       # 例: "天皇賞秋"
+        container = p.find_parent("div", id=re.compile(r"^tab_PaybackRaceNum_\d+_con$"))
+        if container:
+            entries.append((name_only, this_no, container, title_txt))
+
+    # 1) 名前の完全一致
+    for name_only, _, container, _ in entries:
+        if name_only in targets:
+            return container
+
+    # 2) レース番号で照合
+    if race_no not in (None, ""):
+        try:
+            want_no = int(race_no)
+        except (TypeError, ValueError):
+            want_no = None
+        if want_no is not None:
+            for _, this_no, container, title_txt in entries:
+                if this_no == want_no:
+                    print(f"[INFO] レース名は一致しませんでしたが、{want_no}R として照合しました"
+                          f"（払戻ページ: {title_txt}）")
                     return container
+
+    if _DEBUG:
+        print(f"[DEBUG] 払戻ページのレース一覧: {[e[3] for e in entries]}")
+        print(f"[DEBUG] 照合名: {sorted(targets)} / race_no: {race_no}")
     return None
 
 
@@ -201,8 +243,7 @@ def _parse_race_section(container):
         return None
     return result
 
-
-def fetch_race_result(stem):
+def fetch_race_result(stem, race_no=None):
     key = _parse_race_key_from_stem(stem)
     if not key:
         if _DEBUG: print(f"[DEBUG] ファイル名からレースキーを解析できません: {stem!r}")
@@ -220,7 +261,7 @@ def fetch_race_result(stem):
                    f"?kaisai_id={kaisai_id}&kaisai_date={date8}")
         html = _http_get(session, day_url)
         soup = BeautifulSoup(html, "html.parser")
-        container = _find_race_section(soup, race_name)
+        container = _find_race_section(soup, race_name, race_no)
         if not container:
             if _DEBUG: print(f"[DEBUG] race section not matched: {race_name}")
             return None
@@ -290,7 +331,7 @@ def main():
     print(f"{len(targets)}件のレース結果を確認します。")
     got, skipped = 0, 0
     for stem, race in targets:
-        raw = fetch_race_result(stem)
+        raw = fetch_race_result(stem, race.get("race_no"))    
         if not raw:
             print(f"  - {stem}: まだ結果ページが見つかりません（未確定 or 掲載待ち）")
             skipped += 1
