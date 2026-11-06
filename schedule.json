@@ -1064,7 +1064,7 @@
       "venue": "京都",
       "race_no": "11",
       "work_slug": "kyoto-jump-stakes",
-      "active": false,
+      "active": true,
       "memo": ""
     },
     {
