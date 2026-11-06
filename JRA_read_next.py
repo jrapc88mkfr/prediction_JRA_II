@@ -1706,6 +1706,9 @@ def main(race_name: str = None, date_str: str = None,
             if r.get("race_name") and r.get("work_slug"):
                 slug_lookup[r["race_name"]] = r["work_slug"]
         # v5 candidate: 同じ schedule エントリに surface/distance があれば候補計算用に保持
+        # 複数レースを1プロセスで処理するとき、前のレースの値が残らないよう毎回リセットする
+        _CANDIDATE_COURSE["surface"] = ""
+        _CANDIDATE_COURSE["distance"] = None
         for r in sc.get("races", []):
             if r.get("race_name") == race_name:
                 if r.get("surface"):
