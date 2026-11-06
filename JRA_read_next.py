@@ -1090,6 +1090,215 @@ def parse_past_race_features(texts: list) -> dict:
     }
 
 
+# ============================================================
+# v5 candidate 追加：候補ランキング（公式予想には一切影響しない）
+#
+# 公式の prediction / betting_formation / recommendation は v4r のまま。
+# ここでは horse_data と併置ファイル（枠有利度・騎手ティア）から
+# 「候補スコア」を計算し、出力JSONの candidate_prediction セクションに
+# だけ保存する。定義と重みは結果を見る前に固定したもの（候補仕様.md 参照）。
+# 併置ファイルが無い場合、該当する調整は 0 として正常動作する。
+#
+# 候補スコア = class_score + 枠脚質調整 + 馬場適性調整 + 騎手調整
+#   1. 枠脚質調整  = 枠偏差（waku_advantage.json の複勝率偏差）× 脚質係数
+#      脚質係数: 脚質前方率 <=0.35 → 1.0 / 〜0.6 → 0.6 / >0.6 → 0.3 / 不明 → 0.6
+#   2. 馬場適性調整 = clip((想定馬場の3着内率 − 全馬場の3着内率) × 20, −5, +5)
+#      率は Laplace 平滑化 (分子+1)/(出走+2)。想定馬場の出走が2未満なら 0。
+#   3. 騎手調整 = ティア調整（ティア3:+2 / ティア2:+1 / ティア1:0）
+#               + 乗り替わり調整（ティア上昇:+1 / 下降:−1 / 同じ・不明:0）
+# ============================================================
+_CANDIDATE_DIR = os.path.dirname(os.path.abspath(__file__))
+_CANDIDATE_COURSE = {"surface": "", "distance": None}  # main() が schedule.json から設定
+CANDIDATE_TEMPERATURE = 12.0  # 候補勝率用 softmax 温度（公式と同じ T=12 で固定）
+
+
+def _load_candidate_json(filename: str) -> dict:
+    """スクリプトと同じフォルダの併置JSONを読む。無い・壊れている場合は {}"""
+    try:
+        path = os.path.join(_CANDIDATE_DIR, filename)
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _candidate_going() -> str:
+    """想定馬場。環境変数 CANDIDATE_GOING で上書き可（デフォルト「良」）"""
+    g = os.environ.get("CANDIDATE_GOING", "良")
+    return g if g in ("良", "稍重", "重", "不良") else "良"
+
+
+def _jockey_tier(name, tiers: dict) -> int:
+    """騎手ティア（3/2/1）。表に無い・不明な騎手は 1。
+
+    kichiuma の出馬表では騎手名が短縮表記（例「川田」「戸崎圭」）になるため、
+    完全一致が無い場合は「ティア表の名前がその短縮形で始まる」候補のティアが
+    一意に定まるときだけ、その騎手として引く（例「岩田望」→岩田望来はティア3、
+    「岩田康」→岩田康誠は表に無いのでティア1のまま）。"""
+    if not name:
+        return 1
+    key = str(name).strip()
+    t = tiers.get(key)
+    if t in (1, 2, 3):
+        return t
+    found = {tiers[k] for k in tiers if k.startswith(key)}
+    if len(found) == 1:
+        t = found.pop()
+        return t if t in (1, 2, 3) else 1
+    return 1
+
+
+def _style_coefficient(front_rate) -> float:
+    """脚質前方率 → 枠調整の脚質係数（前で競馬する馬ほど枠の有利不利が効く）"""
+    if front_rate is None:
+        return 0.6
+    if front_rate <= 0.35:
+        return 1.0
+    if front_rate <= 0.6:
+        return 0.6
+    return 0.3
+
+
+def _clip(x: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, x))
+
+
+def calc_candidate_adjustments(hd: dict, waku_dev, tiers: dict, going: str) -> dict:
+    """1頭分の候補調整（内訳つき）を返す純粋関数。
+
+    hd       : horse_data の1頭分
+    waku_dev : 自枠の複勝率偏差（float）または None（該当区分なし）
+    tiers    : {騎手名: ティア}
+    going    : 想定馬場（"良"/"稍重"/"重"/"不良"）
+    """
+    hd = hd or {}
+
+    # 1. 枠・脚質調整 = 枠偏差 × 脚質係数（区分がなければ 0）
+    dev = float(waku_dev) if waku_dev is not None else 0.0
+    coef = _style_coefficient(hd.get("脚質前方率"))
+    adj_waku_style = round(dev * coef, 2)
+
+    # 2. 馬場適性調整（Laplace平滑化した3着内率の差 ×20、±5 でクリップ）
+    stats = hd.get("馬場別成績", {}) or {}
+    g = stats.get(going, {}) or {}
+    g_runs = int(g.get("出走", 0) or 0)
+    g_top3 = int(g.get("3着内", 0) or 0)
+    tot_runs = sum(int((v or {}).get("出走", 0) or 0) for v in stats.values())
+    tot_top3 = sum(int((v or {}).get("3着内", 0) or 0) for v in stats.values())
+    if g_runs >= 2:
+        rate_g = (g_top3 + 1) / (g_runs + 2)
+        rate_all = (tot_top3 + 1) / (tot_runs + 2)
+        adj_going = round(_clip((rate_g - rate_all) * 20, -5.0, 5.0), 2)
+    else:
+        adj_going = 0.0
+
+    # 3. 騎手調整 = ティア調整 + 乗り替わり調整
+    tier_now = _jockey_tier(hd.get("騎手"), tiers)
+    adj_tier = {3: 2.0, 2: 1.0, 1: 0.0}[tier_now]
+    prev_jockey = hd.get("前走騎手")
+    adj_change = 0.0
+    if prev_jockey and hd.get("騎手") and prev_jockey != hd.get("騎手"):
+        tier_prev = _jockey_tier(prev_jockey, tiers)
+        if tier_now > tier_prev:
+            adj_change = 1.0
+        elif tier_now < tier_prev:
+            adj_change = -1.0
+    adj_jockey = round(adj_tier + adj_change, 2)
+
+    total = round(adj_waku_style + adj_going + adj_jockey, 2)
+    return {
+        "枠偏差": (round(dev, 2) if waku_dev is not None else None),
+        "脚質係数": coef,
+        "枠脚質調整": adj_waku_style,
+        "馬場適性調整": adj_going,
+        "騎手ティア": tier_now,
+        "ティア調整": adj_tier,
+        "乗り替わり調整": adj_change,
+        "騎手調整": adj_jockey,
+        "調整合計": total,
+    }
+
+
+def build_candidate_prediction(prediction: list, horse_data: list,
+                               venue: str = "",
+                               surface: str = None, distance=None,
+                               going: str = None) -> dict:
+    """候補ランキングのセクションを組み立てる（公式予想には影響しない）。
+
+    surface/distance が None のときは _CANDIDATE_COURSE（schedule.json 由来）と
+    環境変数 CANDIDATE_SURFACE / CANDIDATE_DISTANCE を参照する。
+    それでも不明なら枠偏差は 0（該当区分なし扱い）。
+    """
+    if going is None:
+        going = _candidate_going()
+    if surface is None:
+        surface = _CANDIDATE_COURSE.get("surface") or \
+            os.environ.get("CANDIDATE_SURFACE", "")
+    if distance is None:
+        distance = _CANDIDATE_COURSE.get("distance")
+        if distance is None and os.environ.get("CANDIDATE_DISTANCE"):
+            try:
+                distance = int(os.environ["CANDIDATE_DISTANCE"])
+            except ValueError:
+                distance = None
+
+    waku_all = _load_candidate_json("waku_advantage.json")
+    waku_data = waku_all.get("data", {})
+    if not isinstance(waku_data, dict):
+        waku_data = {}
+    tiers_doc = _load_candidate_json("jockey_tiers.json")
+    tiers = tiers_doc.get("tiers", {})
+    if not isinstance(tiers, dict):
+        tiers = {}
+
+    course_key = None
+    waku_course = {}
+    if venue and surface and distance:
+        course_key = f"{venue}_{surface}_{int(distance)}"
+        waku_course = waku_data.get(course_key, {}) or {}
+
+    hd_by_no = {h.get("馬番"): h for h in horse_data}
+    entries = []
+    scores = {}
+    for p in prediction:
+        no = p.get("馬番")
+        hd = hd_by_no.get(no, {})
+        waku_dev = None
+        if course_key and hd.get("枠番") is not None:
+            cell = waku_course.get(str(hd["枠番"]))
+            if isinstance(cell, dict) and cell.get("複勝率偏差") is not None:
+                waku_dev = float(cell["複勝率偏差"])
+        adj = calc_candidate_adjustments(hd, waku_dev, tiers, going)
+        base = p.get("class_score")
+        base = float(base) if base is not None else 40.0  # 公式と同じ None フォールバック
+        cand_score = round(base + adj["調整合計"], 2)
+        scores[no] = cand_score
+        entries.append({
+            "馬番": no,
+            "馬名": p.get("馬名"),
+            "class_score": base,
+            "調整": adj,
+            "候補スコア": cand_score,
+        })
+    probs = model_probs_from_scores(scores, temperature=CANDIDATE_TEMPERATURE)
+    for e in entries:
+        e["候補勝率"] = round(probs.get(e["馬番"], 0.0), 4)
+    entries.sort(key=lambda e: -e["候補スコア"])
+    for i, e in enumerate(entries, start=1):
+        e["候補順位"] = i
+    return {
+        "定義": "候補スコア = class_score + 枠脚質調整 + 馬場適性調整 + 騎手調整（候補仕様.md）",
+        "想定馬場": going,
+        "コースキー": course_key,
+        "枠有利度表": "あり" if waku_data else "なし",
+        "対象区分": "あり" if waku_course else "なし",
+        "騎手ティア表": "あり" if tiers else "なし",
+        "temperature": CANDIDATE_TEMPERATURE,
+        "horses": entries,
+    }
+
+
 def build_json(race_name: str, horses: list[dict],
                work: dict, comments: dict,
                rawdata: dict,
@@ -1358,6 +1567,9 @@ def build_json(race_name: str, horses: list[dict],
             **_feat,
         })
 
+    # v5 candidate: 候補ランキング（公式予想には一切影響しない記録専用）
+    candidate_prediction = build_candidate_prediction(prediction, horse_data, venue)
+
     return {
         "race_name": race_name,
         "course"   : venue,
@@ -1375,6 +1587,7 @@ def build_json(race_name: str, horses: list[dict],
         # 基づく確率・推奨に更新できる（関数はいずれも純粋関数）。
         "prediction": prediction,
         "horse_data": horse_data,
+        "candidate_prediction": candidate_prediction,
         "recommendation": recommendation,
         "prediction_params": {
             "temperature": PROB_TEMPERATURE,
@@ -1492,6 +1705,17 @@ def main(race_name: str = None, date_str: str = None,
         for r in sc.get("races", []):
             if r.get("race_name") and r.get("work_slug"):
                 slug_lookup[r["race_name"]] = r["work_slug"]
+        # v5 candidate: 同じ schedule エントリに surface/distance があれば候補計算用に保持
+        for r in sc.get("races", []):
+            if r.get("race_name") == race_name:
+                if r.get("surface"):
+                    _CANDIDATE_COURSE["surface"] = str(r["surface"])
+                if r.get("distance"):
+                    try:
+                        _CANDIDATE_COURSE["distance"] = int(r["distance"])
+                    except (TypeError, ValueError):
+                        pass
+                break
 
     for h in horses:
         name      = h["name"]
