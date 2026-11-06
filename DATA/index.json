@@ -1,6 +1,70 @@
 {
-  "generated_at": "2026-11-03T22:43:23",
+  "generated_at": "2026-11-06T12:44:03",
   "races": [
+    {
+      "file": "races/261108_東京_アルゼンチン共和国杯.html",
+      "stem": "261108_東京_アルゼンチン共和国杯",
+      "date": "2026/11/8",
+      "venue": "東京",
+      "race_name": "アルゼンチン共和国杯",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.128
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261108_京都_みやこステークス.html",
+      "stem": "261108_京都_みやこステークス",
+      "date": "2026/11/8",
+      "venue": "京都",
+      "race_name": "みやこステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.126
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261107_東京_京王杯2歳ステークス.html",
+      "stem": "261107_東京_京王杯2歳ステークス",
+      "date": "2026/11/7",
+      "venue": "東京",
+      "race_name": "京王杯2歳ステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.151
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261107_京都_京都ジャンプステークス.html",
+      "stem": "261107_京都_京都ジャンプステークス",
+      "date": "2026/11/7",
+      "venue": "京都",
+      "race_name": "京都ジャンプステークス",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.153
+      },
+      "race_shape_class": "yaya-are",
+      "betting_estimate": null
+    },
     {
       "file": "races/261101_東京_天皇賞秋.html",
       "stem": "261101_東京_天皇賞秋",
