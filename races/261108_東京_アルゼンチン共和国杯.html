@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>アルゼンチン共和国杯｜3ハロンVII</title>
+<link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ 一覧画面 ============ -->
+  <div id="screen-list">
+    <div class="race-topbar">
+      <a class="btn-pixel ghost" href="../index.html">←レース選択</a>
+      <div class="race-title">2026/11/8_東京　アルゼンチン共和国杯</div>
+      <button type="button" class="btn-pixel" id="sort-btn" data-mode="no">馬番順</button>
+    </div>
+
+    <div class="horse-cards">
+      <div class="hc-legend">
+        <span>印</span><span>馬名</span><span>オッズ／馬齢／脚質／鞍上</span>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="1"
+           data-odds="9999"
+           data-index="66.0"
+           onclick="showDetail(1)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">1</span><span class="nm">ジーティーダーリン</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-red">逃</span>
+          <span class="hc-jockey c-white">大野</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-lav">66</span>
+          <span class="l2-bar-track"><span class="l2-bar c-lav" style="width:23%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>上がり38.0鈍く距離短縮検討</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">52</b></span>
+          <span><i>前々</i><b class="c-yellow">98</b></span>
+          <span><i>3走</i><b class="c-white">10</b></span>
+          <span><i>上3F</i><b class="c-green">38.0</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="2"
+           data-odds="9999"
+           data-index="46.0"
+           onclick="showDetail(2)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">2</span><span class="nm">ビザンチンドリーム</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡5</span>
+          <span class="hc-style c-pink">追</span>
+          <span class="hc-jockey c-white">国分優</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-lav">46</span>
+          <span class="l2-bar-track"><span class="l2-bar c-lav" style="width:2%"></span></span>
+          <span class="l2-weight">59.5kg</span>
+          <span class="l2-comment"><i>前コメ</i>5ヵ月休養明け重賞で15着</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">48</b></span>
+          <span><i>前々</i><b class="c-white">50</b></span>
+          <span><i>3走</i><b class="c-white">52</b></span>
+          <span><i>上3F</i><b class="c-green">37.1</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="3"
+           data-odds="9999"
+           data-index="97.0"
+           onclick="showDetail(3)">
+        <div class="hc-row1">
+          <span class="mark-cell c-green">△</span>
+          <span class="hc-name">
+            <span class="no">3</span><span class="nm">マイネルエンペラー</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡6</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">吉村</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-green">97</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:67%"></span></span>
+          <span class="l2-weight">58.5kg</span>
+          <span class="l2-comment"><i>前コメ</i>0.1秒差2着内容良好次走期待</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">103</b></span>
+          <span><i>前々</i><b class="c-white">66</b></span>
+          <span><i>3走</i><b class="c-yellow">94</b></span>
+          <span><i>上3F</i><b class="c-green">34.7</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="4"
+           data-odds="9999"
+           data-index="103.0"
+           onclick="showDetail(4)">
+        <div class="hc-row1">
+          <span class="mark-cell c-orange">○</span>
+          <span class="hc-name">
+            <span class="no">4</span><span class="nm">ミラージュナイト</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">西村淳</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-orange">103</span>
+          <span class="l2-bar-track"><span class="l2-bar c-orange" style="width:76%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>1着勝利良好状態継続</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-yellow">98</b></span>
+          <span><i>前々</i><b class="c-yellow">98</b></span>
+          <span><i>3走</i><b class="c-white">84</b></span>
+          <span><i>上3F</i><b class="c-muted">-</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="5"
+           data-odds="9999"
+           data-index="95.0"
+           onclick="showDetail(5)">
+        <div class="hc-row1">
+          <span class="mark-cell c-gray">☆</span>
+          <span class="hc-name">
+            <span class="no">5</span><span class="nm">ドゥラドーレス</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">セ7</span>
+          <span class="hc-style c-blue">差</span>
+          <span class="hc-jockey c-white">ルメー</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-gray">95</span>
+          <span class="l2-bar-track"><span class="l2-bar c-gray" style="width:64%"></span></span>
+          <span class="l2-weight">58.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>スタート遅れ常症長期休養明け</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">83</b></span>
+          <span><i>前々</i><b class="c-yellow">95</b></span>
+          <span><i>3走</i><b class="c-red">103</b></span>
+          <span><i>上3F</i><b class="c-yellow">33.7</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="6"
+           data-odds="9999"
+           data-index="83.0"
+           onclick="showDetail(6)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">6</span><span class="nm">ファミリータイム</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡5</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">菅原明</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">83</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:47%"></span></span>
+          <span class="l2-weight">56.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>インこだわり位置取り課題</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">79</b></span>
+          <span><i>前々</i><b class="c-white">69</b></span>
+          <span><i>3走</i><b class="c-white">67</b></span>
+          <span><i>上3F</i><b class="c-green">35.1</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="7"
+           data-odds="9999"
+           data-index="109.0"
+           onclick="showDetail(7)">
+        <div class="hc-row1">
+          <span class="mark-cell c-yellow">◎</span>
+          <span class="hc-name">
+            <span class="no">7</span><span class="nm">ファイアンクランツ</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-blue">差</span>
+          <span class="hc-jockey c-white">岩田望</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">109</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:84%"></span></span>
+          <span class="l2-weight">58.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>6ヵ月ぶり実戦1着精神面向上</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-red">110</b></span>
+          <span><i>前々</i><b class="c-yellow">97</b></span>
+          <span><i>3走</i><b class="c-white">67</b></span>
+          <span><i>上3F</i><b class="c-yellow">33.7</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="8"
+           data-odds="9999"
+           data-index="96.0"
+           onclick="showDetail(8)">
+        <div class="hc-row1">
+          <span class="mark-cell c-gray">☆</span>
+          <span class="hc-name">
+            <span class="no">8</span><span class="nm">ジョイボーイ</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-blue">差</span>
+          <span class="hc-jockey c-white">横山武</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-gray">96</span>
+          <span class="l2-bar-track"><span class="l2-bar c-gray" style="width:66%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>上がり34.5馬体+10kg調整中</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">86</b></span>
+          <span><i>前々</i><b class="c-white">72</b></span>
+          <span><i>3走</i><b class="c-white">75</b></span>
+          <span><i>上3F</i><b class="c-muted">-</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="9"
+           data-odds="9999"
+           data-index="82.0"
+           onclick="showDetail(9)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">9</span><span class="nm">レッドバンデ</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">佐々木</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">82</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:46%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>7ヵ月長期休養明け1着上々</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">73</b></span>
+          <span><i>前々</i><b class="c-white">81</b></span>
+          <span><i>3走</i><b class="c-white">81</b></span>
+          <span><i>上3F</i><b class="c-muted">-</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="10"
+           data-odds="9999"
+           data-index="83.0"
+           onclick="showDetail(10)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">10</span><span class="nm">ボーンディスウェイ</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡7</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">マーカ</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">83</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:47%"></span></span>
+          <span class="l2-weight">56.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>上がり35.2鈍く力及ばず</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">68</b></span>
+          <span><i>前々</i><b class="c-white">73</b></span>
+          <span><i>3走</i><b class="c-yellow">91</b></span>
+          <span><i>上3F</i><b class="c-green">35.2</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="11"
+           data-odds="9999"
+           data-index="94.0"
+           onclick="showDetail(11)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">11</span><span class="nm">ウエストナウ</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡5</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">横山典</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-green">94</span>
+          <span class="l2-bar-track"><span class="l2-bar c-green" style="width:63%"></span></span>
+          <span class="l2-weight">57.5kg</span>
+          <span class="l2-comment"><i>前コメ</i>もう1個前欲しい位置取り課題</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">89</b></span>
+          <span><i>前々</i><b class="c-white">79</b></span>
+          <span><i>3走</i><b class="c-yellow">95</b></span>
+          <span><i>上3F</i><b class="c-green">34.8</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="12"
+           data-odds="9999"
+           data-index="62.0"
+           onclick="showDetail(12)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">12</span><span class="nm">メイショウゲキリン</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡7</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">田辺</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-lav">62</span>
+          <span class="l2-bar-track"><span class="l2-bar c-lav" style="width:17%"></span></span>
+          <span class="l2-weight">58.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>重馬場1着馬場変化に注視</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">59</b></span>
+          <span><i>前々</i><b class="c-white">50</b></span>
+          <span><i>3走</i><b class="c-white">50</b></span>
+          <span><i>上3F</i><b class="c-green">37.1</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="13"
+           data-odds="9999"
+           data-index="73.0"
+           onclick="showDetail(13)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">13</span><span class="nm">マイネルカンパーナ</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡6</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">津村</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-lav">73</span>
+          <span class="l2-bar-track"><span class="l2-bar c-lav" style="width:33%"></span></span>
+          <span class="l2-weight">56.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>馬体-10kg仕上り不安あり</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">56</b></span>
+          <span><i>前々</i><b class="c-white">64</b></span>
+          <span><i>3走</i><b class="c-white">76</b></span>
+          <span><i>上3F</i><b class="c-green">37.5</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="14"
+           data-odds="9999"
+           data-index="75.0"
+           onclick="showDetail(14)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">14</span><span class="nm">ミクニインスパイア</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">岩田康</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">75</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:36%"></span></span>
+          <span class="l2-weight">56.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>馬場不適応稍重で15着惨敗</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">67</b></span>
+          <span><i>前々</i><b class="c-white">54</b></span>
+          <span><i>3走</i><b class="c-yellow">96</b></span>
+          <span><i>上3F</i><b class="c-green">36.1</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="15"
+           data-odds="9999"
+           data-index="64.0"
+           onclick="showDetail(15)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">15</span><span class="nm">ホーエリート</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牝5</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">戸崎圭</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-lav">64</span>
+          <span class="l2-bar-track"><span class="l2-bar c-lav" style="width:20%"></span></span>
+          <span class="l2-weight">56.5kg</span>
+          <span class="l2-comment"><i>前コメ</i>長距離適性未知6ヵ月実戦明け</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">51</b></span>
+          <span><i>前々</i><b class="c-white">81</b></span>
+          <span><i>3走</i><b class="c-white">59</b></span>
+          <span><i>上3F</i><b class="c-green">37.4</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="16"
+           data-odds="9999"
+           data-index="99.0"
+           onclick="showDetail(16)">
+        <div class="hc-row1">
+          <span class="mark-cell c-red">▲</span>
+          <span class="hc-name">
+            <span class="no">16</span><span class="nm">キングズパレス</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡7</span>
+          <span class="hc-style c-blue">差</span>
+          <span class="hc-jockey c-white">松岡</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-red">99</span>
+          <span class="l2-bar-track"><span class="l2-bar c-red" style="width:70%"></span></span>
+          <span class="l2-weight">57.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>右前脚心配6ヵ月実戦明け</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">89</b></span>
+          <span><i>前々</i><b class="c-white">85</b></span>
+          <span><i>3走</i><b class="c-white">87</b></span>
+          <span><i>上3F</i><b class="c-green">34.3</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-odd"
+           data-no="17"
+           data-odds="9999"
+           data-index="88.0"
+           onclick="showDetail(17)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">17</span><span class="nm">キングスコール</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">牡4</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">吉田豊</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">88</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:54%"></span></span>
+          <span class="l2-weight">55.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>4ヵ月休養明けメリハリ改善課題</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">70</b></span>
+          <span><i>前々</i><b class="c-yellow">96</b></span>
+          <span><i>3走</i><b class="c-yellow">93</b></span>
+          <span><i>上3F</i><b class="c-green">36.1</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+      <div class="h-card h-even"
+           data-no="18"
+           data-odds="9999"
+           data-index="75.0"
+           onclick="showDetail(18)">
+        <div class="hc-row1">
+          <span class="mark-cell c-muted"></span>
+          <span class="hc-name">
+            <span class="no">18</span><span class="nm">ミステリーウェイ</span>
+          </span>
+          <span class="hc-odds c-muted">---</span>
+          <span class="hc-age c-white">セ8</span>
+          <span class="hc-style c-orange">先</span>
+          <span class="hc-jockey c-white">松本</span>
+        </div>
+        <div class="hc-row2">
+          <span class="l2-idx c-yellow">75</span>
+          <span class="l2-bar-track"><span class="l2-bar c-yellow" style="width:36%"></span></span>
+          <span class="l2-weight">58.0kg</span>
+          <span class="l2-comment"><i>前コメ</i>勝った時競馬困難な現状継続中</span>
+        </div>
+        <div class="hc-row3">
+          <span><i>前走</i><b class="c-white">79</b></span>
+          <span><i>前々</i><b class="c-white">47</b></span>
+          <span><i>3走</i><b class="c-white">69</b></span>
+          <span><i>上3F</i><b class="c-green">35.9</b></span>
+          <span><i>調1F</i><b class="c-muted">-</b></span>
+        </div>
+      </div>
+      
+    </div>
+
+    <section class="pace-panel">
+      <p class="pace-title">展開予想</p>
+      <p class="pace-body">東京。Hペースが想定される中、当コースは直線が長く、末脚に優れた差し・追い込み馬が台頭しやすい。ジーティーダーリンが先手を主張し、縦長の隊列になりそうだ。直線では☆ドゥラドーレス・◎ファイアンクランツ・☆ジョイボーイ・▲キングズパレスなど差し・追い込み勢の台頭にも警戒したい。補正指数は◎ファイアンクランツと○ミラージュナイトが僅差(6pt差)で、実力は拮抗している。前走の上がり3Fではドゥラドーレス・ファイアンクランツが34秒0を切る脚を使っており、上がり勝負になった場合は台頭の余地がある。総合的には◎ファイアンクランツを軸に、○ミラージュナイト・▲キングズパレスとの組み合わせを本線としたい。</p>
+    </section>
+
+    
+    <section class="bet-panel">
+      <p class="bet-title">
+        買い目予想（想定）
+        
+        <span class="idx-shape shape-">やや荒れる</span>
+        
+      </p>
+      
+      <p class="bet-explain">
+        「堅い/やや堅い/やや荒れる/荒れる」は、総合指数1位と6位の差を1位の値に対する比率で見た目安です。
+        差が大きいほど上位馬の地力差が大きく「堅い」決着になりやすく、差が小さいほど上位が入れ替わりやすい
+        「荒れる」レースと判定しています（しきい値は経験則の初期値で、実績データによる検証はまだ行っていません）。
+      </p>
+      
+
+      
+      
+      <div class="bet-group">
+        <p class="bet-group-title">◎の単勝・複勝　2点</p>
+        <div class="bet-grid">
+          <span class="bet-chip">単勝 7 ファイアンクランツ</span>
+          <span class="bet-chip">複勝 7 ファイアンクランツ</span>
+        </div>
+      </div>
+      
+
+      <div class="bet-group">
+        <p class="bet-group-title">馬連BOX（補正指数1〜3位）　3点</p>
+        <div class="bet-grid">
+          
+          <span class="bet-chip">
+            4-8
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-5
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-7
+            
+          </span>
+          
+        </div>
+        
+      </div>
+
+      <div class="bet-group">
+        <p class="bet-group-title">3連複フォーメーション（1列目1-2位／2列目1-3位／3列目1-6位）　10点</p>
+        <div class="bet-grid">
+          
+          <span class="bet-chip">
+            4-8-9
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-8-11
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-5-8
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-5-7
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-5-9
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-5-11
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-7-8
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-7-9
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-7-11
+            
+          </span>
+          
+          <span class="bet-chip">
+            4-9-11
+            
+          </span>
+          
+        </div>
+        
+      </div>
+
+      <p class="bet-note">※単勝オッズから逆算した理論値（Harville法）。実際の市場オッズとは異なる場合があります。</p>
+    </section>
+    
+
+    <section class="result-panel">
+      <p class="rp-title">レース結果</p>
+      
+        <p class="result-pending">未確定（レース前、または結果データ未取得）</p>
+      
+    </section>
+
+    <p class="footer-help">馬名タップ：詳細　/　右上ボタン：並び替え</p>
+  </div>
+
+  <!-- ============ 詳細画面（馬ごと・馬名クリックで表示切替） ============ -->
+  <div id="screen-detail" class="hidden">
+    
+    <div class="detail-screen hidden" id="detail-1">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">1 ジーティーダーリン</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 55.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">大野</span></div>
+          <div class="stat"><b>脚質</b><span class="c-red">逃</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">66</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">52 / 98 / 10</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">38.0 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>阪神26.09.12 15 チャレンジGIII 芝 2000m 2:00.7良 38.0 3.1 516(+8) 55.0松本大輝8人 16ト 2ワク 1-1-1-2 ジョバンニ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>阪神26.06.06 1 垂水S3勝 芝 2000m 1:58.7良 34.1 -0.3 508(-2) 58.0松本大輝7人 11ト 2ワク 1-1-1-1 ミュージシャン</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>東京26.02.21 14 金蹄S3勝 ダ 2100m 2:14.4良 40.9 3.7 510(0) 57.0ルメール1人 16ト 14ワク 6-6-6-6 レッドプロフェシー</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">66</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">58</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+9</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">-0.7</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。単騎逃げなら粘り込み注意。</div>
+        <div class="d-comment sub">前走メモ：上がり38.0鈍く距離短縮検討</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-2">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">2 ビザンチンドリーム</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡5 59.5kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">国分優</span></div>
+          <div class="stat"><b>脚質</b><span class="c-pink">追</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">46</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">48 / 50 / 52</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">37.1 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>阪神26.06.14 15 宝塚記念GI 芝 2200m 2:15.1重 37.1 3.0 466(0) 58.0西村淳也7人 18ト 6ワク 16-16-12-11 メイショウタバル</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>カタール26.02.14 7 アミールトGII 芝 2400m 良 0.0 58.0Ｃ．デム人 7ト 1ワク</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>パリロンシャン25.10.05 5 凱旋門賞GI 芝 2400m 重 0.0 59.5マーフィ4人 17ト 6ワク</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 5ヵ月休養明け</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">46</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">50</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">-6</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">0</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+1.5</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。展開待ちだが末脚は確実。</div>
+        <div class="d-comment sub">前走メモ：5ヵ月休養明け重賞で15着</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-3">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-green">△</span>
+        <span class="dh-name">3 マイネルエンペラー</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡6 58.5kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">吉村</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-green">97</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">103 / 66 / 94</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">34.7 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>京都26.10.04 2 京都大賞典GII 芝 2400m 2:24.1稍 34.7 0.1 488(+2) 57.0吉村誠之8人 18ト 10ワク 5-4-4-3 エコロディノス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>阪神26.06.14 10 宝塚記念GI 芝 2200m 2:13.8重 36.9 1.7 486(-4) 58.0川田将雅13人 18ト 12ワク 3-3-3-3 メイショウタバル</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>阪神26.03.22 5 阪神大賞典GII 芝 3000m 3:03.0良 35.3 1.0 490(-4) 58.0丹内祐次4人 10ト 7ワク 5-5-2-3 アドマイヤテラ</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-green">97</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">90</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+2</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+5.3</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：0.1秒差2着内容良好次走期待</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-4">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-orange">○</span>
+        <span class="dh-name">4 ミラージュナイト</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 57.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">西村淳</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-orange">103</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">98 / 98 / 84</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">- / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>札幌26.07.26 1 札幌日経賞L 芝 2600m 2:40.0良 35.2 -0.2 490(-8) 57.0西村淳也1人 13ト 2ワク 7-8-4-2 ホールネス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>東京26.05.31 4 目黒記念GII 芝 2500m 2:30.0良 33.6 0.2 498(-6) 56.0西村淳也4人 14ト 8ワク 7-8-8-7 ファイアンクランツ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>京都26.02.14 1 飛鳥S3勝 芝 2000m 1:59.5良 34.8 -0.1 504(-2) 57.0藤岡佑介1人 16ト 2ワク 5-6-5-3 ジーティーアダマン</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-orange">103</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">95</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+5</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+3.2</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：1着勝利良好状態継続</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-5">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-gray">☆</span>
+        <span class="dh-name">5 ドゥラドーレス</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">セ7 58.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">ルメー</span></div>
+          <div class="stat"><b>脚質</b><span class="c-blue">差</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-gray">95</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">83 / 95 / 103</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">33.7 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>新潟26.05.16 4 新潟大賞典GIII 芝 2000m 1:59.1良 33.7 0.2 500(+2) 58.0ルメール1人 15ト 6ワク 8-8 グランディア</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>中京26.03.15 5 金鯱賞GII 芝 2000m 1:58.2良 33.9 0.1 498(-6) 57.0戸崎圭太2人 14ト 1ワク 9-8-8-7 シェイクユアハート</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>中山26.01.25 2 AJCCGII 芝 2200m 2:11.1良 34.5 0.3 504(+6) 57.0ルメール1人 16ト 14ワク 12-12-9-8 ショウヘイ</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 6ヵ月の長期休養明け</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-gray">95</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">90</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">-6</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+3</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+8.1</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。展開ハマれば一発。</div>
+        <div class="d-comment sub">前走メモ：スタート遅れ常症長期休養明け</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-6">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">6 ファミリータイム</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡5 56.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">菅原明</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">83</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">79 / 69 / 67</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">35.1 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>京都26.10.04 12 京都大賞典GII 芝 2400m 2:25.0稍 35.1 1.0 484(+2) 57.0鮫島克駿9人 18ト 11ワク 8-8-11-12 エコロディノス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>阪神26.06.14 6 宝塚記念GI 芝 2200m 2:13.5重 36.1 1.4 482(0) 58.0幸英明18人 18ト 7ワク 9-9-8-7 メイショウタバル</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>阪神26.03.22 9 阪神大賞典GII 芝 3000m 3:04.4良 36.3 2.4 482(+2) 57.0松山弘平5人 10ト 3ワク 2-2-2-8 アドマイヤテラ</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">83</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">74</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+7</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+1.6</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：インこだわり位置取り課題</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-7">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-yellow">◎</span>
+        <span class="dh-name">7 ファイアンクランツ</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 58.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">岩田望</span></div>
+          <div class="stat"><b>脚質</b><span class="c-blue">差</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">109</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">110 / 97 / 67</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">33.7 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>東京26.05.31 1 目黒記念GII 芝 2500m 2:29.8良 33.7 0.0 476(+6) 56.0レーン3人 14ト 4ワク 5-5-5-4 ウィクトルウェルス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>東京26.02.21 2 ダイヤモンGIII 芝 3400m 3:32.2良 34.4 0.2 470(+10) 54.0大野拓弥3人 15ト 3ワク 9-10-10-8 スティンガーグラス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>中山25.09.15 12 セントライGII 芝 2200m 2:12.6良 36.4 1.8 460(+4) 57.0モレイラ3人 12ト 9ワク 9-9-3-3 ミュージアムマイル</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 約6ヵ月ぶりの実戦</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">109</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">96</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+3</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+10</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。展開ハマれば一発。</div>
+        <div class="d-comment sub">前走メモ：6ヵ月ぶり実戦1着精神面向上</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-8">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-gray">☆</span>
+        <span class="dh-name">8 ジョイボーイ</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 55.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">横山武</span></div>
+          <div class="stat"><b>脚質</b><span class="c-blue">差</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-gray">96</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">86 / 72 / 75</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">- / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>阪神26.09.21 1 Mキタサン3勝 芝 2200m 2:12.4良 34.5 -0.1 488(+10) 56.0松山弘平4人 16ト 11ワク 6-8-7-5 ファームツエンティ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>東京26.06.14 4 江の島S3勝 芝 2400m 2:23.8良 34.6 0.5 478(-6) 58.0石橋脩6人 14ト 8ワク 13-11-9-7 レッドテリオス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>京都25.10.18 1 清滝特別2勝 芝 2200m 2:13.7良 33.6 -0.1 484(0) 55.0岩田望来1人 9ト 2ワク 3-3-3-3 シュバルツマサムネ</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-gray">96</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">80</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+9</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+6.9</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。展開ハマれば一発。</div>
+        <div class="d-comment sub">前走メモ：上がり34.5馬体+10kg調整中</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-9">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">9 レッドバンデ</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 57.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">佐々木</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">82</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">73 / 81 / 81</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">- / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>東京26.10.12 1 昇仙峡S3勝 芝 2400m 2:24.8良 34.0 -0.1 496(+16) 58.0ルメール1人 11ト 11ワク 7-6-5-4 バドリナート</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>阪神26.03.22 7 阪神大賞典GII 芝 3000m 3:03.8良 36.0 1.8 480(-12) 56.0佐々木大3人 10ト 6ワク 8-8-5-3 アドマイヤテラ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>東京26.02.14 1 箱根特別2勝 芝 2400m 2:24.7良 33.0 -0.2 492(-2) 57.0佐々木大1人 8ト 7ワク 4-4-4-4 イクリール</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 7ヵ月の長期休養明け</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">82</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">77</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">-6</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+5</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+5.9</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：7ヵ月長期休養明け1着上々</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-10">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">10 ボーンディスウェイ</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡7 56.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">マーカ</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">83</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">68 / 73 / 91</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">35.2 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>東京26.10.12 9 オクトーバL 芝 2000m 1:59.1良 35.2 1.0 496(+6) 56.0木幡巧也6人 18ト 5ワク 6-8-7 アスクセクシーモア</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>新潟26.08.30 7 新潟記念GIII 芝 2000m 2:00.0稍 34.5 0.4 490(-4) 57.0丸山元気11人 11ト 1ワク 2-2 ゾロアストロ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>福島26.07.12 5 七夕賞GIII 芝 2000m 1:58.7稍 35.8 0.8 494(-2) 56.0丸山元気14人 16ト 1ワク 11-10-10-7 アスクナイスショー</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">83</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">74</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+7</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+2</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：上がり35.2鈍く力及ばず</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-11">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">11 ウエストナウ</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡5 57.5kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">横山典</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-green">94</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">89 / 79 / 95</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">34.8 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>京都26.10.04 6 京都大賞典GII 芝 2400m 2:24.4稍 34.8 0.4 508(+4) 57.0横山和生4人 18ト 1ワク 6-6-7-7 エコロディノス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>小倉26.07.19 8 小倉記念GIII 芝 2000m 1:58.7良 35.3 0.7 504(+8) 57.5高杉吏麒5人 18ト 14ワク 8-9-8-8 ゼンダンハヤブサ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>東京26.05.10 1 メトロポリL 芝 2400m 2:23.1良 33.7 0.0 496(-4) 58.0高杉吏麒3人 12ト 12ワク 5-5-5-5 シャイニングソード</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-green">94</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">87</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+4</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+2.5</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：もう1個前欲しい位置取り課題</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-12">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">12 メイショウゲキリン</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡7 58.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">田辺</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">62</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">59 / 50 / 50</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">37.1 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>中山26.09.20 1 オールカマGII 芝 2200m 2:16.9重 37.1 0.0 520(-8) 57.0田辺裕信9人 13ト 8ワク 1-1-1-1 キャントウェイト</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>中京26.08.23 6 障害3歳以上未勝利 障 3000m 3:25.4芝 13.7 6.6 528(+4) 60.0小牧加矢2人 8ト 4ワク 5-5-6-7 アルヴィア</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>中山26.04.04 8 障害4歳以上未勝利 障 2880m 3:21.9芝 ダート 14.0 3.5 524(-2) 60.0小牧加矢1人 14ト 4ワク 10-10-9-9 ミレニアムヒロイン</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">62</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">54</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+3</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+4.6</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：重馬場1着馬場変化に注視</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-13">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">13 マイネルカンパーナ</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡6 56.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">津村</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">73</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">56 / 64 / 76</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">37.5 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>札幌26.09.06 6 丹頂SOP 芝 2600m 2:42.4良 37.5 1.7 408(-10) 56.0丹内祐次8人 14ト 10ワク 10-7-3-3 コーチェラバレー</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>京都26.05.03 10 天皇賞(春GI 芝 3200m 3:15.3良 36.6 1.6 418(-4) 58.0津村明秀10人 15ト 10ワク 4-5-3-3 クロワデュノール</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>東京26.02.21 7 ダイヤモンGIII 芝 3400m 3:32.8良 35.3 0.8 422(+8) 56.5津村明秀5人 15ト 14ワク 2-2-3-5 スティンガーグラス</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 4ヵ月休養明け</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">73</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">63</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+7</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+3.1</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：馬体-10kg仕上り不安あり</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-14">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">14 ミクニインスパイア</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 56.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">岩田康</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">75</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">67 / 54 / 96</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">36.1 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>京都26.10.04 18 京都大賞典GII 芝 2400m 2:25.6稍 36.1 1.6 500(+2) 57.0Ｍ．デム6人 18ト 8ワク 8-9-4-7 エコロディノス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>阪神26.06.14 12 宝塚記念GI 芝 2200m 2:14.5重 36.8 2.4 498(-6) 58.0丹内祐次9人 18ト 4ワク 7-7-10-11 メイショウタバル</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>中山26.03.28 2 日経賞GII 芝 2500m 2:30.9良 35.7 0.2 504(-4) 56.0丹内祐次2人 15ト 1ワク 5-5-5-6 マイユニバース</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">75</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">69</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+7</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">-0.8</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：馬場不適応稍重で15着惨敗</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-15">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">15 ホーエリート</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牝5 56.5kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">戸崎圭</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">64</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">51 / 81 / 59</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">37.4 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>京都26.05.03 14 天皇賞(春GI 芝 3200m 3:16.1良 37.4 2.4 482(-4) 56.0戸崎圭太7人 15ト 14ワク 2-2-3-3 クロワデュノール</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>東京26.02.21 5 ダイヤモンGIII 芝 3400m 3:32.6良 35.0 0.6 486(+10) 56.5戸崎圭太2人 15ト 12ワク 5-4-5-6 スティンガーグラス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>中山25.12.06 1 ステイヤーGII 芝 3600m 3:47.2良 34.0 -0.1 476(-6) 55.0戸崎圭太2人 14ト 3ワク 3-4-3-3 マイネルカンパーナ</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 約6ヵ月ぶりの実戦</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-lav">64</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">62</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+2</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+0.4</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：長距離適性未知6ヵ月実戦明け</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-16">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-red">▲</span>
+        <span class="dh-name">16 キングズパレス</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡7 57.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">松岡</span></div>
+          <div class="stat"><b>脚質</b><span class="c-blue">差</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-red">99</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">89 / 85 / 87</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">34.3 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>東京26.05.31 7 目黒記念GII 芝 2500m 2:30.3良 34.3 0.5 498(-6) 57.0松岡正海11人 14ト 12ワク 3-3-3-3 ファイアンクランツ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>中京26.03.15 8 金鯱賞GII 芝 2000m 1:58.6良 33.7 0.5 504(-6) 57.0菊沢一樹11人 14ト 11ワク 14-14-14-13 シェイクユアハート</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>東京26.01.31 6 白富士SL 芝 2000m 1:58.1良 32.9 1.1 510(+8) 59.0横山武史9人 10ト 5ワク 10-10-9 ダノンシーマ</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 約6ヵ月ぶりの実戦</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-red">99</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">87</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+5</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+7.3</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。展開ハマれば一発。</div>
+        <div class="d-comment sub">前走メモ：右前脚心配6ヵ月実戦明け</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-17">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">17 キングスコール</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">牡4 55.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">吉田豊</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">88</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">70 / 96 / 93</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">36.1 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>京都26.10.04 16 京都大賞典GII 芝 2400m 2:25.3稍 36.1 1.3 502(+10) 57.0吉田豊12人 18ト 17ワク 3-4-2-3 エコロディノス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>東京26.05.31 5 目黒記念GII 芝 2500m 2:30.0良 34.2 0.2 492(+2) 55.0坂井瑠星7人 14ト 14ワク 1-1-1-1 ファイアンクランツ</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>東京26.05.16 1 六社S3勝 芝 2400m 2:23.1良 33.3 -0.2 490(-8) 58.0吉田豊5人 15ト 7ワク 9-8-9-9 スピードリッチ</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        <div class="d-work" style="margin-top:4px;">☞ 4ヵ月休養明け</div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">88</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">83</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">-6</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+9</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+1.8</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：4ヵ月休養明けメリハリ改善課題</div>
+        
+      </div>
+    </div>
+    
+    <div class="detail-screen hidden" id="detail-18">
+      <div class="detail-head">
+        <button type="button" class="btn-pixel ghost" onclick="showList()">←一覧に戻る</button>
+        <span class="dh-mark c-muted"></span>
+        <span class="dh-name">18 ミステリーウェイ</span>
+      </div>
+      <div class="detail-body">
+        <div class="d-statline">
+          <div class="stat"><b>オッズ</b><span class="c-muted">---</span></div>
+          <div class="stat"><b>性齢/斤量</b><span class="c-white">セ8 58.0kg</span></div>
+          <div class="stat"><b>騎手</b><span class="c-white">松本</span></div>
+          <div class="stat"><b>脚質</b><span class="c-orange">先</span></div>
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">75</span></div>
+          <div class="stat"><b>前走/前々/3走</b><span class="c-white">79 / 47 / 69</span></div>
+          <div class="stat"><b>前3F/調1F</b><span class="c-white">35.9 / -</span></div>
+        </div>
+
+        
+        <p class="d-section-title">近走成績</p>
+        
+          
+          <div class="d-past"><span class="pr-label">前走</span>京都26.10.04 11 京都大賞典GII 芝 2400m 2:25.0稍 35.9 1.0 506(+8) 58.0松本大輝14人 18ト 9ワク 1-1-1-1 エコロディノス</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">前々走</span>阪神26.06.14 16 宝塚記念GI 芝 2200m 2:15.2重 37.6 3.1 498(-8) 58.0松本大輝16人 18ト 18ワク 11-10-8-11 メイショウタバル</div>
+          
+        
+          
+          <div class="d-past"><span class="pr-label">3走前</span>京都26.05.03 8 天皇賞(春GI 芝 3200m 3:14.8良 36.5 1.1 506(+6) 58.0松本大輝8人 15ト 13ワク 1-1-1-2 クロワデュノール</div>
+          
+        
+
+        <p class="d-section-title">調教</p>
+        <div class="d-work">
+          <span></span>
+          <span></span>
+          
+        </div>
+        
+        
+
+        
+        <p class="d-section-title">総合評価</p>
+        <div class="d-statline">
+          <div class="stat stat-total"><b>総合指数</b><span class="c-yellow">75</span></div>
+          <div class="stat"><b>能力指数</b><span class="c-white">68</span></div>
+          <div class="stat"><b>トレンド</b><span class="c-white">-</span></div>
+          <div class="stat"><b>しくじり</b><span class="c-white">0</span></div>
+          <div class="stat"><b>斤量</b><span class="c-white">+3</span></div>
+          <div class="stat"><b>激走</b><span class="c-white">+3.6</span></div>
+        </div>
+        
+        <div class="d-statline" style="margin-top:10px;">
+          <div class="stat"><b>追切評価</b><span class="c-yellow">D</span></div>
+        </div>
+        
+        <div class="d-comment">評価は中位。やや割引。好位抜け出し警戒。</div>
+        <div class="d-comment sub">前走メモ：勝った時競馬困難な現状継続中</div>
+        
+      </div>
+    </div>
+    
+  </div>
+
+</div>
+<script src="../static/script.js"></script>
+</body>
+</html>
