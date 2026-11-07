@@ -374,7 +374,7 @@ def get_entry_table(race_id: str, date: str, no: str, id_: str) -> list[dict]:
 USE_WORK_FALLBACK = True   # 最終追い切りが無い馬に１週前等を使うか
 
 _WORK_LABEL_RE = re.compile(r"(最終追い切り|[1-9１-９一二三四五六七八九]+週前追い切り)")
-_WORK_CLOCK_RE = re.compile(r"(\d+F)\s+((?:\d+\.\d+-?)+)\s*（([^）]*)）")
+_WORK_CLOCK_RE = re.compile(r"(\d+F|\d+m)\s+((?:\d+\.\d+-?)+)\s*（([^）]*)）")
 _WORK_PLACE_RE = re.compile(r"([^\s\n]+?・[^\s\n（]+?・[良稍重不]+)[（(]([^）)]*)[）)]")
 
 
