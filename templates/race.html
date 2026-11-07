@@ -54,6 +54,54 @@
       {% endfor %}
     </div>
 
+    {% if race.get('course_info') or waku %}
+    <section class="ci-panel">
+      <p class="pace-title">コース・馬場情報</p>
+      {% set ci = race.get('course_info') or {} %}
+      {% if ci %}
+      <div class="ci-body">
+        {% if ci.get('使用コース') %}
+        <p><b>使用コース</b>　{{ ci.get('使用コース') }}コース{% if ci.get('使用コース備考') %}（{{ ci.get('使用コース備考') }}）{% endif %}</p>
+        {% endif %}
+        {% if ci.get('芝の状態') %}
+        <p><b>芝の状態</b>　{{ ci.get('芝の状態') }}</p>
+        {% endif %}
+        {% if ci.get('芝馬場状態') %}
+        <p><b>馬場状態</b>　芝：{{ ci.get('芝馬場状態') }}／ダート：{{ ci.get('ダート馬場状態') }}{% if ci.get('馬場状態基準') %}（{{ ci.get('馬場状態基準') }}時点）{% endif %}</p>
+        {% endif %}
+        {% if ci.get('含水率') %}
+        <p><b>含水率</b>　芝 ゴール前{{ ci.get('含水率').get('芝', {}).get('ゴール前') }}%・4コーナー{{ ci.get('含水率').get('芝', {}).get('4コーナー') }}%／ダート ゴール前{{ ci.get('含水率').get('ダート', {}).get('ゴール前') }}%・4コーナー{{ ci.get('含水率').get('ダート', {}).get('4コーナー') }}%</p>
+        {% endif %}
+        {% if ci.get('芝丈') %}
+        <p><b>芝丈</b>　野芝 {{ ci.get('芝丈').get('野芝', '') | replace('から', '〜') }}cm／洋芝 {{ ci.get('芝丈').get('洋芝', '') | replace('から', '〜') }}cm</p>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if waku %}
+      <p class="ci-sub">枠順の有利不利（{{ waku_key }}・公表統計の長期平均）</p>
+      <table class="ci-table">
+        <tr><th>枠</th>{% for n in range(1, 9) %}<th>{{ n }}</th>{% endfor %}</tr>
+        <tr><td>複勝率%</td>{% for n in range(1, 9) %}{% set f = waku.get(n|string) %}<td>{{ ('%.1f' % f.get('複勝率')) if f else '-' }}</td>{% endfor %}</tr>
+        <tr><td>偏差</td>{% for n in range(1, 9) %}{% set f = waku.get(n|string) %}<td class="{{ 'ci-plus' if f and f.get('複勝率偏差', 0) > 0 else ('ci-minus' if f and f.get('複勝率偏差', 0) < 0 else '') }}">{{ ('%+.1f' % f.get('複勝率偏差')) if f else '-' }}</td>{% endfor %}</tr>
+      </table>
+      <p class="ci-note">偏差は全枠平均との差（ポイント）。集計 {{ waku_total }}頭。</p>
+      {% endif %}
+    </section>
+    <style>
+      .ci-panel { background: var(--c0-black); border-top: 1px solid var(--c5-gray); border-bottom: 1px solid var(--c5-gray); padding: 14px 16px 18px; font-family: var(--font-ui); }
+      .ci-panel .pace-title { color: var(--c10-yellow); font-family: var(--font-pixel); font-size: 1.05rem; margin: 0 0 10px; }
+      .ci-body p { color: var(--c7-white); font-size: 0.92rem; line-height: 1.8; margin: 0 0 4px; }
+      .ci-body b { color: var(--c10-yellow); font-weight: normal; }
+      .ci-sub { color: var(--c7-white); font-size: 0.92rem; margin: 12px 0 6px; }
+      .ci-table { border-collapse: collapse; width: 100%; max-width: 560px; font-size: 0.88rem; }
+      .ci-table th, .ci-table td { border: 1px solid var(--c5-gray); padding: 4px 2px; text-align: center; color: var(--c7-white); }
+      .ci-table th { color: var(--c10-yellow); font-weight: normal; }
+      .ci-plus { color: #ff9d9d; }
+      .ci-minus { color: #9db8ff; }
+      .ci-note { color: var(--c5-gray); font-size: 0.8rem; margin: 6px 0 0; }
+    </style>
+    {% endif %}
+
     <section class="pace-panel">
       <p class="pace-title">展開予想</p>
       <p class="pace-body">{{ pace_forecast }}</p>
