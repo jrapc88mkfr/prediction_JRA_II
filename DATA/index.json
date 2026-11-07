@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T14:43:07",
+  "generated_at": "2026-11-07T23:16:40",
   "races": [
     {
       "file": "races/261108_東京_アルゼンチン共和国杯.html",
@@ -12,32 +12,10 @@
       "bet": null,
       "race_shape": {
         "label": "やや荒れる",
-        "gap_ratio": 0.119
+        "gap_ratio": 0.128
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": {
-        "umaren": {
-          "4-7": 20,
-          "4-5": 25,
-          "4-9": 19
-        },
-        "umaren_avg": 21,
-        "sanrenpuku": {
-          "4-7-9": 34,
-          "4-7-8": 91,
-          "4-5-7": 47,
-          "4-5-9": 45,
-          "4-5-8": 119,
-          "4-8-9": 86,
-          "2-4-7": 52,
-          "2-4-5": 68,
-          "2-4-9": 49,
-          "2-4-8": 131
-        },
-        "sanrenpuku_avg": 72,
-        "assumed_hit_rate": 0.28,
-        "expected_value": 20
-      }
+      "betting_estimate": null
     },
     {
       "file": "races/261108_京都_みやこステークス.html",
