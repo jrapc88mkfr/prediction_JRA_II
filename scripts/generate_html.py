@@ -67,6 +67,19 @@ def build_all():
 
     os.makedirs(os.path.join(PUBLIC_DIR, "races"), exist_ok=True)
 
+    # 枠有利度表（コース・距離別）と、コースキー解決用の schedule マップ
+    waku_data = {}
+    waku_path = os.path.join(BASE, "waku_advantage.json")
+    if os.path.exists(waku_path):
+        waku_data = (load_json(waku_path) or {}).get("data", {})
+    schedule_map = {}
+    sched_path = os.path.join(BASE, "schedule.json")
+    if os.path.exists(sched_path):
+        for r in (load_json(sched_path) or {}).get("races", []):
+            if r.get("surface") and r.get("distance"):
+                schedule_map[r.get("race_name", "")] = \
+                    f"{r.get('venue', '')}_{r['surface']}_{r['distance']}"
+
     race_tmpl = env.get_template("race.html")
     manifest = []
     bet_rows = []
@@ -83,11 +96,23 @@ def build_all():
         horses = build_horses(race)
         pace_forecast = generate_pace_forecast(horses, race)
 
+        # 枠順の有利不利: 候補のコースキーを優先し、無ければ schedule から引く
+        # 障害レースは平地の枠統計の対象外（候補キーの残留値も使わない）
+        waku_key = (race.get("candidate_prediction") or {}).get("コースキー") \
+            or schedule_map.get(race.get("race_name", ""))
+        if "ジャンプ" in race.get("race_name", ""):
+            waku_key = None
+        waku = waku_data.get(waku_key) if waku_key else None
+        waku_total = sum(int(v.get("出走", 0)) for v in waku.values()) if waku else 0
+
         html = race_tmpl.render(
             race=race,
             horses=horses,
             result=result,
             pace_forecast=pace_forecast,
+            waku=waku,
+            waku_key=waku_key,
+            waku_total=waku_total,
             static_prefix="../static/",
             index_href="../index.html",
         )
