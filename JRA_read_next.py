@@ -483,6 +483,172 @@ def get_work_data(race_name: str, year: int, work_slug: str = "") -> dict:
     return work_data
 
 
+# ============================================================
+# JRA公式「馬場情報」からコース情報を取得（記録専用）
+# ============================================================
+
+_BABA_BASE = "https://jra.jp/keiba/baba/"
+
+
+def _baba_lines(html_text: str) -> list[str]:
+    """馬場情報ページのHTMLをテキスト行リストにする。"""
+    soup = BeautifulSoup(html_text, "html.parser")
+    return [ln.strip() for ln in soup.get_text("\n").split("\n") if ln.strip()]
+
+
+def _next_line(lines: list[str], idx: int) -> str:
+    return lines[idx + 1] if 0 <= idx + 1 < len(lines) else ""
+
+
+def _parse_baba_page(lines: list[str], venue: str, url: str) -> dict:
+    """馬場情報ページ（テキスト行）から course_info 辞書を組み立てる。"""
+    info = {"競馬場": venue, "出典": url}
+    joined = "\n".join(lines)
+
+    m = re.search(rf"(第\d+回{re.escape(venue)}競馬第\d+日)", joined)
+    if m:
+        info["開催"] = m.group(1)
+
+    # 馬場状態ブロック（見出し「馬場状態」の直後が基準時刻）
+    for i, ln in enumerate(lines):
+        if ln == "馬場状態":
+            base = _next_line(lines, i)
+            if base.startswith("（") and "現在" in base:
+                info["馬場状態基準"] = base.strip("（）")
+            for j in range(i + 1, min(i + 14, len(lines))):
+                lj = lines[j]
+                if lj.startswith("天候"):
+                    val = lj[2:].lstrip("：:").strip()
+                    info["天候"] = val if val else _next_line(lines, j)
+                elif lj == "芝":
+                    info["芝馬場状態"] = _next_line(lines, j)
+                elif lj == "ダート":
+                    info["ダート馬場状態"] = _next_line(lines, j)
+                elif "クッション値" in lj:
+                    break
+            break
+
+    # 含水率: 見出しの後に 芝 a b ダート c d の順で並ぶ
+    for i, ln in enumerate(lines):
+        if "ゴール前と4コーナーの含水率" in ln:
+            nums, cur = {}, None
+            for x in lines[i + 1:i + 12]:
+                if x in ("芝", "ダート"):
+                    cur = x
+                    nums[cur] = []
+                elif cur and re.fullmatch(r"\d+\.\d+", x):
+                    nums[cur].append(float(x))
+                if len(nums.get("ダート", [])) >= 2:
+                    break
+            if len(nums.get("芝", [])) >= 2 and len(nums.get("ダート", [])) >= 2:
+                info["含水率"] = {
+                    "芝"    : {"ゴール前": nums["芝"][0], "4コーナー": nums["芝"][1]},
+                    "ダート": {"ゴール前": nums["ダート"][0], "4コーナー": nums["ダート"][1]},
+                }
+            break
+
+    # 芝丈: 見出し以降で「芝 <数> から <数> <数> から <数>」の並びを探す
+    # （数値と「から」が別要素に分かれることがあるためトークン列で判定）
+    for i, ln in enumerate(lines):
+        if ln == "芝丈・使用コース・芝の様子":
+            toks = lines[i + 1:i + 24]
+            for j in range(len(toks)):
+                if toks[j] != "芝":
+                    continue
+                if (j + 2 < len(toks)
+                        and re.fullmatch(r"\d+から\d+", toks[j + 1])
+                        and re.fullmatch(r"\d+から\d+", toks[j + 2])):
+                    info["芝丈"] = {"野芝": toks[j + 1], "洋芝": toks[j + 2]}
+                    break
+                if (j + 6 < len(toks)
+                        and toks[j + 2] == "から" and toks[j + 5] == "から"
+                        and toks[j + 1].isdigit() and toks[j + 3].isdigit()
+                        and toks[j + 4].isdigit() and toks[j + 6].isdigit()):
+                    info["芝丈"] = {
+                        "野芝": f"{toks[j + 1]}から{toks[j + 3]}",
+                        "洋芝": f"{toks[j + 4]}から{toks[j + 6]}",
+                    }
+                    break
+            break
+
+    # 使用コース: 見出しの次が「B」、その次が「コース（…）」
+    for i, ln in enumerate(lines):
+        if ln == "使用コース":
+            letter = _next_line(lines, i)
+            note = _next_line(lines, i + 1)
+            m2 = re.fullmatch(r"([A-D])", letter)
+            m3 = re.search(r"（(.+)）", note)
+            if m2:
+                info["使用コース"] = m2.group(1)
+                if m3:
+                    info["使用コース備考"] = m3.group(1)
+            else:
+                m4 = re.search(r"([A-D])\s*コース（(.+)）", letter)
+                if m4:
+                    info["使用コース"] = m4.group(1)
+                    info["使用コース備考"] = m4.group(2)
+            break
+
+    # 芝の状態: 見出しの次行
+    for i, ln in enumerate(lines):
+        if ln == "芝の状態":
+            txt = _next_line(lines, i)
+            if len(txt) >= 8:
+                info["芝の状態"] = txt
+            break
+
+    return info
+
+
+def get_course_info(venue: str) -> dict:
+    """
+    JRA公式「馬場情報」(https://jra.jp/keiba/baba/) から当週のコース情報を取得する。
+    記録専用（予想には一切使わない）。取得できない場合は {} を返す。
+    ページは Shift_JIS。開催場ページは週ごとに対象場だけが index*.html で
+    公開されるため、トップページの開催場リンクから対象場のURLを解決する。
+    """
+    if not venue:
+        return {}
+    headers = {"User-Agent": "Mozilla/5.0"}
+    try:
+        resp = requests.get(_BABA_BASE, headers=headers, timeout=15)
+        html = resp.content.decode("shift_jis", errors="replace")
+    except Exception as e:
+        print(f"[COURSE] 馬場情報の取得に失敗: {e}")
+        return {}
+
+    soup = BeautifulSoup(html, "html.parser")
+    title = soup.title.get_text() if soup.title else ""
+    m = re.search(r"馬場情報（(.+?)競馬場）", title)
+    top_venue = m.group(1) if m else ""
+
+    url = _BABA_BASE
+    if venue != top_venue:
+        target = None
+        for a in soup.find_all("a", href=True):
+            if a.get_text(strip=True) == f"{venue}競馬場" and "index" in a["href"]:
+                href = a["href"]
+                target = href if href.startswith("http") else _BABA_BASE + href.lstrip("/")
+                break
+        if not target:
+            print(f"[COURSE] {venue} の馬場情報ページが見つかりません")
+            return {}
+        try:
+            resp = requests.get(target, headers=headers, timeout=15)
+            html = resp.content.decode("shift_jis", errors="replace")
+        except Exception as e:
+            print(f"[COURSE] 馬場情報の取得に失敗: {e}")
+            return {}
+        url = target
+
+    info = _parse_baba_page(_baba_lines(html), venue, url)
+    if info.get("使用コース"):
+        print(f"[COURSE] {venue}: {info['使用コース']}コース / 芝 {info.get('芝馬場状態', '?')}")
+    else:
+        print(f"[COURSE] {venue}: 使用コースを読み取れませんでした")
+    return info
+
+
 def get_result_comments(race_name: str, year: int, work_slug: str = "") -> dict:
     """
     keibanomiryoku.com のレース結果ページから騎手コメントを取得する。
@@ -1570,6 +1736,9 @@ def build_json(race_name: str, horses: list[dict],
     # v5 candidate: 候補ランキング（公式予想には一切影響しない記録専用）
     candidate_prediction = build_candidate_prediction(prediction, horse_data, venue)
 
+    # コース情報（JRA公式・馬場情報）— 記録専用
+    course_info = get_course_info(venue)
+
     return {
         "race_name": race_name,
         "course"   : venue,
@@ -1580,6 +1749,7 @@ def build_json(race_name: str, horses: list[dict],
         "summary"  : summary_rows,
         "rawdata"  : [rawdata.get(r["馬名"], {}) | {"馬名": r["馬名"]} for r in rows],
         "workdata" : work,
+        "course_info": course_info,
         "betting_formation": betting_formation,
         "race_shape": race_shape,
         # v2追加: 確率と買い方判定。update_odds.py 側でオッズ更新時に
