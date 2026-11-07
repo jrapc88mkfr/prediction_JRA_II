@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T12:44:03",
+  "generated_at": "2026-11-07T02:33:26",
   "races": [
     {
       "file": "races/261108_東京_アルゼンチン共和国杯.html",
@@ -15,7 +15,29 @@
         "gap_ratio": 0.128
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "4-8": 41,
+          "4-5": 26,
+          "4-7": 19
+        },
+        "umaren_avg": 29,
+        "sanrenpuku": {
+          "4-8-9": 80,
+          "4-8-11": 191,
+          "4-5-8": 118,
+          "4-5-7": 53,
+          "4-5-9": 50,
+          "4-5-11": 118,
+          "4-7-8": 85,
+          "4-7-9": 36,
+          "4-7-11": 85,
+          "4-9-11": 80
+        },
+        "sanrenpuku_avg": 89,
+        "assumed_hit_rate": 0.28,
+        "expected_value": 25
+      }
     },
     {
       "file": "races/261108_京都_みやこステークス.html",
@@ -31,7 +53,29 @@
         "gap_ratio": 0.126
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "4-10": 23,
+          "4-15": 25,
+          "4-8": 30
+        },
+        "umaren_avg": 26,
+        "sanrenpuku": {
+          "4-10-15": 43,
+          "4-8-10": 53,
+          "4-8-15": 57,
+          "4-5-10": 129,
+          "4-5-15": 140,
+          "4-5-8": 171,
+          "4-5-7": 312,
+          "4-7-10": 96,
+          "4-7-15": 104,
+          "4-7-8": 127
+        },
+        "sanrenpuku_avg": 123,
+        "assumed_hit_rate": 0.28,
+        "expected_value": 34
+      }
     },
     {
       "file": "races/261107_東京_京王杯2歳ステークス.html",
@@ -47,7 +91,29 @@
         "gap_ratio": 0.151
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "8-9": 15,
+          "6-8": 34,
+          "4-8": 32
+        },
+        "umaren_avg": 27,
+        "sanrenpuku": {
+          "6-8-9": 30,
+          "6-7-8": 225,
+          "4-8-9": 28,
+          "4-6-8": 71,
+          "4-7-8": 210,
+          "2-8-9": 17,
+          "2-6-8": 44,
+          "2-4-8": 41,
+          "2-7-8": 129,
+          "7-8-9": 89
+        },
+        "sanrenpuku_avg": 88,
+        "assumed_hit_rate": 0.28,
+        "expected_value": 25
+      }
     },
     {
       "file": "races/261107_京都_京都ジャンプステークス.html",
@@ -63,7 +129,29 @@
         "gap_ratio": 0.153
       },
       "race_shape_class": "yaya-are",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "9-11": 25,
+          "5-9": 23,
+          "6-9": 39
+        },
+        "umaren_avg": 29,
+        "sanrenpuku": {
+          "5-9-11": 100,
+          "5-6-9": 156,
+          "5-8-9": 98,
+          "6-9-11": 173,
+          "6-8-9": 171,
+          "8-9-11": 109,
+          "3-9-11": 44,
+          "3-5-9": 40,
+          "3-6-9": 69,
+          "3-8-9": 43
+        },
+        "sanrenpuku_avg": 100,
+        "assumed_hit_rate": 0.28,
+        "expected_value": 28
+      }
     },
     {
       "file": "races/261101_東京_天皇賞秋.html",
