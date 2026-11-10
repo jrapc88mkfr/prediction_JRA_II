@@ -137,7 +137,7 @@
       "race_name": "小倉ジャンプステークス",
       "date": "2026/2/14",
       "venue": "小倉",
-      "race_no": "11",
+      "race_no": "8",
       "work_slug": "kokura-jump-stakes",
       "active": false,
       "memo": ""
@@ -707,7 +707,7 @@
       "race_name": "新潟ジャンプステークス",
       "date": "2026/8/15",
       "venue": "新潟",
-      "race_no": "11",
+      "race_no": "9",
       "work_slug": "niigata-jump-stakes",
       "active": false,
       "memo": ""
@@ -1062,7 +1062,7 @@
       "race_name": "京都ジャンプステークス",
       "date": "2026/11/7",
       "venue": "京都",
-      "race_no": "11",
+      "race_no": "8",
       "work_slug": "kyoto-jump-stakes",
       "active": false,
       "memo": ""
@@ -1247,7 +1247,7 @@
       "race_name": "東京ジャンプステークス",
       "date": "2026/6/13",
       "venue": "東京",
-      "race_no": "11",
+      "race_no": "4",
       "work_slug": "tokyo-jump-stakes",
       "active": false,
       "memo": ""
