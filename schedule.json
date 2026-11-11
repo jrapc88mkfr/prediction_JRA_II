@@ -1031,8 +1031,8 @@
       "venue": "東京",
       "race_no": "11",
       "work_slug": "copa-republica-argentina",
-      "active": true,
-      "memo": "",
+      "active": false,
+      "memo": "処理済み",
       "surface": "芝",
       "distance": 2500
     },
@@ -1042,8 +1042,8 @@
       "venue": "京都",
       "race_no": "11",
       "work_slug": "miyako-stakes",
-      "active": true,
-      "memo": "",
+      "active": false,
+      "memo": "処理済み",
       "surface": "ダ",
       "distance": 1800
     },
@@ -1053,8 +1053,8 @@
       "venue": "東京",
       "race_no": "11",
       "work_slug": "keio-hai-nisai-stakes",
-      "active": true,
-      "memo": "",
+      "active": false,
+      "memo": "処理済み",
       "surface": "芝",
       "distance": 1400
     },
@@ -1073,7 +1073,7 @@
       "venue": "東京",
       "race_no": "11",
       "work_slug": "musashino-stakes",
-      "active": false,
+      "active": true,
       "memo": "",
       "surface": "ダ",
       "distance": 1600
@@ -1084,7 +1084,7 @@
       "venue": "京都",
       "race_no": "11",
       "work_slug": "daily-hai-nisai-stakes",
-      "active": false,
+      "active": true,
       "memo": "",
       "surface": "芝",
       "distance": 1600
@@ -1095,7 +1095,7 @@
       "venue": "京都",
       "race_no": "11",
       "work_slug": "queen-elizabeth-ii-cup",
-      "active": false,
+      "active": true,
       "memo": "",
       "surface": "芝",
       "distance": 2200
