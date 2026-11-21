@@ -100,7 +100,7 @@
   {"race_name": "武蔵野ステークス", "date": "2026/11/14", "venue": "東京", "race_no": "11", "work_slug": "musashino-stakes", "active": false, "memo": " ✓処理済み", "surface": "ダ", "distance": 1600},
   {"race_name": "デイリー杯2歳ステークス", "date": "2026/11/14", "venue": "京都", "race_no": "11", "work_slug": "daily-hai-nisai-stakes", "active": false, "memo": " ✓処理済み", "surface": "芝", "distance": 1600},
   {"race_name": "エリザベス女王杯", "date": "2026/11/15", "venue": "京都", "race_no": "11", "work_slug": "queen-elizabeth-ii-cup", "active": false, "memo": " ✓処理済み", "surface": "芝", "distance": 2200},
-  {"race_name": "福島記念", "date": "2026/11/21", "venue": "福島", "race_no": "11", "work_slug": "fukushima-kinen", "active": True, "memo": "", "surface": "芝", "distance": 2000},  
+  {"race_name": "福島記念", "date": "2026/11/21", "venue": "福島", "race_no": "11", "work_slug": "fukushima-kinen", "active": true, "memo": "", "surface": "芝", "distance": 2000},  
   {"race_name": "東京スポーツ杯2歳ステークス", "date": "2026/11/23", "venue": "東京", "race_no": "11", "work_slug": "tokyo-sports-hai-nisai-stakes", "active": false, "memo": " ✓処理済み", "surface": "芝", "distance": 1800},
   {"race_name": "マイルCS", "date": "2026/11/22", "venue": "京都", "race_no": "11", "work_slug": "mile-championship", "active": false, "memo": " ✓処理済み", "surface": "芝", "distance": 1600},
   {"race_name": "京都2歳ステークス", "date": "2026/11/28", "venue": "京都", "race_no": "11", "work_slug": "kyoto-nisai-stakes", "active": false, "memo": "", "surface": "芝", "distance": 2000},
