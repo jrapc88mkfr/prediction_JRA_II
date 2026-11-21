@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T22:29:02",
+  "generated_at": "2026-11-21T01:07:18",
   "races": [
     {
       "file": "races/261123_東京_東京スポーツ杯2歳ステークス.html",
@@ -31,6 +31,22 @@
         "gap_ratio": 0.059
       },
       "race_shape_class": "are",
+      "betting_estimate": null
+    },
+    {
+      "file": "races/261121_福島_福島記念.html",
+      "stem": "261121_福島_福島記念",
+      "date": "2026/11/21",
+      "venue": "福島",
+      "race_name": "福島記念",
+      "race_no": "11",
+      "has_result": false,
+      "bet": null,
+      "race_shape": {
+        "label": "やや荒れる",
+        "gap_ratio": 0.161
+      },
+      "race_shape_class": "yaya-are",
       "betting_estimate": null
     },
     {
