@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T15:55:45",
+  "generated_at": "2026-11-22T02:45:28",
   "races": [
     {
       "file": "races/261123_東京_東京スポーツ杯2歳ステークス.html",
@@ -17,26 +17,26 @@
       "race_shape_class": "yaya-are",
       "betting_estimate": {
         "umaren": {
-          "4-7": 119,
-          "4-12": 23,
-          "2-4": 66
+          "4-7": 160,
+          "4-12": 37,
+          "2-4": 60
         },
-        "umaren_avg": 70,
+        "umaren_avg": 86,
         "sanrenpuku": {
-          "4-7-12": 342,
-          "4-6-7": 2823,
-          "4-6-12": 529,
-          "2-4-7": 1004,
-          "2-4-12": 188,
-          "2-4-6": 1551,
-          "2-3-4": 3227,
-          "3-4-7": 5875,
-          "3-4-12": 1101,
-          "3-4-6": 9076
+          "4-7-12": 488,
+          "4-6-7": 4511,
+          "4-6-12": 989,
+          "2-4-7": 819,
+          "2-4-12": 180,
+          "2-4-6": 1660,
+          "2-3-4": 2148,
+          "3-4-7": 5838,
+          "3-4-12": 1280,
+          "3-4-6": 11836
         },
-        "sanrenpuku_avg": 2572,
+        "sanrenpuku_avg": 2975,
         "assumed_hit_rate": 0.28,
-        "expected_value": 720
+        "expected_value": 833
       }
     },
     {
@@ -55,26 +55,26 @@
       "race_shape_class": "are",
       "betting_estimate": {
         "umaren": {
-          "2-8": 20,
-          "8-12": 41,
-          "1-8": 24
+          "2-8": 17,
+          "8-12": 37,
+          "1-8": 23
         },
-        "umaren_avg": 29,
+        "umaren_avg": 25,
         "sanrenpuku": {
-          "8-12-17": 288,
-          "8-12-14": 62,
-          "8-14-17": 112,
-          "2-8-12": 76,
-          "2-8-17": 137,
-          "2-8-14": 30,
-          "1-8-12": 90,
-          "1-8-17": 161,
-          "1-8-14": 35,
-          "1-2-8": 42
+          "8-12-17": 243,
+          "8-12-14": 54,
+          "8-14-17": 89,
+          "2-8-12": 63,
+          "2-8-17": 104,
+          "2-8-14": 23,
+          "1-8-12": 89,
+          "1-8-17": 148,
+          "1-8-14": 33,
+          "1-2-8": 38
         },
-        "sanrenpuku_avg": 103,
+        "sanrenpuku_avg": 88,
         "assumed_hit_rate": 0.18,
-        "expected_value": 19
+        "expected_value": 16
       }
     },
     {
@@ -84,8 +84,27 @@
       "venue": "福島",
       "race_name": "福島記念",
       "race_no": "11",
-      "has_result": false,
-      "bet": null,
+      "has_result": true,
+      "bet": {
+        "n_points": 15,
+        "investment": 1500,
+        "honmei_no": 16,
+        "has_honmei": true,
+        "tansho_points": 1,
+        "fukusho_points": 1,
+        "umaren_points": 3,
+        "sanrenpuku_points": 10,
+        "tansho_hit": false,
+        "tansho_pay": 0,
+        "fukusho_hit": false,
+        "fukusho_pay": 0,
+        "umaren_hit": false,
+        "umaren_pay": 0,
+        "sanrenpuku_hit": false,
+        "sanrenpuku_pay": 0,
+        "payout": 0,
+        "win": false
+      },
       "race_shape": {
         "label": "やや荒れる",
         "gap_ratio": 0.161
