@@ -1145,17 +1145,6 @@
       "distance": 2000
     },
     {
-      "race_name": "ジャパンC",
-      "date": "2026/11/29",
-      "venue": "東京",
-      "race_no": "11",
-      "work_slug": "japan-cup",
-      "active": true,
-      "memo": "",
-      "surface": "芝",
-      "distance": 2400
-    },
-    {
       "race_name": "ステイヤーズステークス",
       "date": "2026/12/5",
       "venue": "中山",
