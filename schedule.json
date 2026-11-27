@@ -116,6 +116,6 @@
   {"race_name": "東京ジャンプステークス", "date": "2026/6/13", "venue": "東京", "race_no": "4", "work_slug": "tokyo-jump-stakes", "active": false, "memo": ""},
   {"race_name": "函館スプリントステークス", "date": "2026/6/13", "venue": "函館", "race_no": "11", "work_slug": "hakodate-sprint-stakes", "active": false, "memo": "", "surface": "芝", "distance": 1200},
   {"race_name": "キーンランドカップ", "date": "2026/8/23", "venue": "札幌", "race_no": "11", "work_slug": "keeneland-cup", "active": false, "memo": "", "surface": "芝", "distance": 1200},
-  {"race_name": "ジャパンカップ", "date": "2026/11/29", "venue": "東京", "race_no": "11", "work_slug": "japan-cup", "active": false, "memo": " ✓処理済み", "surface": "芝", "distance": 2400},
+  {"race_name": "ジャパンカップ", "date": "2026/11/29", "venue": "東京", "race_no": "12", "work_slug": "japan-cup", "active": true, "memo": " ✓処理済み", "surface": "芝", "distance": 2400},
   {"race_name": "朝日杯フューチュリティステークス", "date": "2026/12/20", "venue": "阪神", "race_no": "11", "work_slug": "asahi-hai-futurity-stakes", "active": false, "memo": "", "surface": "芝", "distance": 1600}
 ]}
