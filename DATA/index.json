@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T23:19:29",
+  "generated_at": "2026-11-27T23:56:39",
   "races": [
     {
       "file": "races/261129_東京_ジャパンカップ.html",
@@ -7,14 +7,14 @@
       "date": "2026/11/29",
       "venue": "東京",
       "race_name": "ジャパンカップ",
-      "race_no": "11",
+      "race_no": "12",
       "has_result": false,
       "bet": null,
       "race_shape": {
-        "label": "やや荒れる",
-        "gap_ratio": 0.183
+        "label": "やや堅い",
+        "gap_ratio": 0.216
       },
-      "race_shape_class": "yaya-are",
+      "race_shape_class": "yaya-kata",
       "betting_estimate": null
     },
     {
