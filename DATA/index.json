@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T23:56:39",
+  "generated_at": "2026-11-28T04:33:41",
   "races": [
     {
       "file": "races/261129_東京_ジャパンカップ.html",
@@ -15,7 +15,29 @@
         "gap_ratio": 0.216
       },
       "race_shape_class": "yaya-kata",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "8-12": 87,
+          "12-16": 97,
+          "4-12": 122
+        },
+        "umaren_avg": 102,
+        "sanrenpuku": {
+          "8-12-16": 137,
+          "8-9-12": 169,
+          "4-12-16": 198,
+          "4-8-12": 175,
+          "4-9-12": 244,
+          "4-6-12": 226,
+          "9-12-16": 191,
+          "6-12-16": 177,
+          "6-8-12": 156,
+          "6-9-12": 218
+        },
+        "sanrenpuku_avg": 189,
+        "assumed_hit_rate": 0.4,
+        "expected_value": 76
+      }
     },
     {
       "file": "races/261128_京都_京都2歳ステークス.html",
@@ -31,7 +53,27 @@
         "gap_ratio": 0.293
       },
       "race_shape_class": "yaya-kata",
-      "betting_estimate": null
+      "betting_estimate": {
+        "umaren": {
+          "8-9": Infinity,
+          "4-9": Infinity,
+          "3-9": Infinity
+        },
+        "umaren_avg": null,
+        "sanrenpuku": {
+          "4-8-9": Infinity,
+          "4-5-9": Infinity,
+          "3-8-9": Infinity,
+          "3-4-9": Infinity,
+          "3-5-9": Infinity,
+          "5-8-9": Infinity,
+          "2-8-9": Infinity,
+          "2-4-9": Infinity,
+          "2-3-9": Infinity,
+          "2-5-9": Infinity
+        },
+        "sanrenpuku_avg": null
+      }
     },
     {
       "file": "races/261123_東京_東京スポーツ杯2歳ステークス.html",
@@ -68,26 +110,26 @@
       "race_shape_class": "yaya-are",
       "betting_estimate": {
         "umaren": {
-          "4-7": 187,
-          "4-12": 39,
-          "2-4": 89
+          "4-7": 292,
+          "4-12": 85,
+          "2-4": 178
         },
-        "umaren_avg": 105,
+        "umaren_avg": 185,
         "sanrenpuku": {
-          "4-7-12": 679,
-          "4-6-7": 5085,
-          "4-6-12": 1014,
-          "2-4-7": 1609,
-          "2-4-12": 321,
-          "2-4-6": 2403,
-          "2-3-4": 4215,
-          "3-4-7": 8918,
-          "3-4-12": 1778,
-          "3-4-6": 13320
+          "4-7-12": 1874,
+          "4-6-7": 9669,
+          "4-6-12": 2757,
+          "2-4-7": 3987,
+          "2-4-12": 1137,
+          "2-4-6": 5864,
+          "2-3-4": 13810,
+          "3-4-7": 22770,
+          "3-4-12": 6492,
+          "3-4-6": 33489
         },
-        "sanrenpuku_avg": 3934,
+        "sanrenpuku_avg": 10185,
         "assumed_hit_rate": 0.28,
-        "expected_value": 1102
+        "expected_value": 2852
       }
     },
     {
